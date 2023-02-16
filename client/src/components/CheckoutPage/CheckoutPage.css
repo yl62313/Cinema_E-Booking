@@ -1,0 +1,37 @@
+.box {
+    border: 4px solid black;
+    align-items: center;
+    padding-bottom: 15px;
+    padding-left: 15px;
+}
+
+.checkoutContainer {
+   display: grid;
+   grid-template-columns: repeat(2, 250px);
+   column-gap: 250px;
+   grid-auto-flow: row;
+  /* margin: 5px 250px;
+    background-color: blue;
+    padding-left: 50px;
+    padding-bottom: 50px; */
+}
+
+
+.personalInformation {
+    display: flex;
+    flex-direction: column;
+}
+
+.paymentInformation {
+    display: flex;
+    flex-direction: column;
+}
+
+.checkoutButtons {
+    display: flex;
+    justify-content: space-between;
+}
+
+input[type=button] > #cancelButton {
+    background-color: red;
+}
