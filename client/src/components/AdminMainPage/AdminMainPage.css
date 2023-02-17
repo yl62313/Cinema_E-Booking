@@ -1,0 +1,55 @@
+.adminPage {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    width: 400px;
+    border: 4px solid grey;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 200px;
+    margin-bottom: auto;
+}
+
+.adminPage > button {
+    background-color: rgb(110, 173, 255);
+    font-size: 20px;
+    border-radius: 6px;
+    padding: 10px;
+
+}
+
+.adminPage > button:hover {
+    cursor: pointer;
+    background-color: rgb(49, 138, 254);
+}
+/*
+.managePromotions {
+    display: flex;
+    justify-content: space-evenly;
+    border: 4px solid grey;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.manageMovies > button {
+    background-color: rgb(110, 173, 255);
+    font-size: 20px;
+    border-radius: 6px;
+}
+
+.managePromotions > button {
+    background-color: rgb(3, 158, 0);
+    font-size: 20px;
+    border-radius: 6px;
+}
+
+.managePromotions > button:hover, .manageMovies > button:hover {
+    cursor: pointer;
+}
+*/

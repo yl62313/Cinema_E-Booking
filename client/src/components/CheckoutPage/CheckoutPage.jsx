@@ -7,7 +7,7 @@ function CheckoutPage() {
 
   return(
 
-    <div>
+    <div className="body">
     <div className="checkoutPageTitle">
     <h1>Checkout</h1>
     </div>
@@ -17,8 +17,10 @@ function CheckoutPage() {
     <form className="checkoutContainer">   
       <div className="personalInformation">
           <h4>Personal Information</h4>
-          <label>First Name</label>
-          <input type="text" id="firstName"/>
+          <label>First Name
+          <input type="text"
+           id="firstName"/>
+          </label>
           <label>Last Name</label>
           <input type="text" id="lastName"/>
           <label>Email Address</label>
@@ -41,12 +43,18 @@ function CheckoutPage() {
           <div className="paymentInformation">
               <h4>Payment Information</h4>
               <h5>Card Type:</h5>
-              <label>Credit</label>
-              <input type="radio" id="credit" value="credit"/>
-              <label>Debit</label>
-              <input type="radio" id="debit" value="debit"/>
-              <label>Gift Card</label>
-              <input type="radio" id="giftCard" value="giftCard"/>
+                  <div className="paymentRadios">
+                  <label>Credit
+                  <input type="radio" id="credit" name="paymentsGroup" value="credit"/>
+                  </label>
+                  <label>Debit
+                  <input type="radio" id="debit" name="paymentsGroup" value="debit"/>
+                  </label>
+                  <label>Gift Card
+                  <input type="radio" id="giftCard" name="paymentsGroup" value="giftCard"/>
+                  </label>
+                  </div>
+                  <br></br>
               <label>Card Number</label>
               <input type="text" id="cardNumber" placeholder='####-####-####-####'/>
               <label> Expiration Date</label>
@@ -54,8 +62,6 @@ function CheckoutPage() {
 
               <br></br>
               <h4>Billing Address</h4>
-              <label>billing address is same as home address</label>
-              <input type="checkbox" id="billingSameAsHome"/>
               <label>Street </label>
               <input type="text" id="street"/>
               <label>City</label>

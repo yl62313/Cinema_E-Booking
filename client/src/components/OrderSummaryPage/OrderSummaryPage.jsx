@@ -1,10 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-
 import './OrderSummaryPage.css';
 
-const OrderSummaryPage = () => {
+const OrderSummaryPage = ({childTickets,adultickets, seniorTickets, childPrice, adultPrice, seniorPrice, totalPrice}) => {
   return (
     <div>
       <h1>Order Summary</h1>
@@ -23,19 +22,19 @@ const OrderSummaryPage = () => {
 
           <div className="quantity-button">
           <button>-</button>
-          <div>0</div>
+          <div>{childTickets || '0'}</div>
           <button>+</button>
           </div>
 
         <div className="quantity-button">
           <button>-</button>
-          <div>0</div>
+          <div>{adultickets || '0'}</div>
           <button>+</button>
           </div>
 
            <div className="quantity-button">
           <button>-</button>
-          <div>0</div>
+          <div>{seniorTickets || '0'}</div>
           <button>+</button>
           </div>
 
@@ -43,17 +42,20 @@ const OrderSummaryPage = () => {
 
         <div className="price-col">
           <h3>Price:</h3>
-          <div>$0.00</div>
-          <div>$0.00</div>
-          <div>$0.00</div>
+          <div>{childPrice || '$0.00'}</div>
+          <div>{adultPrice || '$0.00'}</div>
+          <div>{seniorPrice || '$0.00'}</div>
         </div>
 
-        <h3>order total: $0.00</h3>
+        <h3>order total: {totalPrice || '$0.00'}</h3>
         </div>
+        
+              <div className="sumButtons">
+              <button>cancel order</button>
+              <button>continue to checkout</button>
+              </div>
 
-        <button>cancel order</button>
-        <button>checkout</button>
-
+        
     </div>
   )
 }
