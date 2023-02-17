@@ -14,7 +14,8 @@ import Booking from './components/Booking/Booking';
 import UploadMoviePage from './components/AdminView/UploadMoviePage';
 import NavBar from './components/NavBar/NavBar';
 import RegisterConfirm from './components/RegisterPage/RegisterConfirm';
-import Checkout from './components/Checkout/Checkout';
+import CheckoutPage from './components/Checkout/CheckoutPage';
+import OrderConfirmationPage from './components/OrderConfirmationPage/OrderConfirmationPage';
 
 function App() {
   return (
@@ -29,8 +30,9 @@ function App() {
                       <Route exact path="/register/confirm" element={<RegisterConfirm/>}/>
                       <Route exact path="/movie/:movieId" element={<MovieDetail/>}/>
                       <Route exact path="/booking" element={<Booking/>}/>
-                      <Route exact path="/booking/checkout" element={<Checkout/>}/>
+                      <Route exact path="/booking/checkout" element={<CheckoutPage/>}/>
                       <Route exact path="/movie/upload" element={<UploadMoviePage/>}/>
+                      <Route exact path="/orderconfirm" element={<OrderConfirmationPage/>}/>
 
                   </Routes>
               </div>
