@@ -7,7 +7,7 @@ const config = require('./server/config/key')
 const bodyParser = require('body-parser');
 const {User} = require("./server/models/User");
 const cookieParser = require('cookie-parser')
-const {auth} = require("./middleware/auth")
+const {auth} = require("./server/middleware/auth")
 
 
 app.use(bodyParser.urlencoded({ectended: true}));
@@ -22,6 +22,15 @@ app.get('/', (req, res) => res.send('Cinnema E-booking'))
 app.get('/api/hi', (req,res)=>{
     res.send("Hi")
 })
+
+
+
+
+
+
+
+
+
 //bring register information from client and put database
 app.post('/api/users/register', (req,res)=> {
     const user = new User(req.body)

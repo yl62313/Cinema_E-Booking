@@ -46,7 +46,7 @@ function RegisterPage() {
       dispatch(registerUser(body))
         .then(response => {
           if (response.payload.success) {
-            navigate('/login')
+            navigate('/confirm')
           } else {
             alert('Failed to register')
           }

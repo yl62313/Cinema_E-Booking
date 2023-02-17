@@ -9,17 +9,29 @@ import {
 import LandingPage from './components/LandingPage/LandingPage'
 import LoginPage from './components/LoginPage/LoginPage';
 import RegisterPage from './components/RegisterPage/RegisterPage';
-
+import MovieDetail from './components/MovieDetail/MovieDetail'
+import Booking from './components/Booking/Booking';
+import UploadMoviePage from './components/AdminView/UploadMoviePage';
+import NavBar from './components/NavBar/NavBar';
+import RegisterConfirm from './components/RegisterPage/RegisterConfirm';
+import Checkout from './components/Checkout/Checkout';
 
 function App() {
   return (
 
           <Router>
+            <NavBar/>
               <div>
                   <Routes>
                       <Route exact path="/" element={<LandingPage/>}/>
                       <Route exact path="/login" element={<LoginPage />}/>
                       <Route exact path="/register" element={<RegisterPage/>}/>
+                      <Route exact path="/register/confirm" element={<RegisterConfirm/>}/>
+                      <Route exact path="/movie/:movieId" element={<MovieDetail/>}/>
+                      <Route exact path="/booking" element={<Booking/>}/>
+                      <Route exact path="/booking/checkout" element={<Checkout/>}/>
+                      <Route exact path="/movie/upload" element={<UploadMoviePage/>}/>
+
                   </Routes>
               </div>
           </Router>
