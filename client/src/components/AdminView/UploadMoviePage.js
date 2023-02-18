@@ -2,7 +2,7 @@ import React, { useState }  from 'react'
 import { Form, Input } from 'antd';
 import Auth from '../../hoc/auth'
 import FileUpload from './FileUpload';
-import Axios from 'axios';
+import axios from 'axios';
 
 const { TextArea } = Input;
 
@@ -66,7 +66,7 @@ function UploadMoviePage(props) {
             continents: Continent
         }
 
-        Axios.post('/api/movie', body)
+        axios.post('/api/movie', body)
             .then(response => {
                 if (response.data.success) {
                     alert('upload.')

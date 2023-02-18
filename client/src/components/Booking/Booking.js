@@ -4,6 +4,7 @@ import IconButton from '@mui/material/IconButton';
 import {Link, useLocation} from 'react-router-dom'
 import { Stack, Button} from '@mui/material';
 import Auth from '../../hoc/auth'
+import screen from '../../sample/moviescreen.jpg'
 
 
 
@@ -17,14 +18,12 @@ const Booking = () => {
   console.log(details);
 
   return (
-  
-  <div>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <h3>Screen here</h3>
+ 
+  <div style={{width: '75%', margin: '3rem auto'}}>
+    <div style={{textAlign: 'center'}}>
+    <h3>select seat</h3>
+    < img src={screen} alt='sample picture' />
+    </div>
     <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center',
       width: '100%', height: '10vh'}}>   
     <Stack direction="row"  spacing={2}>

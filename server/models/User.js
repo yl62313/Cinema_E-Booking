@@ -7,7 +7,6 @@ const userSchema = mongoose.Schema({
     username: {
         type: String,
         maxlength: 50,
-        unique: 1
     },
     email: {
         type: String,
@@ -76,9 +75,10 @@ userSchema.methods.mkToken = function(cb) {
 userSchema.statics.fToken = function(token, cb) {
     var user = this;
     //tokem decode
-    jwt.verify(token,'sToken', function(err, decoded){
+    jwt.verify(token,'sToken', function(_err, decoded){
         user.findOne({"_id": decoded, "token": token}, function(err,user){
-            if(err) return cb(err);
+            if(err) 
+            return cb(err);
             cb(null, user)
         })
     })

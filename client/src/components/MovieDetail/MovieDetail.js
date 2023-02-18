@@ -4,6 +4,7 @@ import { API_URL, API_KEY, IMAGE_BASE_URL } from '../../Config'
 import MainImage from '../LandingPage/Sections/MainImage'
 import MovieInfo from './MovieInfo'
 import { useParams } from "react-router-dom"
+import YouTube from "react-youtube"
 
 
 function MovieDetail() {
@@ -41,12 +42,12 @@ function MovieDetail() {
             
 
             <br/>
-            {/*Actors Grid */}
-            <div style={{display: 'flex', justifyContent:'center', margin:'2rem'}}>
-                <button> book </button>
-            </div>
+            <div style={{display:'flex', justifyContent:'center',alignItems:'center'}} className="container">
+            <YouTube
+            />
+            <button> </button>
+            </div> 
         </div>
-
     </div>
   )
 }

@@ -4,13 +4,14 @@ import Auth from '../../hoc/auth'
 import MainImage from './Sections/MainImage';
 import GridCards from './Sections/GridCards';
 import { Row } from 'antd';
-
+import HomePage from './HomePage';
 
 
 
 function LandingPage() {
   const [Movies, setMovies] = useState([])
   const [MainMovieImage, setMainMovieImage] = useState(null)
+
 
 
 
@@ -27,6 +28,8 @@ function LandingPage() {
 
 
 
+
+
         return (
     
           <div style = {{width:'100%', margin:'0'}}>
@@ -37,9 +40,9 @@ function LandingPage() {
             text={MainMovieImage.overview}
             />
             } 
-         
+            <HomePage/>
             <div style={{width:'85%', margin:'1rem auto'}}>
-              <h2>Currently showing</h2>
+              <h2>comming soon</h2>
               <hr />
 
               {/* movie grid card */}

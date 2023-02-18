@@ -1,0 +1,15 @@
+.register-confirm {
+    display: grid;
+    place-items: center;
+    min-height: 50vh;
+    border: 4px;
+    border-style: groove;
+    border-color: grey;
+    border-radius: 8px;
+    padding: 20px 20px;
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: rgb(192, 192, 192);
+    text-align: center;
+}

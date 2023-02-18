@@ -1,6 +1,5 @@
 const express = require('express')
 const app = express()
-const port = 3000
 const mongoose = require('mongoose')
 const config = require('./server/config/key')
 
@@ -9,6 +8,8 @@ const {User} = require("./server/models/User");
 const cookieParser = require('cookie-parser')
 const {auth} = require("./server/middleware/auth")
 
+//const routeUrls = require('./server/routes/user')
+//app.use('/app',routeUrls)
 
 app.use(bodyParser.urlencoded({ectended: true}));
 app.use(bodyParser.json());
@@ -18,23 +19,13 @@ mongoose.set('strictQuery',false);
 mongoose.connect(config.mongoURI).then(()=>console.log('MongoDB connected'))
 .catch(err => console.log(err))
 
-app.get('/', (req, res) => res.send('Cinnema E-booking'))
-app.get('/api/hi', (req,res)=>{
-    res.send("Hi")
-})
-
-
-
-
-
-
-
+app.use(express.json())
 
 
 //bring register information from client and put database
 app.post('/api/users/register', (req,res)=> {
     const user = new User(req.body)
-    user.save((err,userInfo) => {
+    user.save((err,_userInfo) => {
         if(err) return res.json({success: false, err})
         return res.status(200).json({
             success: true
@@ -44,14 +35,14 @@ app.post('/api/users/register', (req,res)=> {
 
 //login
 app.post('/api/users/login', (req, res) => {
-    User.findOne({ email: req.body.email}, (err,user)=>{
+    User.findOne({ email: req.body.email}, (_err,user)=>{
         if(!user){
             return res.json({
                 loginSuccess: false,
                 message: "Incorrect email"
             })
         }
-        user.cpPassword(req.body.password , (err,isMatch ) => {
+        user.cpPassword(req.body.password , (_err,isMatch ) => {
             if(!isMatch)
             return res.json({ loginSuccess: false, message: "Incorrect password" })
             //match -> make token
@@ -75,8 +66,6 @@ app.get('api/users/auth', auth, (req, res) => {
         isAuth: true,
         email: req.user.email,
         username: req.user.name,
-        firstname: req.user.firstname,
-        lastname: req.user.lastname,
         role: req.user.role,
         image: req.user.image
     })
@@ -86,7 +75,7 @@ app.get('api/users/auth', auth, (req, res) => {
 app.get('/api/users/logout', auth, (req,res)=> {
     User.findOneAndUpdate({_id: req.user._id},
         {token:""}
-        ,(err, user) => {
+        ,(err, _user) => {
             if(err) return res.json({success: false, err});
             return res.status(200).send({
                 success: true
@@ -94,7 +83,9 @@ app.get('/api/users/logout', auth, (req,res)=> {
         })
 })
 
+//사진 업로드
+app.use('/api/movie', require('./server/routes/movie'))
 
 
 
-app.listen(port, () => console.log(`Example app listening on port ${port}`))
+app.listen(3000, () => console.log(`server is running`))
