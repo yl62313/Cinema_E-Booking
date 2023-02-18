@@ -45,7 +45,6 @@ function MovieDetail() {
             <div style={{display:'flex', justifyContent:'center',alignItems:'center'}} className="container">
             <YouTube
             />
-            <button> </button>
             </div> 
         </div>
     </div>

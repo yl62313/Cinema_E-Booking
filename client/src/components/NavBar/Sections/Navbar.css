@@ -10,7 +10,7 @@
 
 .menu__logo {
   font-weight: bold;
-  color:darkseagreen;
+  color:rgb(0, 104, 40);
   width: 150px;
   float: left;
 }
@@ -52,7 +52,7 @@
   padding: 6px;
   margin-top: 8px;
   display: none !important; /* use of important to overwrite ant-btn */
-  background: #3e91f7;
+  background: #3ebcf7;
 }
 
 .menu_drawer .ant-drawer-body {
@@ -69,7 +69,6 @@
     display: inline-block !important;
   }
 
-  .menu_left,
   .menu_rigth {
     display: none;
   }

@@ -15,11 +15,12 @@ import RegisterPage from './components/RegisterPage/RegisterPage';
 import MovieDetail from './components/MovieDetail/MovieDetail'
 import Booking from './components/Booking/Booking';
 import UploadMoviePage from './components/AdminView/UploadMoviePage';
+import Admin from './components/AdminView/Admin';
 import NavBar from './components/NavBar/NavBar';
 import RegisterConfirm from './components/RegisterPage/RegisterConfirm';
 import CheckoutPage from './components/Checkout/CheckoutPage';
 import OrderConfirmationPage from './components/OrderConfirmationPage/OrderConfirmationPage';
-
+import EditProfilePage from './components/EditProfilePage/EditProfilePage'
 
 function App() {
   return (
@@ -32,12 +33,14 @@ function App() {
                       <Route exact path="/home" element={<HomePage/>}/>
                       <Route exact path="/home/:movieId" element={<DetailMoviePage/>}/>
                       <Route exact path="/login" element={<LoginPage />}/>
+                      <Route exact path="/login/editprofile" element={<EditProfilePage/>}/>
                       <Route exact path="/register" element={<RegisterPage/>}/>
                       <Route exact path="/register/confirm" element={<RegisterConfirm/>}/>
                       <Route exact path="/movie/:movieId" element={<MovieDetail/>}/>
                       <Route exact path="/booking" element={<Booking/>}/>
                       <Route exact path="/booking/checkout" element={<CheckoutPage/>}/>
-                      <Route exact path="/movie/upload" element={<UploadMoviePage/>}/>
+                      <Route exact path="/admin/upload" element={<UploadMoviePage/>}/>
+                      <Route exact path="/admin" element={<Admin/>}/>
                       <Route exact path="/booking/checkout/orderconfirm" element={<OrderConfirmationPage/>}/>
 
                   </Routes>

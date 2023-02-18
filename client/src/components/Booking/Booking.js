@@ -21,7 +21,7 @@ const Booking = () => {
  
   <div style={{width: '75%', margin: '3rem auto'}}>
     <div style={{textAlign: 'center'}}>
-    <h3>select seat</h3>
+        <h3>Select Seat</h3>
     < img src={screen} alt='sample picture' />
     </div>
     <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center',
