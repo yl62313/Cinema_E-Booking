@@ -21,6 +21,9 @@ import RegisterConfirm from './components/RegisterPage/RegisterConfirm';
 import CheckoutPage from './components/Checkout/CheckoutPage';
 import OrderConfirmationPage from './components/OrderConfirmationPage/OrderConfirmationPage';
 import EditProfilePage from './components/EditProfilePage/EditProfilePage'
+import OrderSummaryPage from './components/Booking/OrderSummaryPage/OrderSummaryPage';
+
+
 
 function App() {
   return (
@@ -38,6 +41,7 @@ function App() {
                       <Route exact path="/register/confirm" element={<RegisterConfirm/>}/>
                       <Route exact path="/movie/:movieId" element={<MovieDetail/>}/>
                       <Route exact path="/booking" element={<Booking/>}/>
+                      <Route exact path="/checkage" element={<OrderSummaryPage/>}/>
                       <Route exact path="/booking/checkout" element={<CheckoutPage/>}/>
                       <Route exact path="/admin/upload" element={<UploadMoviePage/>}/>
                       <Route exact path="/admin" element={<Admin/>}/>

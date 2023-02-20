@@ -5,7 +5,7 @@ import Meta from 'antd/lib/card/Meta'
 import SearchBar from './Sections/SearchBar'
 import CheckBox from './Sections/CheckBox'
 import {continents} from './Sections/HomePageData'
-import sample from '../../sample/Minions-The-Rise-of-Gru.jpg'
+
 
 function HomePage() {
   const [Movies, setMovies] = useState([])
@@ -69,8 +69,7 @@ function HomePage() {
       </div>
      
       {/* Card */}
-      <div>
-      <img src={sample} alt='sample picture' />
+      <div>     
       </div>
       <Row gutter={[16,16]} >
 

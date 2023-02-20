@@ -1,18 +1,30 @@
-import React from 'react'
-import Auth from '../../hoc/auth'
-import './RegisterConfirm.css'
-import DoneIcon from '@mui/icons-material/Done';
+import React from "react";
+import Button from "./Button"
+import { useNavigate } from "react-router-dom";
+import checkicon from "../../sample/404-tick copy.png"
+
 function RegisterConfirm() {
-  return (
-    <div className="register-confirm">
-      <DoneIcon sx={{ fontSize: 50 }}/>
-      <div class="textBox">
-      <h2> That's all, thank you! </h2>
-      </div>
-      <a href="http://localhost:3001/login">Log In Now!</a>
 
-    </div>
-  )
-}
+      const navigate = useNavigate();
+      
+    
+      return (
+        <div className="flex justify-center h-screen items-center bg-primary">
+          <div className="card p-3 w-400">
+            <div className="flex justify-center">
+            <img src={checkicon} alt="" className="icon"/>
+            </div>
+            <br/>
+            <h1 className="text-xl mb-1">That's all, thank you!</h1>
+            <br/>
+            <div className="flex justify-center">
+            <Button title="exit"
+            onClick={()=> navigate('/')}/>
+            </div>
+          </div>
 
-export default Auth(RegisterConfirm, null)
+        </div>
+      );
+    }
+    
+export default RegisterConfirm
