@@ -11,7 +11,7 @@ const AddPromotionPage = () => {
 
     const [promotions, setPromotions] = useState([]);
 
-    const handleData = (event) => {
+    const handleData = event => {
         event.preventDefault();
 
         const name = event.target.getAttribute("name");
@@ -23,7 +23,7 @@ const AddPromotionPage = () => {
         setData(newData);
     };
 
-    const addRow = (event) => {
+    const addRow = event => {
         event.preventDefault();
 
         const newPromotion = {
@@ -104,6 +104,11 @@ const AddPromotionPage = () => {
                 </div>
                 <input type="submit" value="Apply" className="button"></input>
             </form>
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
+            <button className="button">Home</button>
         </div>
     )
 }
