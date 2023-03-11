@@ -1,36 +1,14 @@
-const express = require('express')
-const app = express()
-const port = 3000
-const mongoose = require('mongoose')
-const config = require('./server/config/key')
+const express = require("express");
+const usersController = require("../controllers/users-controllers");
+const router = express.Router();
+const app = express();
+const auth = require("../../middleware/auth")
 
-const bodyParser = require('body-parser');
-const {User} = require("./server/models/User");
-const cookieParser = require('cookie-parser')
-const {auth} = require("./middleware/auth")
-
-
-app.use(bodyParser.urlencoded({ectended: true}));
-app.use(bodyParser.json());
-app.use(cookieParser());
-
-mongoose.set('strictQuery',false);
-mongoose.connect(config.mongoURI).then(()=>console.log('MongoDB connected'))
-.catch(err => console.log(err))
+router.post("/register", usersController.register);
 
 app.get('/', (req, res) => res.send('Cinnema E-booking'))
 app.get('/api/hi', (req,res)=>{
     res.send("Hi")
-})
-//bring register information from client and put database
-app.post('/api/users/register', (req,res)=> {
-    const user = new User(req.body)
-    user.save((err,userInfo) => {
-        if(err) return res.json({success: false, err})
-        return res.status(200).json({
-            success: true
-        })
-    })
 })
 
 //login
@@ -58,7 +36,7 @@ app.post('/api/users/login', (req, res) => {
 })
 
 //auth (passed middleware -> true)
-app.get('api/users/auth', auth, (req, res) => {
+/*app.get('api/users/auth', auth, (req, res) => {
     res.status(200).json({
         _id:req.user._id,
         //role 0-> user, role !0-> admin
@@ -85,7 +63,5 @@ app.get('/api/users/logout', auth, (req,res)=> {
         })
 })
 
-
-
-
-app.listen(port, () => console.log(`Example app listening on port ${port}`))
+*/
+module.exports = router;
