@@ -2,7 +2,8 @@ const mongoose = require("mongoose")
 
 const PaymentCardSchema = mongoose.Schema({
     cardNumber: {
-        type: String
+        type: String,
+        unique: true
     },
 
     expirationDate: {

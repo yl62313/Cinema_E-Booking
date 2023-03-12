@@ -22,7 +22,8 @@ const BookingSchema = Schema({
 
     tickets: {
         type: [Schema.Types.ObjectId], ref: "Ticket",
-        required: true
+        required: true,
+        unique: true
     },
 
     promotion: {
@@ -38,8 +39,9 @@ const BookingSchema = Schema({
         type: Number
     },
 
-    creditCardNumber: {
-        type: String
+    paymentCardNumber: {
+        type: String,
+        unique: true
     }
 })
 

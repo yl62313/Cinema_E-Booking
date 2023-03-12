@@ -32,15 +32,18 @@ const CustomerSchema = Schema({
     },
 
     paymentCards: {
-        type: [Schema.Types.ObjectId], ref: "PaymentCard"
+        type: [Schema.Types.ObjectId], ref: "PaymentCard",
+        unique: true
     },
 
     address: {
-       type: Schema.Types.ObjectId, ref: "Address"
+       type: Schema.Types.ObjectId, ref: "Address",
+       unique: true
     },
 
     bookings: {
-        type: [Schema.Types.ObjectId], ref: "Booking"
+        type: [Schema.Types.ObjectId], ref: "Booking",
+        unique: true
     },
 
     staus: {
