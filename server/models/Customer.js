@@ -5,11 +5,17 @@ const jwt = require('jsonwebtoken');
 const Schema = mongoose.Schema;
 
 const CustomerSchema = Schema({
+    customerID: {
+        type: Number,
+        unique: true
+    },
+
     username: {
         type: String,
         maxlength: 50,
         unique: true
     },
+    
     email: {
         type: String,
         trim: true,
