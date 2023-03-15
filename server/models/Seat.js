@@ -7,6 +7,10 @@ const SeatSchema = mongoose.Schema({
 
     sectionNumber: {
         type: Number
+    },
+
+    showRoomID: {
+        type: Number
     }
 })
 

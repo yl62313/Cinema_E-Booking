@@ -1,7 +1,4 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
-const saltRounds = 10
-const jwt = require('jsonwebtoken');
 const Schema = mongoose.Schema;
 
 const CustomerSchema = Schema({
@@ -21,13 +18,16 @@ const CustomerSchema = Schema({
         trim: true,
         unique: [true, "That email is taken."]
     },
+
     password: {
         type: String,
     },
+
     firstName: {
         type: String,
         trim: true
     },
+
     lastName: {
         type: String,
         trim: true

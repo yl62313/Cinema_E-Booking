@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const MovieSchema = Schema({
     duration: {
-        type: Date
+        type: String
     },
 
     title: {
@@ -19,20 +19,20 @@ const MovieSchema = Schema({
     },
 
     producer: {
-        type: String
+        type: [String]
     },
 
     cast: {
-        type: String
+        type: [String]
     },
 
     synopsis: {
         type: String
     },
 
-    reviews: [{
-        type: String
-    }],
+    reviews: {
+        type: [String]
+    },
 
     rating: {
         type: String
@@ -40,6 +40,14 @@ const MovieSchema = Schema({
 
     shows: {
         type: [Schema.Types.ObjectId], ref: "Show"
+    },
+
+    trailer: {
+        type: String
+    },
+
+    poster: {
+        type: String
     }
 
 })

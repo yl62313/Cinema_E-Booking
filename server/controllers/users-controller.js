@@ -1,10 +1,11 @@
 const HttpError = require("../models/HTTP-Error");
 const Customer = require("../models/Customer");
+const User = require("../models/User")
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 const register = async (req, res, next) => {
-    const { email, password, firstName, lastName, phoneNumber} = req.body;
+    const { customerID, email, password, firstName, lastName, phoneNumber, paymentCards, address, bookings} = req.body;
     Customer.find({ email: email })
       .then(user => {
         if (user.length >= 1) {
@@ -19,11 +20,15 @@ const register = async (req, res, next) => {
               });
             } else {
               const createdCustomer = new Customer({
+                customerID,
                 email,
                 password,
                 firstName,
                 lastName,
-                phoneNumber
+                phoneNumber,
+                paymentCards,
+                address,
+                bookings
               });
               try {
                 await createdCustomer.save();
@@ -43,7 +48,25 @@ const register = async (req, res, next) => {
       .catch();
   };
 
-  
+const addUser = async (req, res, next) => {
+  const {guestID, information} = req.body;
+  const createdUser = new User({
+      guestID,
+      information
+  });
+
+  try{
+     await createdUser.save();
+  } catch (err) {
+      const error = new HttpError(
+          'Creating user failed, please try again.', 
+          500
+        );
+        console.log(err.message);
+        return next(error);
+      }
+      res.status(201).json({user: createdUser});
+}
 
   exports.register = register;
-  
+  exports.addUser = addUser;

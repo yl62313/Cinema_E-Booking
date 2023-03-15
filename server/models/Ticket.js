@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
-const TicketSchema = mongoose.Schema({
+const TicketSchema = Schema({
     ticketID: {
         type: Number,
         unique: true
@@ -11,8 +12,8 @@ const TicketSchema = mongoose.Schema({
         enum: ["CHILD", "ADULT", "SENIOR"]
     },
 
-    seatID: {
-        type: Number
+    seat: {
+        type: Schema.Types.ObjectId, ref: "Seat"
     },
 
     showID: {

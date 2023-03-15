@@ -6,17 +6,12 @@ const ShowRoomSchema = Schema({
         type: Number
     },
 
-    seatsAvailable: {
-        type: Boolean
-    },
-
     shows: {
         type: [Schema.Types.ObjectId], ref: "Show"
     },
 
     seats: {
         type: [Schema.Types.ObjectId], ref: "Seat",
-        required: true
     }
 })
 

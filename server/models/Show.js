@@ -10,8 +10,20 @@ const ShowSchema = mongoose.Schema({
         type: Date
     },
 
+    seatsAvailable: {
+        type: Boolean
+    },
+
     duration: {
-        type: Date
+        type: String
+    },
+
+    roomID: {
+        type: Number
+    },
+
+    movieID: {
+        type: Number
     }
 })
 

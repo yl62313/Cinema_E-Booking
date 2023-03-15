@@ -6,23 +6,16 @@ const BookingSchema = Schema({
         type: Number
     },
 
-    movie: {
-        type: Schema.Types.ObjectId, ref: "Movie"
+    movieID: {
+        type: Number
     },
 
     show: {
         type: Schema.Types.ObjectId, ref: "Show"
     },
 
-    showTime: {
-        showTime: {
-            type: Schema.Types.ObjectId, ref: "ShowTime"
-        }
-    },
-
     tickets: {
         type: [Schema.Types.ObjectId], ref: "Ticket",
-        required: true,
         unique: true
     },
 
@@ -35,13 +28,13 @@ const BookingSchema = Schema({
         unique: true
     },
 
-    numberOfSeats: {
-        type: Number
-    },
-
     paymentCardNumber: {
         type: String,
         unique: true
+    },
+
+    customerID: {
+        type: Number
     }
 })
 

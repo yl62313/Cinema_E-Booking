@@ -5,6 +5,7 @@ const app = express();
 const auth = require("../../middleware/auth")
 
 router.post("/register", usersController.register);
+router.post("/newUser", usersController.addUser);
 
 app.get('/', (req, res) => res.send('Cinnema E-booking'))
 app.get('/api/hi', (req,res)=>{
