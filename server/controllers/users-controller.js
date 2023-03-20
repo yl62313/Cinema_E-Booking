@@ -5,7 +5,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 const register = async (req, res, next) => {
-    const { customerID, email, password, firstName, lastName, phoneNumber, paymentCards, address, bookings} = req.body;
+    const { customerID, email, password, firstName, lastName, phoneNumber, paymentCards, address, bookings, status, subscribed} = req.body;
     Customer.find({ email: email })
       .then(user => {
         if (user.length >= 1) {
@@ -28,9 +28,12 @@ const register = async (req, res, next) => {
                 phoneNumber,
                 paymentCards,
                 address,
-                bookings
+                bookings,
+                status,
+                subscribed
               });
               try {
+                createdCustomer.customerID = createdCustomer._id;
                 await createdCustomer.save();
               } catch (err) {
                 const error = new HttpError(

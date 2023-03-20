@@ -3,13 +3,7 @@ const Schema = mongoose.Schema;
 
 const CustomerSchema = Schema({
     customerID: {
-        type: Number,
-        unique: true
-    },
-
-    username: {
-        type: String,
-        maxlength: 50,
+        type: Schema.Types.ObjectId, ref: "Customer",
         unique: true
     },
     
@@ -39,23 +33,31 @@ const CustomerSchema = Schema({
 
     paymentCards: {
         type: [Schema.Types.ObjectId], ref: "PaymentCard",
-        unique: true
+        unique: true,
+        default: null
     },
 
     address: {
        type: Schema.Types.ObjectId, ref: "Address",
-       unique: true
+       unique: true,
+       default: null
     },
 
     bookings: {
         type: [Schema.Types.ObjectId], ref: "Booking",
-        unique: true
+        unique: true,
+        default: null
     },
 
-    staus: {
+    status: {
         type: String,
         enum: ['INACTIVE', 'ACTIVE', 'SUSPENDED'],
         default: 'INACTIVE'
+    },
+
+    subscribed: {
+        type: Boolean,
+        default: false
     }
 
 })

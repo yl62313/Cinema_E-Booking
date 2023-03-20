@@ -11,6 +11,10 @@ const SeatSchema = mongoose.Schema({
 
     showRoomID: {
         type: Number
+    },
+
+    available: {
+        type: Boolean
     }
 })
 

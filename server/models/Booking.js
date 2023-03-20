@@ -28,8 +28,8 @@ const BookingSchema = Schema({
         unique: true
     },
 
-    paymentCardNumber: {
-        type: String,
+    paymentCard: {
+        type: Schema.Types.ObjectId, ref: "PaymentCard",
         unique: true
     },
 

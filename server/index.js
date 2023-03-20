@@ -4,12 +4,12 @@ const port = 4000
 const mongoose = require('mongoose')
 
 const bodyParser = require('body-parser');
-const {User} = require("./models/User");
 const cookieParser = require('cookie-parser')
 const {auth} = require("../middleware/auth")
 const usersRoutes = require("./routes/users-routes")
 const addressRoutes = require("./routes/addresses-routes")
 const adminRoutes = require("./routes/admins-routes")
+const customerRoutes = require("./routes/customers-routes")
 const bookingRoutes = require("./routes/bookings-routes")
 const movieRoutes = require("./routes/movies-routes")
 const paymentCardRoutes = require("./routes/paymentCards-routes")
@@ -26,6 +26,7 @@ app.use(cookieParser());
 app.use("/api/users", usersRoutes);
 app.use("/api/users", addressRoutes);
 app.use("/api/users", adminRoutes);
+app.use("/api/customerss", customerRoutes);
 app.use("/api/users", bookingRoutes);
 app.use("/api/users", movieRoutes);
 app.use("/api/users", paymentCardRoutes);
@@ -37,8 +38,11 @@ app.use("/api/users", showTimeRoutes);
 app.use("/api/users", ticketRoutes);
 
 mongoose.
-connect("mongodb+srv://jelly:c37K1npHPMxYSX4t@cluster0.gku3fxy.mongodb.net/?retryWrites=true&w=majority")
+connect("mongodb+srv://jelly:4aAK3NF1JiLTv5NE@cluster0.gku3fxy.mongodb.net/?retryWrites=true&w=majority")
 .then(() => {
     app.listen(port);
     console.log("Server started");
 })
+.catch(err => {
+    console.log(err);
+});
