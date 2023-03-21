@@ -9,7 +9,7 @@ function Register() {
   const onFinish = async(values) => {
     try{
       const response = await RegisterUser(values);
-      if(response.seccess){
+      if(response.success){
         message.success(response.message);
         navigate("/register/thankyou");
       }else{
@@ -78,7 +78,7 @@ function Register() {
               <Form.Item
                 label="Address"
                 name="address"
-                rules={[{ required: true, message: "Enter your Address" }]}
+                rules={[{ required: false, message: "Enter your Address" }]}
                 >
                     <input type="address"/>
               </Form.Item>
@@ -87,7 +87,7 @@ function Register() {
                   <Form.Item 
                   label="City"
                   name="city"
-                  rules={[{ required: true, message: "Enter your City" }]}
+                  rules={[{ required: false, message: "Enter your City" }]}
                   >
                     <input type="city"/>
                   </Form.Item>
@@ -96,7 +96,7 @@ function Register() {
                   <Form.Item 
                   label="State"
                   name="state"
-                  rules={[{ required: true, message: "Enter your State" }]}
+                  rules={[{ required: false, message: "Enter your State" }]}
                   >
                     <input type="state"/>
                   </Form.Item>
@@ -105,7 +105,7 @@ function Register() {
                   <Form.Item 
                   label="Zip Code"
                   name="zipCode"
-                  rules={[{ required: true, message: "Enter your Zip Code" }]}
+                  rules={[{ required: false, message: "Enter your Zip Code" }]}
                   >
                     <input type="zip"/>
                   </Form.Item>
@@ -116,7 +116,7 @@ function Register() {
               <Form.Item
                 label="Card Number"
                 name="cardNumber"
-                rules={[{ required: true, message: "Enter your Card Number" }]}
+                rules={[{ required: false, message: "Enter your Card Number" }]}
                 >
                     <input type="text"/>
               </Form.Item>   
@@ -125,7 +125,7 @@ function Register() {
               <Form.Item
                 label="Name on Card"
                 name="nameOnCard"
-                rules={[{ required: true, message: "Enter your Name on Card" }]}
+                rules={[{ required: false, message: "Enter your Name on Card" }]}
                 >
                     <input type="text"/>
               </Form.Item>
@@ -136,7 +136,7 @@ function Register() {
                   <Form.Item 
                   label="EXP"
                   name="exp"
-                  rules={[{ required: true, message: "Enter your EXP" }]}
+                  rules={[{ required: false, message: "Enter your EXP" }]}
                   >
                     <input type="text"/>
                   </Form.Item>
@@ -145,7 +145,7 @@ function Register() {
                   <Form.Item 
                   label="CVV"
                   name="cvv"
-                  rules={[{ required: true, message: "Enter your 3 digits CVV" }]}
+                  rules={[{ required: false, message: "Enter your 3 digits CVV" }]}
                   >
                     <input type="text"/>
                   </Form.Item>

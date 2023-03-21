@@ -47,6 +47,10 @@ function Login() {
               {" "}
               Don't have an account? Register
             </Link>
+            <Link to="/forgotPassword" className="text-primary">
+              {" "}
+              Forgor Password? Reset Password
+            </Link>
           </div>
         </Form>
       </div>

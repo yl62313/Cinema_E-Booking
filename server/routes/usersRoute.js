@@ -24,7 +24,10 @@ router.post("/register", async (req, res) => {
     const newUser = new User(req.body);
     await newUser.save();
 
-    res.send({ success: true, message: "Registration Successfully" });
+    res.send({ 
+      success: true, 
+      message: "Registration Successful" 
+    });
   } catch (error) {
     res.send({
       success: false,
@@ -65,7 +68,7 @@ router.post("/login", async (req, res) => {
 
     res.send({
       success: true,
-      message: "User logged in successfully",
+      message: "User logged in successful",
       data: token,
     });
   } catch (error) {
@@ -76,7 +79,7 @@ router.post("/login", async (req, res) => {
   }
 });
 
-/*router.get("/get-current-user", async(req,res)=> {
+/*router.get("login-user", async(req,res)=> {
   try{
     const user = await User.findById(req.body.userId).select("-password");
     res.send({
