@@ -33,7 +33,7 @@ const register = async (req, res, next) => {
                 subscribed
               });
               try {
-                createdCustomer.customerID = createdCustomer._id;
+                createdCustomer.customerID = createdCustomer._id.toString();
                 await createdCustomer.save();
               } catch (err) {
                 const error = new HttpError(

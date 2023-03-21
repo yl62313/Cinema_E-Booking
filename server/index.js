@@ -25,8 +25,8 @@ app.use(cookieParser());
 
 app.use("/api/users", usersRoutes);
 app.use("/api/users", addressRoutes);
-app.use("/api/users", adminRoutes);
-app.use("/api/customerss", customerRoutes);
+app.use("/api/admins", adminRoutes);
+app.use("/api/customers", customerRoutes);
 app.use("/api/users", bookingRoutes);
 app.use("/api/users", movieRoutes);
 app.use("/api/users", paymentCardRoutes);

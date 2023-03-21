@@ -1,19 +1,24 @@
-const { User } = require("../server/models/Customer")
+const Customer = require("../server/models/Customer")
+const jwt = require("jsonwebtoken")
 
-let auth = (req, res, next) => {
+let auth = async (req, res, next) => {
 
-    //bring token from client cookie
-    let token = req.cookies.t_auth;
-    //find user
-    User.fToken(token, (err,user)=> {
-        if(err) throw err;
-        if(!user) return res.json({isAuth: false, error: true })
+    try {
+        const token = req.cookies.jwt;
+        const verifyCustomer = jwt.verify(token, process.env.JWT_SECRET_KEY);
+        console.log(verifyCustomer);
+
+        const customer = Customer.findOne({_id: verifyCustomer._id});
+
         req.token = token;
-        req.user = user;
+        req.customer = customer;
+
         next();
-    })
-    //okay
-    //no
+    } catch (error) {
+        return res.status(401).json({
+            message: "Something went wrong. Could not verify customer."
+        });
+    }
 }
 
- module.exports = {auth};
+ module.exports = auth;

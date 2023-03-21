@@ -10,6 +10,7 @@ const customerIndex = async (req, res, next) => {
   } catch (err) {
     const error = new HttpError(
       "Something went wrong. Could not find customers", 500);
+      console.log(err.message);
     return next(error);
   }
 
@@ -30,6 +31,7 @@ const getCustomerByID = async (req, res, next) => {
   } catch (err) {
     const error = new HttpError(
       "Something went wrong. Could not retrieve customer.", 500);
+      console.log(err.message);
     return next(error);
   }
 
@@ -53,7 +55,7 @@ const login = (req, res, next) => {
       bcrypt.compare(password, customer.password, (err, result) => {
         if (err) {
           return res.status(401).json({
-            message: "Sign-in utomost failed"
+            message: "Sign-in failed"
           });
         }
         if (result) {
@@ -70,6 +72,9 @@ const login = (req, res, next) => {
               email: customer.email,
               userId: customer.customerID
             }, '${process.env.JWT_SECRET_KEY}', { expiresIn: "1d" });
+
+            res.cookie("jwt", token);
+
             return res.status(200).json({
               message: "Signed in!",
               token: token
@@ -142,7 +147,16 @@ const resetPassword = async (req, res, next) => {
 }
 
 const logout = (req, res) => {
-
+  try{
+    res.clearCookie("jwt");
+    return res.status(200).json({
+      message: "Succefully logged out."
+    })
+  } catch (err) {
+    return res.status(401).json({
+      message: "Something went wrong. Could not log out."
+    })
+  }
 }
 
 exports.login = login;
