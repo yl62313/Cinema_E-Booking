@@ -12,6 +12,9 @@ import "./Style/custom.css"
 import "./Style/form.css"
 import "./Style/size.css"
 import "./Style/theme.css"
+import Admin from "./Components/Pages/Admin/Admin";
+import Profile from "./Components/Pages/Profile/Profile";
+
 
 
 function App() {
@@ -29,6 +32,8 @@ function App() {
               <Route path="/resetPassword" element={<ResetPassword/>}/>
               <Route path="/register" element={<Register/>}/>
               <Route path="/register/thankyou" element={<RegisterConfirm/>}/>
+              <Route path="/Admin" element={<Admin/>}/>
+              <Route path="/Profile" element={<Profile/>}/>
             </Routes>
           </div>
       </BrowserRouter>

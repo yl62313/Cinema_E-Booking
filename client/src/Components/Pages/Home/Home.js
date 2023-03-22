@@ -4,9 +4,12 @@ import MainImage from './Sections/MainImage'
 import GridCards from './Sections/GridCards'
 import { Row } from 'antd';
 import SecondHome from './SecondHome/SecondHome';
+import { useNavigate } from 'react-router-dom';
+import MovieIcon from '../../../samplePicture/pngegg.png'
 
 
 function Home() {
+  const navigate = useNavigate();
   const [Movies, setMovies] = useState([])
   const [MainMovieImage, setMainMovieImage] = useState(null)
   useEffect(() => {
@@ -22,6 +25,29 @@ function Home() {
 
 return (
   <div style = {{width:'100%', margin:'0'}}>
+    <div className='layout p-1'>
+      <div className='header flex justify-between'>
+        <div>
+          <h1 className='text-2xl'>
+          <img src={MovieIcon} alt="" height={25}/>
+           {"MOVIE"}
+         </h1>
+        </div>
+        <div className='flex justify-between gap-1'>
+          <div className='bg-white br-1 p-1 flex'>
+            <h1 className='text-sm cursor-pointer' onClick={()=>{navigate("/register")}}>
+              {"Register"}
+            </h1>
+          </div>
+          <div className='bg-white br-1 p-1 flex'>
+            <h1 className='text-sm cursor-pointer' onClick={()=>{navigate("/login")}}>
+              {"Login"}
+           </h1>
+          </div>
+        </div>
+
+      </div>
+    </div>
       {/* Main Image */}
       {MainMovieImage &&
           <MainImage image={`${IMAGE_BASE_URL}w1280${MainMovieImage.backdrop_path}`}
