@@ -58,6 +58,10 @@ function Login() {
               {" "}
               Forgot Password? Reset Password
             </Link>
+            <Link to="/adminlogin" className="text-primary">
+              {" "}
+              Are you an admin? Admin Login
+            </Link>
           </div>
         </Form>
       </div>
