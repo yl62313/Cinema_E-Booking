@@ -17,6 +17,7 @@ import Profile from "./Components/Pages/Profile/Profile";
 import SelectSeatPage from "./Components/Pages/SelectSeatPage";
 import CheckoutPage from "./Components/Pages/CheckoutPage/CheckoutPage";
 import OrderConfirmationPage from "./Components/Pages/OrderConfirmationPage/OrderConfirmationPage"
+import Auth from "./Components/Pages/Auth/Auth";
 
 
 
