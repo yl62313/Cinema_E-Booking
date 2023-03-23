@@ -41,16 +41,29 @@ router.post("/register", async (req, res) => {
 
     code = Math.floor(Math.random() * (99999 - 10000))
 
+    newUser.confirmationCode = code;
+
+    try {
+      await newUser.save() 
+
+      } catch(error) {
+        res.send({
+          success: false,
+          message: error.message,
+        });
+    }
+    
+
     nodeoutlook.sendEmail({
       auth: {
-        user: "yl205205@outlook.com",
+        user: "aobooking@outlook.com",
         pass: "teamteama1"
       },
-      from: 'yl205205@outlook.com',
+      from: 'aobooking@outlook.com',
       to: req.body.email,
       subject: 'Verification Email',
       html: '<p>Thank you for registering with us. Before you can proceed, please enter the given verification code: </p>' + code
-      +  '<p><a href=http://localhost:8081/confirm/${confirmationCode}> Click here to verify</a></p>',
+      +  '<p><a href=http://localhost:3000/Auth> Click here to verify</a></p>',
       text: 'This is text version!',
       onError: (e) => console.log(e),
       onSuccess: (i) => console.log(i)
@@ -78,6 +91,44 @@ router.post("/register", async (req, res) => {
     });
   }
 });
+
+router.post("/Auth", async (req, res) => {
+
+
+  try {
+  const compareEmail = await User.findOne({ email: req.body.email });
+  const compareCode = await User.findOne({ confirmationCode: req.body.confirmationCode });
+
+  if (compareEmail && compareCode) {
+    User.findOneAndUpdate(User.email, { userStatus: 'ACTIVE' }, { new: true })
+    .then(updatedUser => {
+      res.status(200).json({
+        success: true,
+        message: 'User verified',
+        user: updatedUser
+      });
+    })
+    .catch(error => {
+      console.error('Error updating user status:', error);
+      res.status(500).json({
+        error: 'Unable to verify user'
+      });
+    });
+    // return res.send({
+    //   success: true,
+    //   message: "User Verified",
+    // })
+  }
+
+} catch (error) {
+  res.send({
+    success: false,
+    message: error.message,
+  });
+}
+
+});
+  
 
 
 router.post("/login", async (req, res) => {

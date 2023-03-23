@@ -7,25 +7,18 @@ import { AuthUser } from "../../../action/users";
 function Auth() {
   const navigate = useNavigate();
   const onFinish = async(values) => {
-    try {
+    try{
       const response = await AuthUser(values);
       if(response.success){
         message.success(response.message);
-        localStorage.setItem("token", response.data);
-        window.location.href="/";
-      }else{
-        message.error(response.message)
-      }
-    }catch (error) {
-      message.error(error.message);
-    }
-  };
 
-  useEffect(()=>{
-    if (localStorage.getItem("token")){
-      navigate("/");
-    }
-  }, []);
+      }else{
+        message.error(response.message);
+      }
+    }catch (error){
+      message.error(error.message);
+    } 
+  };
 
   return (
     <div className="flex justify-center h-screen items-center bg-primary">
@@ -42,11 +35,12 @@ function Auth() {
           </Form.Item>
           <Form.Item
             label="Confirmation Code"
-            name="password"
+            name="code"
             rules={[{ required: true, message: "Enter confirmation code" }]}
           >
-            <input type="password" />
+            <input type="string" />
           </Form.Item>
+          
 
           <div className="flex flex-col mt-2 gap-1">
             <Button fullWidth title="AUTHENTICATE" type="submit" />

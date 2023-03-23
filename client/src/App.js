@@ -36,7 +36,7 @@ function App() {
               <Route path="/resetPassword" element={<ResetPassword/>}/>
               <Route path="/register" element={<Register/>}/>
               <Route path="/register/thankyou" element={<RegisterConfirm/>}/>
-              <Route path="/register/Auth" element={<Auth/>}/>
+              <Route path="/Auth" element={<Auth/>}/>
               <Route path="/Admin" element={<Admin/>}/>
               <Route path="/Profile" element={<Profile/>}/>
               <Route path="/movie/seat" element={<SelectSeatPage/>}/>

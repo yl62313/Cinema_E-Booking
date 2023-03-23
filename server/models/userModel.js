@@ -68,6 +68,10 @@ const movieSchema = new mongoose.Schema({
         type:String,
         enum:["INACTIVE", "ACTIVE", "SUSPENDED"],
         default:"INACTIVE",
+    },
+    test:{
+        type: String,
+        default: true,
     }
 },
     {
