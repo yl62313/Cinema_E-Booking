@@ -148,11 +148,15 @@ function Register() {
                   rules={[{ required: false, message: "Enter your 3 digits CVV" }]}
                   >
                     <input type="text"/>
-                  </Form.Item>
-                </Col>
-              </Row>
-    
-    
+                </Form.Item>
+                <label>
+                  <input type="checkbox" />
+                  Subscribe for Promotions
+                </label>
+              </Col>
+            </Row>
+
+
     
               <div className="flex flex-col mt-2 gap-1">
                 <Button fullWidth title="REGISTER" type="submit" />

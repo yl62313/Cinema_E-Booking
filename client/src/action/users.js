@@ -9,6 +9,15 @@ export const RegisterUser = async (payload) => {
     }
 };
 
+export const AuthUser = async (payload) => {
+    try {
+        const response = await axiosInstance.post("/api/users/auth-user", payload);
+        return response.data;
+    } catch (error) {
+        return error.response;
+    }
+};
+
 
 export const LoginUser = async (payload) => {
     try {
@@ -26,4 +35,14 @@ export const CurrentUser = async () => {
     } catch (error) {
         return error;
     }
+}
+
+export const editProfile = async () => {
+    try {
+        const response = await axiosInstance.patch("/api/users/editProfile");
+        return response.data;
+    } catch (error) {
+        return error.response;
+    }
+    
 }

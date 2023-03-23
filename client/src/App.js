@@ -14,6 +14,9 @@ import "./Style/size.css"
 import "./Style/theme.css"
 import Admin from "./Components/Pages/Admin/Admin";
 import Profile from "./Components/Pages/Profile/Profile";
+import SelectSeatPage from "./Components/Pages/SelectSeatPage";
+import CheckoutPage from "./Components/Pages/CheckoutPage/CheckoutPage";
+import OrderConfirmationPage from "./Components/Pages/OrderConfirmationPage/OrderConfirmationPage"
 
 
 
@@ -32,8 +35,12 @@ function App() {
               <Route path="/resetPassword" element={<ResetPassword/>}/>
               <Route path="/register" element={<Register/>}/>
               <Route path="/register/thankyou" element={<RegisterConfirm/>}/>
+              <Route path="/register/Auth" element={<Auth/>}/>
               <Route path="/Admin" element={<Admin/>}/>
               <Route path="/Profile" element={<Profile/>}/>
+              <Route path="/movie/seat" element={<SelectSeatPage/>}/>
+              <Route path="/movie/seat/checkout" element={<CheckoutPage/>}/>
+              <Route path="/movie/seat/checkout/confirm" element={<OrderConfirmationPage/>}/>
             </Routes>
           </div>
       </BrowserRouter>

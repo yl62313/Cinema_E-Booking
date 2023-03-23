@@ -38,6 +38,13 @@ function ProfileForm({
                 <input type="text"></input>
             </Form.Item>
             <Form.Item
+                label="Password"
+                name="password"
+                rules={[{ required: true, message: "Enter your Password" }]}
+              >
+                <input type="password" />
+              </Form.Item>
+            <Form.Item
                 label="Address"
                 name="address"
                 rules={[{ required: false, message: "Enter your Address" }]}
@@ -111,8 +118,13 @@ function ProfileForm({
                   >
                     <input type="text"/>
                   </Form.Item>
-                </Col>
-              </Row>
+                  <label>
+              <input type="checkbox" />
+              Subscribe for Promotions
+            </label>
+
+          </Col>
+        </Row>
 
             <div className='flex justify-end gap-1'>
                     <Button title='Cancel' type='button'

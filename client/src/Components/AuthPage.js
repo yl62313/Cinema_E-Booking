@@ -1,32 +1,24 @@
 import { message } from 'antd';
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import { CurrentUser } from '../action/users'
-import { HideLoading, ShowLoading } from "../reducers/loader_reducer"
-import { SetUser } from "../reducers/user_reducer"
+import {CurrentUser} from "../action/users"
+
 
 function AuthPage({children}) {
-    const { user } = useSelector((state) => state.users);
     const navigate = useNavigate();
-    const dispatch = useDispatch();
+    const [user,setUser] = useState(null);
 
     const currentUser = async() => {
         try {
-            dispatch(ShowLoading());
             const response = await CurrentUser();
-            dispatch(HideLoading());
             if(response.succese){
-                dispatch(SetUser(response.data));
+                setUser(response.data);
             }else{
-                dispatch(SetUser(null));
+                setUser(null);
                 message.error(response.message);
-                localStorage.removeItem("token");
-                navigate("/login");
             }
         }catch(error){
-            dispatch(HideLoading());
-            dispatch(SetUser(null));
+            setUser(null);
             message.error(error.message);
         }
     }
@@ -41,7 +33,7 @@ function AuthPage({children}) {
 
   return (
     user && (
-    <div>
+    <div className="layout p-1">
         {user.name}
         {children}
     </div>

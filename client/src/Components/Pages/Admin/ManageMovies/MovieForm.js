@@ -1,22 +1,52 @@
 import React from 'react'
-import { Modal, Form, Row, Col } from 'antd'
+import { Modal, Form, Row, Col, message } from 'antd'
 import Button from '../../../Button'
 import moment from "moment";
+import { useDispatch } from 'react-redux';
+import { HideLoading, ShowLoading } from '../../../../reducers/loader_reducer';
+import { AddMovie } from '../../../../action/movies';
 
 function MovieForm ({
     showMovieFormModal,
     setShowMovieFormModal,
     selectedMovie,
     setSelectedMovie,
-    formType,
-    setFormType
+    formType
 }) {
+
+
+    const dispatch = useDispatch();
+    const onFinish = async(values) => {
+        
+        try{
+            dispatch(ShowLoading())
+            let response = null;
+            if (formType === "add"){
+                response = await AddMovie(values);
+            }else{
+
+            }
+            if(response.success){
+                message.success(response.message);
+                setShowMovieFormModal(false);
+            }
+            else{
+                message.error(response.message);
+            }
+            dispatch(HideLoading());
+        }catch(error){
+            dispatch(HideLoading());
+            message.error(error.message);
+        }
+    }
+
 
     if (selectedMovie) {
         selectedMovie.releaseDate = moment(selectedMovie.releaseDate).format(
           "YYYY-MM-DD"
         );
     }
+
 
   return (
     <Modal
@@ -26,7 +56,7 @@ function MovieForm ({
             footer={null}
             width={700}
         >
-            <Form layout='vertical'>
+            <Form layout='vertical' onFinish={onFinish} initialValues={selectedMovie}>
                 <Row
                 gutter={16}>
                     <Col span={24}>
@@ -45,7 +75,7 @@ function MovieForm ({
                         </Form.Item>
                     </Col>
                     <Col span={8}>
-                        <Form.Item label="Genre" name="Genre">
+                        <Form.Item label="Genre" name="genre">
                             <select name="" id="">
                                 <option value="">Select Genre</option>
                                 <option value="Action">Action</option>
@@ -59,17 +89,12 @@ function MovieForm ({
                         </Form.Item>
                     </Col>
                     <Col span={8}>
-                        <Form.Item label="Movie scheduling" name="schedul">
+                        <Form.Item label="Movie scheduling" name="schedule">
                             <input type="date" />
                             </Form.Item>
                     </Col>
                     <Col span={16}>
                         <Form.Item label="Poster URL" name="poster">
-                            <input type="text"/>
-                        </Form.Item>
-                    </Col>
-                    <Col span={16}>
-                        <Form.Item label="Promotion" name="promotion">
                             <input type="text"/>
                         </Form.Item>
                     </Col>

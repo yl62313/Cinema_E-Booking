@@ -1,0 +1,72 @@
+.box {
+    align-items: center;
+    padding-bottom: 15px;
+    padding-left: 15px;
+}
+
+h1 {
+    text-align: center;
+}
+
+.checkoutContainer {
+   display: grid;
+   grid-template-columns: repeat(2, 250px);
+   column-gap: 150px;
+   grid-auto-flow: row;
+   border: 4px;
+   border-style: groove;
+   border-color: grey;
+   border-radius: 8px;
+   padding: 20px 20px;
+   width: 660px;
+   margin-left: auto;
+   margin-right: auto;
+   background-color: rgb(192, 192, 192);
+}
+
+
+.personalInformation {
+    display: flex;
+    flex-direction: column;
+}
+
+.paymentInformation {
+    display: flex;
+    flex-direction: column;
+}
+
+.paymentRadios {
+    display: inline-block;
+    justify-content: space-evenly;
+
+    /*
+    display:flex;
+    flex-direction: column;
+    justify-content: space-around;
+    */
+}
+
+.checkoutButtons {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+#cancelButton {
+    background-color: rgb(255, 94, 94);
+    border-radius: 4px;
+    font-size: 20px;
+}
+
+#confirmButton {
+    background-color: rgb(172, 255, 168);
+    border-radius: 4px;
+    font-size: 20px;
+}
+
+#confirmButton:hover, #cancelButton:hover {
+    cursor: pointer;
+}
+
+input[type=text],input[type=email],input[type=tel] {
+    border-radius: 4px;
+}

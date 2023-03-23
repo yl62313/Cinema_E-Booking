@@ -2,13 +2,14 @@ import React, {useEffect, useState} from 'react'
 import { API_URL, API_KEY, IMAGE_BASE_URL } from '../../../../action/movieDB'
 import MainImage from '../Sections/MainImage'
 import MovieInfo from './MovieInfo'
-import { useParams } from "react-router-dom"
+import { useParams,useNavigate } from "react-router-dom"
 import VideoInfo from './VideoInfo'
+import MovieIcon from '../../../../samplePicture/pngegg.png'
 
 
 
 function DBMovieDetail() {
-
+    const navigate = useNavigate();
     const [Movie,setMovies] = useState([])
     const {movieId} = useParams();
 
@@ -25,6 +26,21 @@ function DBMovieDetail() {
 
     return (
     <div>
+            <div className='layout p-1'>
+      <div className='header flex justify-between'>
+        <div>
+          <h1 className='text-2xl cursor-pointer' onClick={()=>{navigate("/")}}>
+          <img src={MovieIcon} alt="" height={25}/>
+           {"MOVIE"}
+         </h1>
+        </div>
+          <div className='bg-white br-1 p-1 flex'>
+            <h1 className='text-sm cursor-pointer' onClick={()=>{navigate("/register")}}>
+              {"Register"}
+            </h1>
+          </div>
+      </div>
+    </div>
         {/*Header*/}
         <MainImage
             image={`${IMAGE_BASE_URL}w1280${Movie.backdrop_path}`}

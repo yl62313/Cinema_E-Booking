@@ -1,10 +1,8 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import { useDispatch } from "react-redux";
-import { HideLoading, ShowLoading } from "../../../reducers/loader_reducer";
-import { GetMovieId } from '../../../action/movies';
-import { message } from "antd";
 import {useNavigate, useParams} from "react-router-dom"
 import moment from "moment";
+
 
 function MovieDetail() {
   const [movie, setMovie] = React.useState([]);
@@ -16,28 +14,6 @@ function MovieDetail() {
   const [date, setDate] = React.useState(
     tempDate || moment().format("YYYY-MM-DD")
   );
-
-  const getData = async () => {
-    try {
-      dispatch(ShowLoading())
-      const response = await GetMovieId(params.id)
-      if (response.success) {
-        setMovie(response.data)
-      } else {
-        message.error(response.message)
-      }
-      dispatch(HideLoading())
-    } catch (error) {
-      dispatch(HideLoading())
-      message.error(error.message)
-    }
-  };
-
-  useEffect(() => {
-    getData()
-  }, [])
-  
-  //get a movie time with date 
 
 
 return movie && (

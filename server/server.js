@@ -6,8 +6,12 @@ const mongoose = require('mongoose')
 const config = require('./config/key');
 app.use(express.json());
 
+
 const usersRoute = require("./routes/usersRoute");
+const movieRoute = require("./routes/movieRoute");
+
 app.use("/api/users", usersRoute);
+app.use("/api/movies", movieRoute);
 
 
 

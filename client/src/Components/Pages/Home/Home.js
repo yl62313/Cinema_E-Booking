@@ -33,7 +33,7 @@ return (
            {"MOVIE"}
          </h1>
         </div>
-        <div className='flex justify-between gap-1'>
+        <div className='header flex justify-between gap-1'>
           <div className='bg-white br-1 p-1 flex'>
             <h1 className='text-sm cursor-pointer' onClick={()=>{navigate("/register")}}>
               {"Register"}
@@ -42,10 +42,14 @@ return (
           <div className='bg-white br-1 p-1 flex'>
             <h1 className='text-sm cursor-pointer' onClick={()=>{navigate("/login")}}>
               {"Login"}
-           </h1>
+            </h1>
           </div>
-        </div>
-
+          <div className='bg-white br-1 p-1 flex'>
+            <h1 className='text-sm cursor-pointer' onClick={()=>{localStorage.removeItem("token"); navigate("/login")}}>
+              {"Logout"}
+            </h1>
+          </div>
+          </div>
       </div>
     </div>
       {/* Main Image */}
