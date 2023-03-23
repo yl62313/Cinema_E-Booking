@@ -96,11 +96,11 @@ router.post("/Auth", async (req, res) => {
 
 
   try {
-  const compareEmail = await User.findOne({ email: req.body.email });
-  const compareCode = await User.findOne({ confirmationCode: req.body.confirmationCode });
+  // const compareEmail = await User.findOne({ email: req.body.email });
+  // const compareCode = await User.findOne({ confirmationCode: req.body.confirmationCode });
 
-  if (compareEmail && compareCode) {
-    User.findOneAndUpdate(User.email, { userStatus: 'ACTIVE' }, { new: true })
+  // if (compareEmail && compareCode) {
+    User.findOneAndUpdate(User.email, { userStatus: 'ACTIVE' }, null)
     .then(updatedUser => {
       res.status(200).json({
         success: true,
@@ -108,17 +108,27 @@ router.post("/Auth", async (req, res) => {
         user: updatedUser
       });
     })
-    .catch(error => {
-      console.error('Error updating user status:', error);
-      res.status(500).json({
-        error: 'Unable to verify user'
-      });
-    });
+    // .catch(error => {
+    //   console.error('Error updating user status:', error);
+    //   res.status(500).json({
+    //     error: 'Unable to verify user'
+    //   });
+    // });
     // return res.send({
     //   success: true,
     //   message: "User Verified",
     // })
-  }
+
+    // var s = "ACTIVE"
+
+    // User.userStatus = s;
+
+    // return res.send({
+    //   success: false,
+    //   message: "User already exists",
+    // });
+    
+  // }
 
 } catch (error) {
   res.send({
