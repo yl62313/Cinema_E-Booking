@@ -38,10 +38,6 @@ const MovieSchema = Schema({
         type: String
     },
 
-    shows: {
-        type: [Schema.Types.ObjectId], ref: "Show"
-    },
-
     trailer: {
         type: String
     },

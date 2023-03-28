@@ -8,10 +8,6 @@ const ShowTimeSchema = Schema({
     
     time: {
         type: Date
-    },
-
-    shows: {
-        type: [Schema.Types.ObjectId], ref: "Show"
     }
 })
 

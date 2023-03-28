@@ -39,10 +39,28 @@ export const CurrentUser = async () => {
 
 export const editProfile = async () => {
     try {
-        const response = await axiosInstance.patch("/api/users/editProfile");
+        const response = await axiosInstance.patch("/api/users/");
         return response.data;
     } catch (error) {
         return error.response;
     }
     
+}
+
+export const getUser = async () => {
+    try {
+        const response = await axiosInstance.patch("/api/users/userEmail");
+        return response.data; 
+    } catch (error) {
+        return error.response;
+    }
+}
+
+export const resetPassword = async () => {
+    try {
+        const response = await axiosInstance.post("/api/users/");
+        return response.data;
+    } catch (error) {
+        return error.response;
+    }
 }

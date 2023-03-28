@@ -7,7 +7,7 @@ const ShowSchema = mongoose.Schema({
     },
 
     dateAndTime: {
-        type: Date
+        type: mongoose.Schema.Types.Subdocument, ref: "ShowTime"
     },
 
     seatsAvailable: {

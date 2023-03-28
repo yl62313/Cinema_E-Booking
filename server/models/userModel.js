@@ -48,9 +48,7 @@ const movieSchema = new mongoose.Schema({
     EXP: {
         type: String,
     },
-    CVV: {
-        type: String,
-    },
+
     confirmationCode: {
         type: String,
         unique: true,
@@ -62,7 +60,7 @@ const movieSchema = new mongoose.Schema({
     },
     isSubscribed:{
         type:Boolean,
-        default:false,
+        default: false,
     },
     userStatus: {
         type:String,
