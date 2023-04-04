@@ -51,7 +51,7 @@ function SecondHome() {
         {movies.filter((movie)=> movie.title.includes(searchMovie)).map((movie)=>(
         <Col span={6}>
           <div className='card flex flex-col gap-1 cursor-pointer'
-          onClick={()=> navigate(`/movies/${movie._id}`)}
+          onClick={()=> navigate(`/movies/moviePage`)}
           >
             <img src={movie.poster} alt="" height={200}/>
             <div className='flex justify-center gap-1 p-2'>
