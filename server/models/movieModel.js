@@ -6,7 +6,7 @@ const movieSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    description: {
+    synopsis: {
       type: String,
       required: true,
     },
@@ -18,11 +18,33 @@ const movieSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-
-    schedule: {
-      type: Date,
+    cast: {
+      type: [String],
       required: true,
-    },
+  },
+
+  reviews: {
+    type: [String],
+    required: true,
+},
+
+director: {
+  type: String, 
+  required: true,
+},
+producer: {
+  type: String,
+  required: true,
+},
+rating: {
+    type: String,
+    required: true,
+},
+
+trailer: {
+    type: String,
+    required: true,
+},
     poster: {
       type: String,
       required: true,

@@ -65,12 +65,12 @@ function MovieForm ({
                 <Row
                 gutter={16}>
                     <Col span={24}>
-                        <Form.Item label="Movie Name" name="title">
+                        <Form.Item label="Movie Title" name="title">
                             <input type="text"/>
                         </Form.Item>
                     </Col>
                     <Col span={24}>
-                        <Form.Item label="Description" name="description">
+                        <Form.Item label="Synopsis" name="synopsis">
                             <textarea type="text"/>
                         </Form.Item>
                     </Col>
@@ -78,6 +78,11 @@ function MovieForm ({
                         <Form.Item label="Movie Duration" name="duration">
                             <input type="text"/>
                         </Form.Item>
+
+                        <Form.Item label="Movie Producer" name="producer">
+                            <input type="text"/>
+                        </Form.Item>
+                        
                     </Col>
                     <Col span={8}>
                         <Form.Item label="Genre" name="genre">
@@ -92,12 +97,28 @@ function MovieForm ({
                                 <option value="Thriller">Thriller</option>
                             </select>
                         </Form.Item>
+                        <Form.Item label="Movie Director" name="director">
+                            <input type="text"/>
+                        </Form.Item>
                     </Col>
                     <Col span={8}>
-                        <Form.Item label="Movie scheduling" name="schedule">
-                            <input type="date" />
-                            </Form.Item>
+                    <Form.Item label="Movie Rating" name="rating">
+                            <input type="text"/>
+                        </Form.Item>
+                            <Form.Item label="Movie Cast" name="cast">
+                            <input type="text"/>
+                        </Form.Item>
                     </Col>
+                    <Col span={24}>
+                    <Form.Item label="Movie Reviews" name="reviews">
+                    <textarea type="text"/>
+                        </Form.Item>
+                    </Col>
+                    <Col span={16}>
+                        <Form.Item label="Movie Trailer" name="trailer">
+                            <input type="text" />
+                            </Form.Item>
+                        </Col>
                     <Col span={16}>
                         <Form.Item label="Poster URL" name="poster">
                             <input type="text"/>

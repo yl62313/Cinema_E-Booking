@@ -360,10 +360,7 @@ router.post("/adminLogin", async (req, res) => {
   }
 
   if (!admin) {
-    return res.send({
-      success: false,
-      message: "Admin does not exist",
-    });
+ return res.status(404).json({message: "Admin does not exist"})
   }
 
   const validPassword = await bcrypt.compare(
