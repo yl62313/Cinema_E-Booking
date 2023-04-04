@@ -7,7 +7,7 @@ import Register from "./Components/Pages/Register/Register";
 import RegisterConfirm from "./Components/Pages/RegisterConfirm/RegisterConfirm";
 import DBMovieDetail from "./Components/Pages/Home/CommingSoon/DBMovieDetail";
 import MovieDetail from "./Components/Pages/MovieDetail/MovieDetail";
-import MoviePage from  "./Components/Pages/MoviePage/MoviePage";
+import MoviePage from  "./Components/Pages/Home/MoviePage/MoviePage";
 import "./Style/basic.css"
 import "./Style/custom.css"
 import "./Style/form.css"
