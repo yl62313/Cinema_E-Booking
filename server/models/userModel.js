@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const movieSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
     email: {
         type: String,
         required: true,
@@ -67,13 +67,10 @@ const movieSchema = new mongoose.Schema({
         enum:["INACTIVE", "ACTIVE", "SUSPENDED"],
         default:"INACTIVE",
     },
-    test:{
+    
+    token: {
         type: String,
-        default: true,
+        default: "a"
     }
-},
-    {
-        timestamps: true,
-    }
-);
-module.exports = mongoose.model("users", movieSchema);
+});
+module.exports = mongoose.model("users", userSchema);

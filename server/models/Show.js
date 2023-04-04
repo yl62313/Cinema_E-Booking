@@ -1,29 +1,22 @@
 const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
-const ShowSchema = mongoose.Schema({
-    showID: {
-        type: Number,
-        unique: true
-    },
-
+const ShowSchema = Schema({
     dateAndTime: {
-        type: mongoose.Schema.Types.Subdocument, ref: "ShowTime"
+        type: Schema.Types.ObjectId, ref: "ShowTime"
     },
 
     seatsAvailable: {
-        type: Boolean
+        type: Boolean,
+        default: true
     },
 
-    duration: {
-        type: String
+    room: {
+        type: Schema.Types.ObjectId, ref: "ShowRoom"
     },
 
-    roomID: {
-        type: Number
-    },
-
-    movieID: {
-        type: Number
+    movie: {
+        type: Schema.Types.ObjectId, ref: "Movie"
     }
 })
 

@@ -18,20 +18,32 @@ import SelectSeatPage from "./Components/Pages/SelectSeatPage";
 import CheckoutPage from "./Components/Pages/CheckoutPage/CheckoutPage";
 import OrderConfirmationPage from "./Components/Pages/OrderConfirmationPage/OrderConfirmationPage"
 import Auth from "./Components/Pages/Auth/Auth";
+import PromotionForm from "./Components/Pages/Admin/Promotion/PromotionForm";
+import {useState} from "react"
 
 
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  function handleLogin() {
+    setIsLoggedIn(true);
+  }
+
+  function handleLogout() {
+    setIsLoggedIn(false);
+  }
+
   return (
     <div>
 
       <BrowserRouter>
           <div>
             <Routes>
-              <Route path="/" element={<Home/>}/>
+              <Route path="/" element={<Home isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>}/>
               <Route path="/movie/:movieId" element={<DBMovieDetail/>}/>
               <Route path="/movie" element={<MovieDetail/>}/>
-              <Route path="/login" element={<Login/>}/>
+              <Route path="/login" element={<Login isLoggedIn={isLoggedIn} handleLogin={handleLogin}/>}/>
               <Route path="/forgotPassword" element={<ForgotPassword/>}/>
               <Route path="/resetPassword" element={<ResetPassword/>}/>
               <Route path="/register" element={<Register/>}/>
@@ -42,6 +54,7 @@ function App() {
               <Route path="/movie/seat" element={<SelectSeatPage/>}/>
               <Route path="/movie/seat/checkout" element={<CheckoutPage/>}/>
               <Route path="/movie/seat/checkout/confirm" element={<OrderConfirmationPage/>}/>
+              <Route path="/promotion" element={<PromotionForm/>}/>
             </Routes>
           </div>
       </BrowserRouter>

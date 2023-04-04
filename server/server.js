@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+
 require("dotenv").config();
 const port = process.env.PORT || 4000;
 const mongoose = require('mongoose')
@@ -9,9 +10,11 @@ app.use(express.json());
 
 const usersRoute = require("./routes/usersRoute");
 const movieRoute = require("./routes/movieRoute");
+const promotionRoute = require("./controllers/promotions-controller");
 
 app.use("/api/users", usersRoute);
 app.use("/api/movies", movieRoute);
+app.use("/api/promotions", promotionRoute);
 
 
 

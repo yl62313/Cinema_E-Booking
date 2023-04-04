@@ -7,7 +7,7 @@ const ShowTimeSchema = Schema({
     },
     
     time: {
-        type: Date
+        type: String
     }
 })
 

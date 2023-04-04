@@ -6,6 +6,8 @@ const auth = require("../middleware/auth")
 var nodeoutlook = require('nodejs-nodemailer-outlook')
 const Movie = require("../models/Movie");
 const Promotion = require("../models/Promotion");
+const ShowTime = require("../models/ShowTime");
+const Show = require("../models/Show");
 
 router.post("/register", async (req, res) => {
   try {
@@ -70,18 +72,6 @@ router.post("/register", async (req, res) => {
       onError: (e) => console.log(e),
       onSuccess: (i) => console.log(i)
     },
-
-      router.post("/verify", async (req, res) => {
-        let userCode = req.params.code;
-
-        if (userCode == code) {
-          newUser.userStatus = "ACTIVE";
-        } else {
-          return res.status(401).json({
-            message: "Codes do not match."
-          });
-        }
-      })
     );
 
 
@@ -95,48 +85,34 @@ router.post("/register", async (req, res) => {
 });
 
 router.post("/Auth", async (req, res) => {
+  const userEmail = req.body.email;
+  const userCode = req.body.confirmationCode;
 
-
+  let updatedUser;
   try {
-    // const compareEmail = await User.findOne({ email: req.body.email });
-    // const compareCode = await User.findOne({ confirmationCode: req.body.confirmationCode });
-
-    // if (compareEmail && compareCode) {
-    User.findOneAndUpdate(User.email, { userStatus: 'ACTIVE' }, null)
-      .then(updatedUser => {
-        res.status(200).json({
-          success: true,
-          message: 'User verified',
-          user: updatedUser
-        });
-      })
-    // .catch(error => {
-    //   console.error('Error updating user status:', error);
-    //   res.status(500).json({
-    //     error: 'Unable to verify user'
-    //   });
-    // });
-    // return res.send({
-    //   success: true,
-    //   message: "User Verified",
-    // })
-
-    // var s = "ACTIVE"
-
-    // User.userStatus = s;
-
-    // return res.send({
-    //   success: false,
-    //   message: "User already exists",
-    // });
-
-    // }
-
+    updatedUser = User.findOne({ email: userEmail })
   } catch (error) {
     res.send({
       success: false,
       message: error.message,
     });
+  }
+
+  if (!updatedUser) {
+    return res.status(404).json({ message: "Invalid email" });
+  }
+
+  if (userCode != updatedUser.confirmationCode) {
+    return res.status(401).json({ message: "Invalid code" })
+  } else {
+    updatedUser.userStatus = "ACTIVE";
+
+    try {
+      await updatedUser.save();
+      return res.status(200).json({ message: "Account is active!" });
+    } catch (err) {
+      return res.status(500).json({ message: "Something went wrong" });
+    }
   }
 
 });
@@ -181,6 +157,12 @@ router.post("/login", async (req, res) => {
       });
       user.token = token;
 
+      try {
+        await user.save();
+      } catch (error) {
+        return res.status(400).json({ message: "Something went wrong" })
+      }
+
       res.send({
         success: true,
         message: "User logged in successful",
@@ -194,6 +176,28 @@ router.post("/login", async (req, res) => {
     });
   }
 });
+
+router.post("/logout/:id", async (req, res) => {
+  let user;
+  try {
+    user = await User.findById(req.params.id);
+  } catch (error) {
+    return res.status(400).json({ message: "Something went wrong." });
+  }
+
+  if (!user) {
+    return res.status(404).json({ message: "User not found" });
+  }
+
+  user.token = "a";
+
+  try {
+    await user.save();
+    return res.status(201).json({ message: "Logged out!" })
+  } catch (error) {
+    return res.status(400).json({ message: "Something went wrong." });
+  }
+})
 
 router.get("current-user", auth, async (req, res) => {
   try {
@@ -384,6 +388,13 @@ router.post("/adminLogin", async (req, res) => {
     const token = jwt.sign({ adminId: admin._id }, '$process.env.jwt_secret', {
       expiresIn: "5h",
     });
+    admin.token = token;
+
+    try {
+      await admin.save();
+    } catch (error) {
+      return res.status(400).json({ message: "Something went wrong" })
+    }
 
     res.send({
       success: true,
@@ -391,58 +402,6 @@ router.post("/adminLogin", async (req, res) => {
       data: token,
     });
   }
-})
-
-router.post("/addMovie", async (req, res) => {
-  const { duration, title, category, director, producer, cast, synopsis, reviews, rating, trailer, poster } = req.body;
-  const createdMovie = new Movie({
-    duration,
-    title,
-    category,
-    director,
-    producer,
-    cast,
-    synopsis,
-    reviews,
-    rating,
-    trailer,
-    poster
-  });
-
-  try {
-    await createdMovie.save();
-  } catch (err) {
-    const error = new HttpError(
-      'Creating movie failed, please try again.',
-      500
-    );
-    console.log(err.message);
-    return next(error);
-  }
-  res.status(201).json({ movie: createdMovie });
-})
-
-router.post("/addPromotion", async (req, res) => {
-  const { name, code, discount, startDate, endDate } = req.body;
-  const createdPromotion = new Promotion({
-    name,
-    code,
-    discount,
-    startDate,
-    endDate
-  });
-
-  try {
-    await createdPromotion.save();
-  } catch (err) {
-    const error = new HttpError(
-      'Creating promotion failed, please try again.',
-      500
-    );
-    console.log(err.message);
-    return next(error);
-  }
-  res.status(201).json({ promotion: createdPromotion });
 })
 
 router.post("")

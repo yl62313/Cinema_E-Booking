@@ -1,32 +1,28 @@
 import React, { useEffect } from "react";
 import { Form, message } from "antd";
 import Button from "../../Button";
-import {Link, useNavigate} from "react-router-dom";
-import {LoginUser} from "../../../action/users"
+import { Link, useNavigate } from "react-router-dom";
+import { LoginUser } from "../../../action/users"
 
-function Login() {
+function Login({isLoggedIn, handleLogin}) {
   const navigate = useNavigate();
-  const onFinish = async(values) => {
+  const onFinish = async (values) => {
     try {
       const response = await LoginUser(values);
-      if(response.success){
+      if (response.success) {
         message.success(response.message);
-        localStorage.setItem("token", response.data);
-        window.location.href="/";
-      }else{
+        handleLogin();
+      } else {
         message.error(response.message)
       }
-    }catch (error) {
+    } catch (error) {
       message.error(error.message);
     }
   };
 
-  useEffect(()=>{
-    if (localStorage.getItem("token")){
-      navigate("/");
-    }
-  }, []);
-
+  if (isLoggedIn) {
+    navigate("/");
+  }
   return (
     <div className="flex justify-center h-screen items-center bg-primary">
       <div className="card p-3 w-400">
@@ -49,7 +45,7 @@ function Login() {
           </Form.Item>
 
           <div className="flex flex-col mt-2 gap-1">
-            <Button fullWidth title="LOGIN" type="submit" />
+            <Button fullWidth title="LOGIN" type="submit"/>
             <Link to="/register" className="text-primary">
               {" "}
               Don't have an account? Register
