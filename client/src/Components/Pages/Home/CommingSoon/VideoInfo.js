@@ -22,6 +22,8 @@ function VideoInfo() {
   return (
     <div>
     <iframe
+    width={640}
+    height={320}
     title='video'
     src={`https://www.youtube.com/embed/${video}?autoplay=1&mute=1&loop=1&modestbranding=1&playlist=${video}&controls=0`}
     frameBorder="0"

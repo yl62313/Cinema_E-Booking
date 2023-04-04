@@ -4,13 +4,14 @@ import Button from '../../../Button'
 import moment from "moment";
 import { useDispatch } from 'react-redux';
 import { HideLoading, ShowLoading } from '../../../../reducers/loader_reducer';
-import { AddMovie } from '../../../../action/movies';
+import { AddMovie, EditMovie } from '../../../../action/movies';
 
 function MovieForm ({
     showMovieFormModal,
     setShowMovieFormModal,
     selectedMovie,
     setSelectedMovie,
+    getMovieList,
     formType
 }) {
 
@@ -24,9 +25,13 @@ function MovieForm ({
             if (formType === "add"){
                 response = await AddMovie(values);
             }else{
-
+                response = await EditMovie({
+                    ...values,
+                    movieId : selectedMovie._id
+                });
             }
             if(response.success){
+                getMovieList()
                 message.success(response.message);
                 setShowMovieFormModal(false);
             }
@@ -50,7 +55,7 @@ function MovieForm ({
 
   return (
     <Modal
-        title={formType === 'add' ? "Add Movie" : 'Edit Movie'}
+        title={formType === "add" ? "Add Movie" : "Edit Movie"}
         open={showMovieFormModal}
         onCancel={()=> { setShowMovieFormModal(false); setSelectedMovie(null);}}
             footer={null}

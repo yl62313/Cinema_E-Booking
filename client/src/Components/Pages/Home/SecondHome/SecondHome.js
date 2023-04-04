@@ -1,78 +1,67 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {useNavigate} from "react-router-dom"
 import { Row,Col } from "antd";
-import sample1 from '../../../../samplePicture/Minions-The-Rise-of-Gru.jpg'
-import sample2 from '../../../../samplePicture/Screenshot 2023-02-19 at 2.43.46 PM.png'
-import sample3 from '../../../../samplePicture/Screenshot 2023-02-19 at 2.45.09 PM.png'
-import sample4 from '../../../../samplePicture/Screenshot 2023-02-19 at 2.45.31 PM.png'
+import { message } from 'antd';
+import { useDispatch } from 'react-redux';
+import { HideLoading, ShowLoading } from '../../../../reducers/loader_reducer';
+import {BringMovieList} from '../../../../action/movies'
 
 
 
 
 function SecondHome() {
+  const [movies, setMovies] = React.useState([]);
+  const [searchMovie = "", setSearchMovie] = React.useState("");
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const getMovieList = async () => {
+    try{
+      dispatch(ShowLoading())
+      const response = await BringMovieList();
+      if(response.success){
+        setMovies(response.data);
+      }else{
+        message.error(response.message);
+      }
+      dispatch(HideLoading());
+    }catch(error){
+      dispatch(HideLoading());
+      message.error(error.message);
+    }
+  }
 
+
+  useEffect(()=>{
+    getMovieList()
+  },[]);
   return (
     <div>
       <div className='flex justify-end'>
       {/*Search movie */}
-      <input type={"text"}
+      <input 
+      type="text"
       className="searchbar"
       placeholder="Search"
+      value={searchMovie}
+      onChange={(e)=>setSearchMovie(e.target.value)}
       />
       </div>
-      {/*list movie from database*/}
 
-      {/*Sample Img*/}
       <Row gutter={[16,16]} className="mt-2">
+        {movies.filter((movie)=> movie.title.includes(searchMovie)).map((movie)=>(
         <Col span={6}>
-            <div className='card flex flex-col gap-1 cursor-pointer'
-            onClick={()=> navigate(`/movie`)}
-            >
-            <img src={sample1} alt="" height={200}/>
+          <div className='card flex flex-col gap-1 cursor-pointer'
+          onClick={()=> navigate(`/movies/${movie._id}`)}
+          >
+            <img src={movie.poster} alt="" height={200}/>
             <div className='flex justify-center gap-1 p-2'>
-              <h1 className="text-md uppercase">
-                {"minion1"}
-              </h1>
+            <h1 className="text-md uppercase">
+              {movie.title}
+            </h1>
             </div>
-            </div>
+          </div>
         </Col>
-        <Col span={6}>
-            <div className='card flex flex-col gap-1 cursor-pointer'
-            onClick={()=> navigate(`/movie`)}
-            >
-            <img src={sample2} alt="" height={200}/>
-            <div className='flex justify-center gap-1 p-2'>
-              <h1 className="text-md uppercase">
-                {"minion2"}
-              </h1>
-            </div>
-            </div>
-        </Col>
-        <Col span={6}>
-            <div className='card flex flex-col gap-1 cursor-pointer'
-            onClick={()=> navigate(`/movie`)}
-            >
-            <img src={sample3} alt="" height={200}/>
-            <div className='flex justify-center gap-1 p-2'>
-              <h1 className="text-md uppercase">
-                {"minion3"}
-              </h1>
-            </div>
-            </div>
-        </Col>
-        <Col span={6}>
-            <div className='card flex flex-col gap-1 cursor-pointer'
-            onClick={()=> navigate(`/movie`)}
-            >
-            <img src={sample4} alt="" height={200}/>
-            <div className='flex justify-center gap-1 p-2'>
-              <h1 className="text-md uppercase">
-                {"minion4"}
-              </h1>
-            </div>
-            </div>
-        </Col>
+        ))}
       </Row>
     </div>
   )
