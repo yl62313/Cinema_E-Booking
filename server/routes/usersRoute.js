@@ -4,10 +4,6 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const auth = require("../middleware/auth")
 var nodeoutlook = require('nodejs-nodemailer-outlook')
-const Movie = require("../models/Movie");
-const Promotion = require("../models/Promotion");
-const ShowTime = require("../models/ShowTime");
-const Show = require("../models/Show");
 
 router.post("/register", async (req, res) => {
   try {
@@ -355,7 +351,7 @@ router.post("/adminLogin", async (req, res) => {
   let admin;
 
   try {
-    admin = await User.findById(req.body.id);
+    admin = await User.findOne({_id: req.body.id});
   } catch (error) {
     res.send({
       success: false,

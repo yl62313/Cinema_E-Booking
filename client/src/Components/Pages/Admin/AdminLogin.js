@@ -11,8 +11,7 @@ function AdminLogin() {
             const response = await AdminLoginUser(values);
             if (response.success) {
                 message.success(response.message);
-                localStorage.setItem("token", response.data);
-                window.location.href = "/";
+                navigate("/Admin");
             } else {
                 message.error(response.message)
             }
@@ -20,12 +19,6 @@ function AdminLogin() {
             message.error(error.message);
         }
     };
-
-    useEffect(() => {
-        if (localStorage.getItem("token")) {
-            navigate("/");
-        }
-    }, []);
 
     return (
         <div className="flex justify-center h-screen items-center bg-primary">
@@ -35,7 +28,7 @@ function AdminLogin() {
                 <Form layout="vertical" className="mt-1" onFinish={onFinish}>
                     <Form.Item
                         label="AdminID"
-                        name="adminID"
+                        name="id"
                         rules={[{ required: true, message: "Enter your AdminID" }]}
                     >
                         <input type="text" />

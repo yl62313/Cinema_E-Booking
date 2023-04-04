@@ -64,3 +64,12 @@ export const resetPassword = async () => {
         return error.response;
     }
 }
+
+export const AdminLoginUser = async (payload) => {
+    try {
+        const response = await axiosInstance.post("api/users/adminLogin", payload);
+        return response.data;
+    } catch (error) {
+        return error.response;
+    }
+}
