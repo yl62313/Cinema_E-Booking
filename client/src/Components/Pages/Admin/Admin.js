@@ -2,6 +2,7 @@ import React from 'react'
 import {Tabs} from 'antd'
 import MovieList from './ManageMovies/MovieList'
 import PromotionList from './Promotion/PromotionList'
+import ManageUsers from './ManageUsers/ManageUsers'
 
 function Admin() {
   return (
@@ -14,6 +15,9 @@ function Admin() {
         </Tabs.TabPane>
         <Tabs.TabPane tab="Promotions" key="2">
             <PromotionList />
+        </Tabs.TabPane>
+        <Tabs.TabPane tab="Manage Users" key="3">
+            <ManageUsers />
         </Tabs.TabPane>
     </Tabs>
  

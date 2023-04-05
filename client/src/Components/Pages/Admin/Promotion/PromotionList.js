@@ -1,8 +1,11 @@
 import React from 'react'
 
+
 function PromotionList() {
+
   return (
-    <div>PromotionList</div>
+    <div>
+    </div>
   )
 }
 

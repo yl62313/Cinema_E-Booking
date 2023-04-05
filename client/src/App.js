@@ -55,7 +55,7 @@ function App() {
               <Route path="/Admin" element={<Admin/>}/>
               <Route path="adminlogin" element={<AdminLogin/>}/>
               <Route path="/Profile" element={<Profile/>}/>
-              <Route path="/movie/seat" element={<SelectSeatPage/>}/>
+              <Route path="/movies/seat/:id" element={<SelectSeatPage/>}/>
               <Route path="/movie/seat/checkout" element={<CheckoutPage/>}/>
               <Route path="/movie/seat/checkout/confirm" element={<OrderConfirmationPage/>}/>
               <Route path="/promotion" element={<PromotionForm/>}/>
