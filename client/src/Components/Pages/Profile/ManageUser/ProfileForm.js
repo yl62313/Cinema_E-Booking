@@ -5,10 +5,8 @@ import Button from '../../../../Components/Button'
 function ProfileForm({
     showProfileFormModel,
     setShowProfileFormModel,
-    selectedProfile,
     setSelectedProfile,
-    formType,
-    setFormType
+    formType
 }) {
 
     

@@ -211,6 +211,14 @@ router.get("current-user", auth, async (req, res) => {
   }
 })
 
+
+{/* pls write backend of bring edit profile list */}
+router.get('/BringProfileList/:id',async(req,res)=> {
+});
+
+
+
+
 router.patch("/editProfile/:id", async (req, res) => {
   let user;
   const userID = req.params.id;
