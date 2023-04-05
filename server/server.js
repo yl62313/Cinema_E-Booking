@@ -11,10 +11,14 @@ app.use(express.json());
 const usersRoute = require("./routes/usersRoute");
 const movieRoute = require("./routes/movieRoute");
 const promotionRoute = require("./routes/promotions-routes");
+const showRoute = require("./routes/showRoute")
+
+
 
 app.use("/api/users", usersRoute);
 app.use("/api/movies", movieRoute);
 app.use("/api/promotions", promotionRoute);
+app.use("/api/shows", showRoute);
 
 
 

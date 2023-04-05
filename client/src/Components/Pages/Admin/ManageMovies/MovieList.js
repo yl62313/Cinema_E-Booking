@@ -1,12 +1,13 @@
 import { message, Table } from 'antd';
 import { EditOutlined, DeleteOutlined} from '@ant-design/icons'
 import moment from 'moment';
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { HideLoading, ShowLoading } from '../../../../reducers/loader_reducer';
 import Button from '../../../Button'
 import MovieForm from './MovieForm';
 import {BringMovieList, DeleteMovie} from '../../../../action/movies'
+import Shows from './Shows'
 
 
 function MovieList() {
@@ -14,6 +15,8 @@ function MovieList() {
   const [showMovieFormModal, setShowMovieFormModal]=React.useState(false);
   const [selectedMovie,setSelectedMovie]=React.useState(null);
   const [formType, setFormType]=React.useState("add");
+  const [openShowsModal = false, setOpenShowsModal] = useState(false);
+
 
   const dispatch = useDispatch();
   const getMovieList = async () => {
@@ -87,18 +90,32 @@ function MovieList() {
       title: "Action",
       dataIndex: "action",
       render: (text,record) => {
-        return <div className='flex gap-1'>
-          <EditOutlined 
+        return (
+        <div className='flex gap-1 items-center'>
+          <i><EditOutlined 
           onClick={()=>{
             setSelectedMovie(record);
             setFormType("edit");
             setShowMovieFormModal(true);
           }}/>
+          </i>
+          <i>
           <DeleteOutlined 
           onClick={()=> {
             deleteMovieList(record._id);
           }}/>
+          </i>
+          <i>
+              <span className="underline "
+              onClick={() => {
+                setSelectedMovie(record);
+                setOpenShowsModal(true);
+              }}>
+                Shows
+              </span>
+            </i>
           </div>
+        )
       }
     }
   ]
@@ -127,6 +144,13 @@ function MovieList() {
         getMovieList={getMovieList}
 
         />}
+        {openShowsModal && (
+        <Shows
+          openShowsModal={openShowsModal}
+          setOpenShowsModal={setOpenShowsModal}
+          movie={selectedMovie}
+        />
+      )}
     </div>
   )
 }

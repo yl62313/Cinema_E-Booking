@@ -1,7 +1,6 @@
 const router = require("express").Router();
 const Movie = require('../models/movieModel');
 
-
 //later when AuthPage.js works, add auth 
 router.post('/add-movie', async(req,res)=> {
     try{
@@ -65,22 +64,21 @@ router.post('/delete-movie', async(req,res)=> {
     }
 })
 
-router.get('/bring-movie-byid/:id',async(req,res)=>{
+router.get("/get-movie-by-id/:id", async (req, res) => {
     try {
-        const movie = await Movie.findById(req.params.id);
-        res.send({
-            success:true,
-            message:"Movie fetched",
-            data: movie,
-        })
+      const movie = await Movie.findById(req.params.id);
+      res.send({
+        success: true,
+        message: "Movie fetched successfully",
+        data: movie,
+      });
     } catch (error) {
-        res.send({
-            success:false,
-            message:error.message,
-        })
-        
+      res.send({
+        success: false,
+        message: error.message,
+      });
     }
-})
+  });
 
 //search and filter 
 router.get("/", async(req,res) => {
@@ -143,7 +141,5 @@ router.get("/", async(req,res) => {
         res.status(500).json({error:false, message: "Error"});    
     } 
 }); 
-
-
 
 module.exports = router;
