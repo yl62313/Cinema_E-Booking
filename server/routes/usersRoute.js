@@ -31,6 +31,11 @@ router.post("/register", async (req, res) => {
     const newUser = new User(req.body);
     await newUser.save();
 
+    if (req.body.sub) {
+      newUser.isSubscribed = "true";
+    }
+
+
     res.send({
       success: true,
       message: "Verfication code sent to email"
@@ -81,35 +86,23 @@ router.post("/register", async (req, res) => {
 });
 
 router.post("/Auth", async (req, res) => {
-  const userEmail = req.body.email;
-  const userCode = req.body.confirmationCode;
-
-  let updatedUser;
-  try {
-    updatedUser = User.findOne({ email: userEmail })
-  } catch (error) {
-    res.send({
-      success: false,
-      message: error.message,
-    });
-  }
-
-  if (!updatedUser) {
-    return res.status(404).json({ message: "Invalid email" });
-  }
-
-  if (userCode != updatedUser.confirmationCode) {
-    return res.status(401).json({ message: "Invalid code" })
-  } else {
-    updatedUser.userStatus = "ACTIVE";
-
-    try {
-      await updatedUser.save();
-      return res.status(200).json({ message: "Account is active!" });
-    } catch (err) {
-      return res.status(500).json({ message: "Something went wrong" });
-    }
-  }
+  const user = await User.findOne({ email: req.body.email, confirmationCode: req.body.code });
+if (user) {
+  // Update the user's userStatus to "ACTIVE"
+  user.userStatus = "ACTIVE";
+  await user.save();
+  
+  res.status(200).json({
+    success: true,
+    message: 'User verified',
+    user: user
+  });
+} else {
+  return res.send({
+    success: false,
+    message: "invalid email or code",
+  });
+}
 
 });
 

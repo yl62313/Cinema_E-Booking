@@ -3,6 +3,7 @@ import {Form, Row, Col, message} from "antd"
 import Button from '../../Button'
 import { Link, useNavigate } from "react-router-dom";
 import { RegisterUser } from "../../../action/users"
+import { Checkbox } from 'antd';
 
 function Register() {
   const navigate = useNavigate();
@@ -149,10 +150,14 @@ function Register() {
                   >
                     <input type="text"/>
                 </Form.Item>
-                <label>
-                  <input type="checkbox" />
-                  Subscribe for Promotions
-                </label>
+                <Form.Item 
+                  label="Subscribe for Promotions"
+                  name="sub"
+                  valuePropName="checked"
+                >
+                <Checkbox />
+                </Form.Item>
+                
               </Col>
             </Row>
 

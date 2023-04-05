@@ -11,14 +11,37 @@ router.post("/addPromotion", async (req, res) => {
       startDate,
       endDate
     });
-  
-    try {
-      await createdPromotion.save();
-    } catch (err) {
-      console.log(err.message);
-     return res.status(500).json({message: "Could not create promotion."});
+
+    // try {
+    //   createdPromotion.save();
+    // } catch (error) {  
+    //   res.send({
+    //     success: false,
+    //     message: error.message,
+    //   })
+    // }
+
+    if (createdPromotion.save()) {
+      return res.send({
+        success: true,
+        message: "Created Promotion",
+      });
+    } else {
+      res.send({
+            success: false,
+            message: error.message,
+          })
     }
-    res.status(201).json({ promotion: createdPromotion });
+
+    
+  
+  //   try {
+  //     await createdPromotion.save();
+  //   } catch (err) {
+  //     console.log(err.message);
+  //    return res.status(500).json({message: "Could not create promotion."});
+  //   }
+  //   res.status(201).json({ promotion: createdPromotion });
   })
 
   router.get('/bring-promotion',async(req,res)=> {

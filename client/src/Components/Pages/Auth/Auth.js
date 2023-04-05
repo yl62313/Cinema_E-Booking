@@ -34,7 +34,7 @@ function Auth() {
             <input type="email" />
           </Form.Item>
           <Form.Item
-            label="Confirmation Code"
+            label="code"
             name="code"
             rules={[{ required: true, message: "Enter confirmation code" }]}
           >

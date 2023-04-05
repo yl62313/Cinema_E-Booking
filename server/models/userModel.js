@@ -59,12 +59,13 @@ const userSchema = new mongoose.Schema({
         default: false,
     },
     isSubscribed:{
-        type:Boolean,
-        default: false,
+        type:String,
+        
+        default:"false"
     },
     userStatus: {
         type:String,
-        enum:["INACTIVE", "ACTIVE", "SUSPENDED"],
+        enum:["INACTIVE","ACTIVE","SUSPENDED"],
         default:"INACTIVE",
     },
     
