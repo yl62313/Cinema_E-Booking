@@ -1,65 +1,81 @@
 import React, {useEffect, useState} from 'react'
-import MainImage from '../Sections/MainImage'
-import MovieInfo from '../CommingSoon/MovieInfo'
+import { useDispatch } from 'react-redux';
 import { useParams,useNavigate } from "react-router-dom"
-import VideoInfo from '../CommingSoon/VideoInfo'
-import MovieIcon from '../../../../samplePicture/pngegg.png'
-
+import { message } from 'antd';
+import { BringMovieList } from '../../../../action/movies';
+import { HideLoading, ShowLoading } from '../../../../reducers/loader_reducer';
+import moment from 'moment';
+import { Descriptions } from 'antd'
+import Button from '../../../Button';
 
 
 function MoviePage() {
-    const navigate = useNavigate();
-    const [Movie,setMovies] = useState([])
-    const {movieId} = useParams();
+  const [movies, setMovies] = React.useState([]);
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const params = useParams()
+  const getMovieList = async () => {
+    try{
+      dispatch(ShowLoading())
+      const response = await BringMovieList(params.id);
+      if(response.success){
+        setMovies(response.data);
+      }else{
+        message.error(response.message);
+      }
+      dispatch(HideLoading());
+    }catch(error){
+      dispatch(HideLoading());
+      message.error(error.message);
+    }
+  }
 
 
-    useEffect(()=> {      
-        fetch(`api/movie/bring-movie-byid/${movieId}`)
-        .then(response => response.json())
-        .then(response=> {
-            console.log(response)
-            setMovies(response)
-        })
-    },[movieId])
-
+  useEffect(()=>{
+    getMovieList()
+  },[]);
 
     return (
+      movies && (
     <div>
-            <div className='layout p-1'>
-      <div className='header flex justify-between'>
-        <div>
-          <h1 className='text-2xl cursor-pointer' onClick={()=>{navigate("/")}}>
-          <img src={MovieIcon} alt="" height={25}/>
-           {"MOVIE"}
-         </h1>
+       <div className='flex justify-between'>
+       <div>
+          <h1 className='text-3xl'>
+              Title : {movies.title}
+          </h1>
         </div>
-          <div className='bg-white br-1 p-1 flex'>
-            <h1 className='text-sm cursor-pointer' onClick={()=>{navigate("/register")}}>
-              {"Register"}
-            </h1>
-          </div>
+       <div>
+          <h1 className='text-md'>
+              Select Date: 
+          </h1>
+          <input type = 'date'
+          min={moment().format("YYYY-MM-DD")}
+          />
+      </div>
+      </div>
+      <div>          
+
+<Descriptions title=  {movies.title} bordered>
+    <Descriptions.Item label="Title">  </Descriptions.Item>
+    <Descriptions.Item label="Category"> {movies.genre} </Descriptions.Item>
+    <Descriptions.Item label="Cast"> </Descriptions.Item>
+    <Descriptions.Item label="Director"> </Descriptions.Item>
+    <Descriptions.Item label="Producer" span={2}> </Descriptions.Item>
+    <Descriptions.Item label="Synopsis"> </Descriptions.Item>
+    <Descriptions.Item label="Review" span={2}> </Descriptions.Item>
+    <Descriptions.Item label="Post"> </Descriptions.Item>
+    <Descriptions.Item label="Video"> <iframe/> </Descriptions.Item>
+</Descriptions>
+</div>
+
+      <div className="flex justify-center">
+        <div>
+      <Button fullWidth title="BOOK MOVIE" type="submit" onClick={()=> navigate(`/movies/seat/${movies._id}`)} />
+        </div>
       </div>
     </div>
-        {/*Header*/}
-        <MainImage
-            image={`w1280${Movie.poster}`}
-            title={Movie.title}
-            text={Movie.synopsis}
-        />
-        
-
-        {/*Body*/}
-        <div style={{width:'85%', margin:'1rem auto'}}>
-            <MovieInfo
-                movie={Movie}
-            />
-        </div>
-        <div className='flex justify-center'>
-            <VideoInfo/>
-        </div>
- 
-    </div>
-  )
+      )
+    )
 }
 
 export default MoviePage
