@@ -76,16 +76,12 @@ function PromotionList() {
     {
       title: "Start Date",
       dataIndex: "startDate",
-      render : (text,record) => {
-        return moment(record.scheduleDate).format("YYYY-MM-DD")
-      }
+      render: (startDate) => moment(startDate).format("YYYY-MM-DD"),
     },
     {
       title: "End date",
       dataIndex: "endDate",
-      render : (text,record) => {
-        return moment(record.scheduleDate).format("YYYY-MM-DD")
-      }
+      render: (endDate) => moment(endDate).format("YYYY-MM-DD"),
     },
     {
       title: "Action",

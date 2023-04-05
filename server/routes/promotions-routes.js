@@ -3,46 +3,45 @@ const Promotion = require("../models/Promotion");
 const router = express.Router()
 
 router.post("/addPromotion", async (req, res) => {
-    const { name, code, discount, startDate, endDate } = req.body;
-    const createdPromotion = new Promotion({
-      name,
-      code,
-      discount,
-      startDate,
-      endDate
+  const { name, code, discount, startDate, endDate } = req.body;
+
+  if (new Date(startDate) > new Date(endDate)) {
+    return res.send({
+      success: false,
+      message: "Start date cannot be later than end date",
     });
-
-    // try {
-    //   createdPromotion.save();
-    // } catch (error) {  
-    //   res.send({
-    //     success: false,
-    //     message: error.message,
-    //   })
-    // }
-
-    if (createdPromotion.save()) {
-      return res.send({
-        success: true,
-        message: "Created Promotion",
-      });
-    } else {
-      res.send({
-            success: false,
-            message: error.message,
-          })
-    }
-
-    
+  }
   
-  //   try {
-  //     await createdPromotion.save();
-  //   } catch (err) {
-  //     console.log(err.message);
-  //    return res.status(500).json({message: "Could not create promotion."});
-  //   }
-  //   res.status(201).json({ promotion: createdPromotion });
-  })
+  const createdPromotion = new Promotion({
+    name,
+    code,
+    discount,
+    startDate,
+    endDate,
+  });
+
+  try {
+    const savedPromotion = await createdPromotion.save();
+    return res.send({
+      success: true,
+      message: "Created Promotion",
+      promotion: savedPromotion,
+    });
+  } catch (error) {
+    if (error.code === 11000) {
+      return res.send({
+        success: false,
+        message: "Promotion code already exists",
+      });
+    }
+    return res.send({
+      success: false,
+      message: error.message,
+    });
+  }
+});
+
+
 
   router.get('/bring-promotion',async(req,res)=> {
     try{

@@ -61,8 +61,8 @@ return movie && (
           value={date}
           onChange={(e) => {
               setDate(e.target.value);
-              navigate(`/movie/${params.id}?date=${e.target.value}`);
             }}
+            required
           />
       </div>
   </div>

@@ -51,18 +51,7 @@ function MoviePage() {
           <img src={MovieIcon} alt="" height={25}/> Title : {movie.title}
           </h1>
       </div>
-       <div>
-       <h1 className="text-md">Select Date</h1>
-            <input
-              type="date"
-              min={moment().format("YYYY-MM-DD")}
-              value={date}
-              onChange={(e) => {
-                setDate(e.target.value);
-                navigate(`/movies/${params.id}?date=${e.target.value}`);
-              }}
-            />
-      </div>
+       
       </div>
       <div className='mt-3 mb-3'>          
       <Descriptions title= "" bordered>
