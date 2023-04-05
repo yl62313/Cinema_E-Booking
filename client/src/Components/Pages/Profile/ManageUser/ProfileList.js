@@ -3,7 +3,7 @@ import { EditOutlined} from '@ant-design/icons'
 import Button from '../../../../Components/Button'
 import ProfileForm from './ProfileForm';
 import {message, Table} from 'antd'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { HideLoading, ShowLoading } from '../../../../reducers/loader_reducer';
 import { BringProfileList } from '../../../../action/users';
 
@@ -11,6 +11,7 @@ import { BringProfileList } from '../../../../action/users';
 {/* If u want to listed profile list, pls make BringProfileList api at cilent server (action-> user.js and server route as well) */}
 
 function ProfileList() {
+
     const[showProfileFormModel = false, setShowProfileFormModel]=useState(false);
     const[selectedProfile=null, setSelectedProfile]=useState(null);
     const[formType="add",setFormType]=useState([]);
@@ -46,7 +47,6 @@ function ProfileList() {
         title:"Address",
         dateIndex: "address",
       },
-      
       {
         title:"Action",
         dateIndex: "action",

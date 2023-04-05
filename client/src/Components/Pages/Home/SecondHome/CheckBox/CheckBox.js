@@ -19,20 +19,20 @@ function CheckBox(props) {
         props.handleFilters(newChecked)
     }
 
-
     const renderCheckboxLists = () => props.list && props.list.map((value, index) => (
-        <React.Fragment key={index} >
-            
+        <React.Fragment key={index}>
             <Checkbox onChange={()=> handleToggle(value._id) } 
             checked={Checked.indexOf(value._id) === -1 ? false : true}/>
             <span>{value.name}</span>
         </React.Fragment>
+
     ))
+
 
     return (
         <div>
             <Collapse defaultActiveKey={['0']} >
-                <Panel header="continents" key="1">
+                <Panel className='checkbox' header="continents" key="1">
 
                     {renderCheckboxLists()}
 

@@ -37,12 +37,39 @@ export const DeleteMovie = async(payload)=> {
         return error.response;
     }
 }
-
-export const BringMovieById = async(id)=>{
-    try {
-        const response = await axiosInstance.get(`api/movies/bring-movie-byid/${id}`);
-        return response.data;
-    } catch (error) {
-        return error.response;
-    }
+export const BringMovieById = async (id) => {
+  try {
+      const response = await axiosInstance.get(`/api/movies/get-movie-by-id/${id}`);
+      return response.data;
+  } catch (error) {
+      return error.response;
+  }
 }
+
+export const AddShow = async (payload) => {
+    try {
+      const response = await axiosInstance.post("/api/shows/add-show",payload);
+      return response.data;
+    } catch (error) {
+      return error.response;
+    }
+  };
+  
+
+  export const GetAllShows = async (payload) => {
+    try {
+      const response = await axiosInstance.post("/api/shows/get-all-shows",payload);
+      return response.data;
+    } catch (error) {
+      return error.response;
+    }
+  };
+
+  export const DeleteShow = async (payload) => {
+    try {
+      const response = await axiosInstance.post("/api/shows/delete-show", payload);
+      return response.data;
+    } catch (error) {
+      return error.response;
+    }
+  };

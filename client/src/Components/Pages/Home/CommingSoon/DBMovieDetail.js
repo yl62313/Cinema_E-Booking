@@ -22,9 +22,7 @@ function DBMovieDetail() {
             setMovies(response)
         })
     },[movieId])
-
-
-    return (
+return (
     <div>
             <div className='layout p-1'>
       <div className='header flex justify-between'>
