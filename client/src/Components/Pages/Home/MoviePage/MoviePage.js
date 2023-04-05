@@ -75,7 +75,7 @@ function MoviePage() {
         <Descriptions.Item label="REVIEW" span={2}>{movie.review} </Descriptions.Item>
         <Descriptions.Item label="POSTER" span={2}><img src={movie.poster} alt="" width={200} height={250}/> </Descriptions.Item>
         <Descriptions.Item label="TRAILER" span={2}>
-          <iframe width="300" height="250" src= {movie.trailer} frameborder="0"/>
+          <iframe width="300" height="250" src= {`https://www.youtube.com/embed/${movie.trailer}`} frameborder="0"/>
         </Descriptions.Item>
       </Descriptions>
       </div>
