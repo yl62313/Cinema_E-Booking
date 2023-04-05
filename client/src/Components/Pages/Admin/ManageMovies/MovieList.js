@@ -69,8 +69,8 @@ function MovieList() {
       }
     },
     {
-      title: "Description",
-      dataIndex: "description",
+      title: "Synopsis",
+      dataIndex: "synopsis",
     },
     {
       title: "Genre",
