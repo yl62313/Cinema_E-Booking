@@ -1,63 +1,115 @@
-import { message, Table } from 'antd'
+import { message, Table } from 'antd';
+import { EditOutlined, DeleteOutlined} from '@ant-design/icons'
+import moment from 'moment';
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux';
-import {AddPromotion} from '../../../../action/promotion'
 import { HideLoading, ShowLoading } from '../../../../reducers/loader_reducer';
-import Button from '../../../Button';
+import Button from '../../../Button'
 import PromotionForm from './PromotionForm';
+import { BringPromotionList, DeletePromotion} from '../../../../action/promotion';
 
 
 function PromotionList() {
   const [promotions, setPromotions] = React.useState([]);
-  const [formType, setFormType]=React.useState("add");
   const [showPromotionFormModal, setShowPromotionFormModal]=React.useState(false);
   const [selectedPromotion,setSelectedPromotion]=React.useState(null);
-
-
-
+  const [formType, setFormType]=React.useState("add");
 
   const dispatch = useDispatch();
-    const getPromotionList = async () => {
-      try{
-        dispatch(ShowLoading())
-        const response = await AddPromotion();
-        if(response.success){
-          setPromotions(response.data);
-        }else{
-          message.error(response.message);
-        }
-        dispatch(HideLoading());
-      }catch(error){
-        dispatch(HideLoading());
-        message.error(error.message);
+  const getPromotionList = async () => {
+    try{
+      dispatch(ShowLoading())
+      const response = await BringPromotionList();
+      if(response.success){
+        setPromotions(response.data);
+      }else{
+        message.error(response.message);
       }
+      dispatch(HideLoading());
+    }catch(error){
+      dispatch(HideLoading());
+      message.error(error.message);
     }
+  }
+  const deletePromotionList = async (promotionId) => {
+    try {
+      dispatch(ShowLoading())
+      const response = await DeletePromotion({
+        promotionId,
+      });
+      if(response.success){
+        getPromotionList();
+      }else{
+        message.error(response.message);
+      }
+      dispatch(HideLoading());
+    } catch (error) {
+      dispatch(HideLoading());
+      message.error(error.message);
+    }
+  }
+
+  //name, promotion code, discount, start and end date
   const columns = [
     {
-        title: "Promotion Name",
-        dataIndex: "name",
+      title: "Promotion Name",
+      dataIndex: "name",
     },
     {
-      title: "Promotion code",
+      title: "Promotion Code",
       dataIndex: "code",
+      // render: (text,record)=> {
+      //   return(
+      //     <img
+      //     src={record.poster}
+      //     alt="poster"
+      //     width='100'
+      //     height='100'
+      //     />
+      //   )
+      // }
     },
     {
-      title: "Discount %",
+      title: "Discount Percent",
       dataIndex: "discount",
     },
     {
       title: "Start Date",
       dataIndex: "startDate",
+      render : (text,record) => {
+        return moment(record.scheduleDate).format("YYYY-MM-DD")
+      }
     },
     {
-      title: "End Date",
+      title: "End date",
       dataIndex: "endDate",
+      render : (text,record) => {
+        return moment(record.scheduleDate).format("YYYY-MM-DD")
+      }
     },
+    {
+      title: "Action",
+      dataIndex: "action",
+      render: (text,record) => {
+        return <div className='flex gap-1'>
+          <EditOutlined 
+          onClick={()=>{
+            setSelectedPromotion(record);
+            setFormType("edit");
+            setShowPromotionFormModal(true);
+          }}/>
+          <DeleteOutlined 
+          onClick={()=> {
+            deletePromotionList(record._id);
+          }}/>
+          </div>
+      }
+    }
+  ]
 
-    ]
-    useEffect(()=>{
-      getPromotionList();
-    },[])
+  useEffect(()=>{
+    getPromotionList();
+  },[])
 
   return (
     <div>
@@ -69,7 +121,7 @@ function PromotionList() {
         }}
         />
       </div>
-      < Table columns={columns} dataSource={promotions}/>
+      <Table columns={columns} dataSource={promotions}/>
       {showPromotionFormModal && <PromotionForm
         showPromotionFormModal={showPromotionFormModal}
         setShowPromotionFormModal={setShowPromotionFormModal}
@@ -82,5 +134,4 @@ function PromotionList() {
     </div>
   )
 }
-
 export default PromotionList
