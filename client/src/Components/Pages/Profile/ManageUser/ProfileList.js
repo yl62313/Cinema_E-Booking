@@ -6,6 +6,8 @@ import {message, Table} from 'antd'
 import { useDispatch } from 'react-redux';
 import { HideLoading, ShowLoading } from '../../../../reducers/loader_reducer';
 import { BringProfileList } from '../../../../action/users';
+
+
 {/* If u want to listed profile list, pls make BringProfileList api at cilent server (action-> user.js and server route as well) */}
 
 function ProfileList() {

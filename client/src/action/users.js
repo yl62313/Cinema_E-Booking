@@ -37,6 +37,7 @@ export const CurrentUser = async () => {
     }
 }
 
+{/* i don't know this endpoint right,,, check pls /api/users/ */}
 export const BringProfileList = async() => {
     try {
         const response = await axiosInstance.get("/api/users/");
