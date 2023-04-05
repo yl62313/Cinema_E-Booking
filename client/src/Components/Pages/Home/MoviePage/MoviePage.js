@@ -82,7 +82,7 @@ function MoviePage() {
 
       <div className="flex justify-center">
         <div>
-      <Button fullWidth title="BOOK MOVIE" type="submit" onClick={()=> navigate(`/movies/seat/${movie._id}`)} />
+      <Button fullWidth title="BOOK MOVIE" type="submit" onClick={()=> navigate(`/movies/selectTime/${movie._id}`)} />
         </div>
       </div>
     </div>

@@ -5,8 +5,8 @@ import './OrderSummaryPage.css';
 const OrderSummaryPage = ({childTickets,adultickets, seniorTickets, childPrice, adultPrice, seniorPrice, totalPrice}) => {
   return (
     <div>
-      <h1>Order Summary</h1>
-      <h2>Ticket Details</h2>
+      <h1>Ticket Details</h1>
+      
 
       <div className ="summaryContainer">
       <div className="ticket-type-col">

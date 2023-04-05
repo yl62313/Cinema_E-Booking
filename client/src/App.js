@@ -6,7 +6,7 @@ import ResetPassword from "./Components/Pages/Login/ResetPassword/ResetPassword"
 import Register from "./Components/Pages/Register/Register";
 import RegisterConfirm from "./Components/Pages/RegisterConfirm/RegisterConfirm";
 import DBMovieDetail from "./Components/Pages/Home/CommingSoon/DBMovieDetail";
-import MovieDetail from "./Components/Pages/MovieDetail/MovieDetail";
+import SelectTime from "./Components/Pages/SelectTime/SelectTime";
 import MoviePage from  "./Components/Pages/Home/MoviePage/MoviePage";
 import "./Style/basic.css"
 import "./Style/custom.css"
@@ -45,7 +45,6 @@ function App() {
               <Route path="/" element={<Home isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>}/>
               <Route path="/movie/:movieId" element={<DBMovieDetail/>}/>
               <Route path="/movies/:id" element={<MoviePage/>}/>
-              <Route path="/movie" element={<MovieDetail/>}/>
               <Route path="/login" element={<Login isLoggedIn={isLoggedIn} handleLogin={handleLogin}/>}/>
               <Route path="/forgotPassword" element={<ForgotPassword/>}/>
               <Route path="/resetPassword" element={<ResetPassword/>}/>
@@ -55,6 +54,7 @@ function App() {
               <Route path="/Admin" element={<Admin/>}/>
               <Route path="adminlogin" element={<AdminLogin/>}/>
               <Route path="/Profile" element={<Profile/>}/>
+              <Route path="/movies/selectTime/:id" element={<SelectTime/>}/>
               <Route path="/movies/seat/:id" element={<SelectSeatPage/>}/>
               <Route path="/movie/seat/checkout" element={<CheckoutPage/>}/>
               <Route path="/movie/seat/checkout/confirm" element={<OrderConfirmationPage/>}/>

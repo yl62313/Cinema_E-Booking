@@ -14,7 +14,10 @@ function SeatSample() {
 
   return (
     <div>
-        
+        <div><h1>Select Seats</h1></div>
+        &nbsp;
+        &nbsp;
+        <div><h2>Screen</h2></div>
     <div className="flex justify-center mt-2">
         <Stack direction="row"  spacing={2}>
         <IconButton  color="primary" disableRipple   >
