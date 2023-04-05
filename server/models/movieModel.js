@@ -18,6 +18,10 @@ const movieSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    continents:{
+      type: Number,
+      default: 1
+    },
     cast: {
       type: [String],
       required: true,

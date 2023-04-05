@@ -1,10 +1,12 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import {useNavigate} from "react-router-dom"
 import { Row,Col } from "antd";
 import { message } from 'antd';
 import { useDispatch } from 'react-redux';
 import { HideLoading, ShowLoading } from '../../../../reducers/loader_reducer';
 import {BringMovieList} from '../../../../action/movies'
+import CheckBox from './CheckBox/CheckBox';
+import {continents} from './CheckBox/Data'
 
 
 
@@ -31,12 +33,21 @@ function SecondHome() {
   }
 
 
+
+  {/* have to bring filter server. but where is filter api at cilent? */}
+
+
+
   useEffect(()=>{
     getMovieList()
   },[]);
   return (
     <div>
-      <div className='flex justify-end'>
+      <div className='flex justify-between'>
+
+
+      {/* check box ui */}
+      <CheckBox list={continents}/>
       {/*Search movie */}
       <input 
       type="text"
@@ -62,7 +73,10 @@ function SecondHome() {
           </div>
         </Col>
         ))}
-      </Row>
+        <div>
+        </div>
+      </Row> 
+
     </div>
   )
 }
