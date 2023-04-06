@@ -4,7 +4,7 @@ import Button from "../../Button";
 import { Link, useNavigate } from "react-router-dom";
 import { LoginUser } from "../../../action/users"
 
-function Login({isLoggedIn, handleLogin}) {
+function Login({isLoggedIn, handleLogin, handleIdentify}) {
   const navigate = useNavigate();
   const onFinish = async (values) => {
     try {
@@ -12,6 +12,7 @@ function Login({isLoggedIn, handleLogin}) {
       if (response.success) {
         message.success(response.message);
         handleLogin();
+        handleIdentify(values.email);
       } else {
         message.error(response.message)
       }

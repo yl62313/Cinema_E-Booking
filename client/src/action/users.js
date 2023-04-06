@@ -38,9 +38,9 @@ export const CurrentUser = async () => {
 }
 
 {/* i don't know this endpoint right,,, check pls /api/users/ */}
-export const BringProfileList = async() => {
+export const BringProfileList = async(email) => {
     try {
-        const response = await axiosInstance.get("/api/users/");
+        const response = await axiosInstance.get(`/api/users/get-profile-by-email/${email}`);
         return response.data;
     } catch (error){
         return error.response;
@@ -48,7 +48,7 @@ export const BringProfileList = async() => {
 }
 
 
-export const editProfile = async () => {
+export const EditProfile = async (payload) => {
     try {
         const response = await axiosInstance.patch("/api/users/");
         return response.data;

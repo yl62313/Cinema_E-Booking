@@ -3,7 +3,8 @@ import {Tabs} from 'antd'
 import ProfileList from './ManageUser/ProfileList'
 
 
-function Profile() {
+function Profile({userEmail}) {
+  console.log(userEmail);
   return (
     <div>
         <h1 className='text-2xl'> Profile </h1>
@@ -14,7 +15,7 @@ function Profile() {
                 Booking
             </Tabs.TabPane>
             <Tabs.TabPane tab="Edit Profile" key="2">
-                <ProfileList/>
+                <ProfileList userEmail={userEmail}/>
             </Tabs.TabPane>
         </Tabs>
 

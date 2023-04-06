@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { SearchOutlined } from '@ant-design/icons'
 import {useNavigate} from "react-router-dom"
 import { Row,Col,Select } from "antd";
 import { message } from 'antd';
@@ -73,7 +74,8 @@ function SecondHome() {
   
   return (
     <div>
-      <div className="flex justify-end">
+      <div className="flex justify-end gap-1">
+        <div>
         <Select
           defaultValue="Title"
           style={{ width: 120 }}
@@ -84,6 +86,8 @@ function SecondHome() {
           <Option value="Rating">Rating</Option>
         </Select>
         {/* Search movie */}
+        </div>
+        <div>
         <input
           type="text"
           className="searchbar"
@@ -91,7 +95,8 @@ function SecondHome() {
           value={searchMovie}
           onChange={(e) => setSearchMovie(e.target.value)}
         />
-        <button onClick={handleSearch}>Search</button>
+        <button className='searchIcon cursor-pointer' onClick={handleSearch}><SearchOutlined /></button>
+        </div>
       </div>
   
       {errorMsg && (
@@ -113,7 +118,7 @@ function SecondHome() {
             >
               <img src={movie.poster} alt="" height={200} />
               <div className="flex justify-center gap-1 p-2">
-                <h1 className="text-md uppercase">{movie.title}</h1>
+              <h1 className="text-sm uppercase">{movie.title}</h1>
               </div>
             </div>
           </Col>

@@ -27,6 +27,7 @@ import {useState} from "react"
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userEmail, setUserEmail] = useState("A");
 
   function handleLogin() {
     setIsLoggedIn(true);
@@ -34,6 +35,10 @@ function App() {
 
   function handleLogout() {
     setIsLoggedIn(false);
+  }
+
+  function handleIdentify(email) {
+    setUserEmail(email);
   }
 
   return (
@@ -45,7 +50,7 @@ function App() {
               <Route path="/" element={<Home isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>}/>
               <Route path="/movie/:movieId" element={<DBMovieDetail/>}/>
               <Route path="/movies/:id" element={<MoviePage isLoggedIn={isLoggedIn}/>}/>
-              <Route path="/login" element={<Login isLoggedIn={isLoggedIn} handleLogin={handleLogin}/>}/>
+              <Route path="/login" element={<Login isLoggedIn={isLoggedIn} handleLogin={handleLogin} handleIdentify={handleIdentify}/>}/>
               <Route path="/forgotPassword" element={<ForgotPassword/>}/>
               <Route path="/resetPassword" element={<ResetPassword/>}/>
               <Route path="/register" element={<Register/>}/>
@@ -53,7 +58,7 @@ function App() {
               <Route path="/Auth" element={<Auth/>}/>
               <Route path="/Admin" element={<Admin/>}/>
               <Route path="adminlogin" element={<AdminLogin/>}/>
-              <Route path="/Profile" element={<Profile/>}/>
+              <Route path="/Profile" element={<Profile userEmail={userEmail} />}/>
               <Route path="/movies/selectTime/:id" element={<SelectTime/>}/>
               <Route path="/movies/seat/:id" element={<SelectSeatPage/>}/>
               <Route path="/movie/seat/checkout" element={<CheckoutPage/>}/>

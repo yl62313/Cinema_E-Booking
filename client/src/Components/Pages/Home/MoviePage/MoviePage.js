@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useNavigate, useParams } from "react-router-dom"
-import { Row, Col, Descriptions, Table, message, Modal } from "antd";
+import { Descriptions, Table, message } from "antd";
 import { useDispatch } from 'react-redux';
 import { HideLoading, ShowLoading } from '../../../../reducers/loader_reducer';
 import { BringMovieById } from '../../../../action/movies';
 import moment from "moment";
 import MovieIcon from '../../../../samplePicture/pngegg.png'
-import { AddShow, DeleteShow, GetAllShows } from '../../../../action/movies';
+import { GetAllShows } from '../../../../action/movies';
 import Button from '../../../Button';
-import { DeleteOutlined } from '@ant-design/icons'
 
 function MoviePage({isLoggedIn}) {
   const tempDate = new URLSearchParams(window.location.search).get("date");
@@ -91,10 +90,11 @@ function MoviePage({isLoggedIn}) {
       <div className='flex justify-between'>
         <div>
 
-          <h1 className='text-2xl cursor-pointer uppercase' onClick={() => { navigate("/") }}>
-            <img src={MovieIcon} alt="" height={25} /> Title : {movie.title}
+        <h1 className='movieLetter cursor-pointer uppercase' onClick={() => { navigate("/") }}>
+            <img src={MovieIcon} alt="" height={30} /> Title : {movie.title}
           </h1>
         </div>
+        <br/>
 
       </div>
       <div className='mt-3 mb-3'>
@@ -105,7 +105,7 @@ function MoviePage({isLoggedIn}) {
           <Descriptions.Item label="DIRECTOR"> {movie.director}</Descriptions.Item>
           <Descriptions.Item label="PRODUCER" span={2}> {movie.producer}</Descriptions.Item>
           <Descriptions.Item label="SYNOPSIS"> {movie.synopsis}</Descriptions.Item>
-          <Descriptions.Item label="REVIEW" span={2}>{movie.review} </Descriptions.Item>
+          <Descriptions.Item label="REVIEWS" span={2}>{movie.review} </Descriptions.Item>
           <Descriptions.Item label="POSTER" span={2}><img src={movie.poster} alt="" width={200} height={250} /> </Descriptions.Item>
           <Descriptions.Item label="TRAILER" span={2}>
             <iframe width="300" height="250" src={`https://www.youtube.com/embed/${movie.trailer}`} frameborder="0" />

@@ -207,26 +207,48 @@ router.get("current-user", auth, async (req, res) => {
 })
 
 
-{/* pls write backend of bring edit profile list */ }
-router.get('/BringProfileList/:id', async (req, res) => {
+router.get('/get-profile-by-email/:email', async (req, res) => {
+  try {
+    const user = await User.findOne({email: req.params.email});
+    res.send({
+      success: true,
+      message: "User fetched",
+      data: user,
+    })
+  } catch (error) {
+    res.send({
+      success: false,
+      message: error.message,
+    });
+  }
 });
 
 
 
 
-router.patch("/editProfile/:id", async (req, res) => {
+router.patch("/editProfile/:email", async (req, res) => {
   let user;
-  const userID = req.params.id;
+  const userEmail = req.params.email;
 
   try {
-    user = await User.findById(userID);
+    user = await User.findById(userEmail);
   } catch (error) {
     console.log(error.message);
     return res.status(500).json({ message: "Something went wrong." });
   }
 
   if (!user) {
-    return res.status(404).json({ message: "User not found" })
+    return res.send({
+      success: false,
+      message: "User not found"
+    })
+  }
+
+  if (newPassword == null || confirmPassword == null) {
+    return res.send({
+      success: false,
+      message: "Please enter both fields"
+    });
   }
 
   user.firstName = req.body.firstName;

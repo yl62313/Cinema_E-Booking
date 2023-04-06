@@ -33,34 +33,34 @@ function Home({isLoggedIn, handleLogout}) {
       <div className='layout p-1'>
         <div className='header flex justify-between'>
           <div>
-            <h1 className='text-2xl'>
-              <img src={MovieIcon} alt="" height={25} />
+          <h1 className='movieLetter'>
+              <img src={MovieIcon} alt="" height={30} />
               {"MOVIE"}
             </h1>
           </div>
           <div className='header flex justify-between gap-1'>
             {!isLoggedIn ? (
               <>
-                <div className='bg-white br-1 p-1 flex'>
-                  <h1 className='text-sm cursor-pointer' onClick={() => { navigate("/register") }}>
+                <div className='bg-white br-1 p-1 pr-3 flex'>
+                  <h1 className='registerLetter cursor-pointer' onClick={() => { navigate("/register") }}>
                     {"Register"}
                   </h1>
                 </div>
-                <div className='bg-white br-1 p-1 flex'>
-                  <h1 className='text-sm cursor-pointer' onClick={() => { navigate("/login") }}>
+                <div className='bg-white br-1 p-1 pr-3 flex'>
+                  <h1 className=' loginLetter cursor-pointer' onClick={() => { navigate("/login") }}>
                     {"Login"}
                   </h1>
                 </div>
               </>
             ) : (
               <>
-                <div className='bg-white br-1 p-1 flex'>
-                  <h1 className='text-sm cursor-pointer' onClick={() => { navigate("/Profile") }}>
+                <div className='bg-white br-1 p-1 pr-3 flex'>
+                  <h1 className='loginLetter cursor-pointer' onClick={() => { navigate("/Profile") }}>
                     {"Profile"}
                   </h1>
                 </div>
-                <div className='bg-white br-1 p-1 flex'>
-                  <h1 className='text-sm cursor-pointer' onClick={logout}>
+                <div className='bg-white br-1 p-1 pr-3 flex'>
+                  <h1 className='loginLetter cursor-pointer' onClick={logout}>
                     {"Logout"}
                   </h1>
                 </div>
@@ -77,12 +77,16 @@ function Home({isLoggedIn, handleLogout}) {
         />
       }
       <div style={{ width: '85%', margin: '1rem auto' }}>
-        <h2>now showing</h2>
+      <br/>
+      <br/>
+        <h2 className='aletterLetter uppercase'>now showing</h2>
         <SecondHome />
       </div>
+      <br/>
+      <br/>
       <div style={{ width: '85%', margin: '1rem auto' }}>
-        <h2>comming soon</h2>
-        <hr />
+      <h2 className='letterLetter uppercase'>comming soon</h2>
+        <br/>
 
         {/* movie grid card */}
 

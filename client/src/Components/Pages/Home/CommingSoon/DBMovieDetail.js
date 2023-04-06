@@ -27,13 +27,13 @@ return (
             <div className='layout p-1'>
       <div className='header flex justify-between'>
         <div>
-          <h1 className='text-2xl cursor-pointer' onClick={()=>{navigate("/")}}>
-          <img src={MovieIcon} alt="" height={25}/>
+        <h1 className='movieLetter cursor-pointer' onClick={()=>{navigate("/")}}>
+          <img src={MovieIcon} alt="" height={30}/>
            {"MOVIE"}
          </h1>
         </div>
-          <div className='bg-white br-1 p-1 flex'>
-            <h1 className='text-sm cursor-pointer' onClick={()=>{navigate("/register")}}>
+        <div className='bg-white br-1 p-1 pr-3 flex'>
+            <h1 className='registerLetter cursor-pointer' onClick={()=>{navigate("/register")}}>
               {"Register"}
             </h1>
           </div>
@@ -48,6 +48,8 @@ return (
         
 
         {/*Body*/}
+        <br/>
+        <br/>
         <div style={{width:'85%', margin:'1rem auto'}}>
             <MovieInfo
                 movie={Movie}
