@@ -78,68 +78,76 @@ router.get("/get-movie-by-id/:id", async (req, res) => {
         message: error.message,
       });
     }
-  });
-
-//search and filter 
+})
 router.get("/", async(req,res) => {
     try {
-        //const page = parseInt(req.query.page) - 1 || 0;
-        //const limit = parseInt(req.query.limit) || 5;
-        const search = req.query.search || "";
-        let filter = req.query.filter || "rating";
-        let genre = req.query.genre || "Comedy";
-        
-        //pull genre from the database 
-        const movie = await Movie.find({ genre: { $regex: req.query.genre, $options: "i" } });
-        const genreOptions = [...new Set(movie.map(m => m.genre))]; 
-
-        
-
-        //if query is within the genre options
-        if (genreOptions.includes(req.query.genre)) {
-            genre = [req.query.genre];
-          } else {
-            genre = req.query.genre.split(","); //split into comma seperated array 
-          }
-          //check if filter query parameter is given 
-          if (req.query.filter) {
-            filter = req.query.filter.split(",");
-          } else {
-            filter = [filter];
-          }
-
-          //user defines how movies will be sorted
-          let filterBy = {};
-        if (filter[1]) {
-            filterBy[filter[0]] = filter[1];
-        } else {
-            filterBy[filter[0]] = "ascending";
-        }
-        const movies = await Movie.find({ title: { $regex: search, $options: "i" } })
-        .where("genre")
-        .in([...genre])
-        .sort(filterBy)
-       // .skip(page * limit)
-       // .limit(limit);
-
-    const total = await Movie.countDocuments({
-        genre: { $in: [...genre] },
+      const search = req.query.title || "";
+      const filter = req.query.filter || "";
+      const genre = req.query.genre || "";
+      const rating = req.query.rating || "";
+  
+      // Find all genres in the database
+      const genres = await Movie.distinct("genre");
+      const ratings = await Movie.distinct("rating");
+  
+      // Find movies matching the specified search term, genre, title, and rating
+      const movies = await Movie.find({
         title: { $regex: search, $options: "i" },
-    });
-
-    const response = {
+        genre: { $regex: genre, $options: "i" },
+        rating: { $regex: rating, $options: "i" }
+      }).sort(filter);
+  
+      // Get the count of movies matching the specified search term, genre, title, and rating
+      const total = await Movie.countDocuments({
+        title: { $regex: search, $options: "i" },
+        genre: { $regex: genre, $options: "i" },
+        rating: { $regex: rating, $options: "i" }
+      });
+  
+      const response = {
         error: false,
         total,
-       // page: page + 1,
-       // limit, 
-       genres: genreOptions,
-       movies: movies.map(movie => movie.title),
-    };
-        res.status(200).json(response);
+        movies,
+      };
+      res.status(200).json(response);
     } catch (err) {
-        console.log(err);
-        res.status(500).json({error:false, message: "Error"});    
-    } 
-}); 
+      console.log(err);
+      res.status(500).json({ error: true, message: "Error" });
+    }
+});
+router.post("/", async(req,res) => {
+    try {
+      const search = req.body.title || "";
+      const filter = req.body.filter || "";
+      const genre = req.body.genre || "";
+      const rating = req.body.rating || "";
+  
+      // Find movies matching the specified search term, genre, title, and rating
+      const movies = await Movie.find({
+        title: { $regex: search, $options: "i" },
+        genre: { $regex: genre, $options: "i" },
+        rating: { $regex: rating, $options: "i" }
+      }).sort(filter);
+  
+      // Get the count of movies matching the specified search term, genre, title, and rating
+      const total = await Movie.countDocuments({
+        title: { $regex: search, $options: "i" },
+        genre: { $regex: genre, $options: "i" },
+        rating: { $regex: rating, $options: "i" }
+      });
+  
+      const response = {
+        error: false,
+        total,
+        movies,
+      };
+      res.status(200).json(response);
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({ error: true, message: "Error" });
+    }
+  });
+  
 
 module.exports = router;
+
