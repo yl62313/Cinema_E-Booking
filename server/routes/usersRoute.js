@@ -87,22 +87,22 @@ router.post("/register", async (req, res) => {
 
 router.post("/Auth", async (req, res) => {
   const user = await User.findOne({ email: req.body.email, confirmationCode: req.body.code });
-if (user) {
-  // Update the user's userStatus to "ACTIVE"
-  user.userStatus = "ACTIVE";
-  await user.save();
-  
-  res.status(200).json({
-    success: true,
-    message: 'User verified',
-    user: user
-  });
-} else {
-  return res.send({
-    success: false,
-    message: "invalid email or code",
-  });
-}
+  if (user) {
+    // Update the user's userStatus to "ACTIVE"
+    user.userStatus = "ACTIVE";
+    await user.save();
+
+    res.status(200).json({
+      success: true,
+      message: 'User verified',
+      user: user
+    });
+  } else {
+    return res.send({
+      success: false,
+      message: "invalid email or code",
+    });
+  }
 
 });
 
@@ -133,11 +133,13 @@ router.post("/login", async (req, res) => {
     }
 
     if (user.userStatus == "INACTIVE") {
-      return res.status(401).json({
+      return res.send({
+        success: false,
         message: "Account is inactive."
       })
     } else if (user.userStatus == "SUSPENDED") {
-      return res.status(401).json({
+      return res.send({
+        success: false,
         message: "Account is suspended."
       })
     } else {
@@ -205,8 +207,8 @@ router.get("current-user", auth, async (req, res) => {
 })
 
 
-{/* pls write backend of bring edit profile list */}
-router.get('/BringProfileList/:id',async(req,res)=> {
+{/* pls write backend of bring edit profile list */ }
+router.get('/BringProfileList/:id', async (req, res) => {
 });
 
 
@@ -316,19 +318,21 @@ router.patch("/resetPassword/:email", async (req, res, next) => {
   }
 
   if (!user) {
-    const error = new HttpError(
-      'Could not find user.',
-      404
-    );
-    return next(error);
+    return res.send({
+      success: false, 
+      message: "User not found"
+    })
   }
 
   if (newPassword == null || confirmPassword == null) {
-    return res.status(401).json({ message: "Please enter both fields" });
+    return res.send({
+      success: false,
+      message: "Please enter both fields" });
   }
 
   if (newPassword != confirmPassword) {
-    return res.status(401).json({
+    return res.send({
+      success: false,
       message: "Passwords do not match"
     });
   }
@@ -352,7 +356,7 @@ router.post("/adminLogin", async (req, res) => {
   let admin;
 
   try {
-    admin = await User.findOne({_id: req.body.id});
+    admin = await User.findOne({ _id: req.body.id });
   } catch (error) {
     res.send({
       success: false,
@@ -361,7 +365,10 @@ router.post("/adminLogin", async (req, res) => {
   }
 
   if (!admin) {
- return res.status(404).json({message: "Admin does not exist"})
+    return res.send({
+      success: false,
+      message: "Admin does not exist",
+    })
   }
 
   const validPassword = await bcrypt.compare(
@@ -370,14 +377,17 @@ router.post("/adminLogin", async (req, res) => {
   );
 
   if (!validPassword) {
-    return res.send({
+     return res.send({
       success: false,
       message: "Invalid password",
     });
   }
 
   if (admin.isAdmin == false) {
-    return res.status(401).json({ message: "You are not an admin" });
+    return res.send({
+      success: false,
+      message: "You are not an admin"
+    });
   } else {
     const token = jwt.sign({ adminId: admin._id }, '$process.env.jwt_secret', {
       expiresIn: "5h",

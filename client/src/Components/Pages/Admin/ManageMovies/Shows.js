@@ -70,10 +70,6 @@ function Shows({ openShowsModal, setOpenShowsModal, movie }) {
 
     const columns = [
         {
-          title: "Show Name",
-          dataIndex: "name",
-        },
-        {
           title: "Date",
           dataIndex: "date",
           render: (text, record) => {
@@ -85,23 +81,8 @@ function Shows({ openShowsModal, setOpenShowsModal, movie }) {
           dataIndex: "time",
         },
         {
-          title: "Ticket Price(A)",
-          dataIndex: "aticketPrice",
-        },
-        {
-          title: "Ticket Price(C)",
-          dataIndex: "cticketPrice",
-        },
-        {
           title: "Total Seats",
           dataIndex: "totalSeats",
-        },
-        {
-          title: "Available Seats",
-          dataIndex: "availableSeats",
-          render: (text, record) => {
-            return record.totalSeats - record.bookedSeats.length;
-          },
         },
         {
           title: "Action",
@@ -109,14 +90,12 @@ function Shows({ openShowsModal, setOpenShowsModal, movie }) {
           render: (text, record) => {
             return (
               <div className="flex gap-1 items-center">
-                {record.bookedSeats.length === 0 && (
                   <i>
                     <DeleteOutlined 
                     onClick={()=> {
                       getDelete(record._id);
                       }}/>
                   </i>
-                )}
               </div>
             );
           },
@@ -160,15 +139,6 @@ function Shows({ openShowsModal, setOpenShowsModal, movie }) {
         <Row gutter={[16, 16]}>
             <Col span={8}>
               <Form.Item
-                label="Show Name"
-                name="name"
-                rules={[{ required: true, message: "Please input show name!" }]}
-              >
-                <input />
-              </Form.Item>
-            </Col>
-            <Col span={8}>
-              <Form.Item
                 label="Date"
                 name="date"
                 rules={[{ required: true, message: "Please input show date!" }]}
@@ -189,29 +159,6 @@ function Shows({ openShowsModal, setOpenShowsModal, movie }) {
                 <input type="time" />
               </Form.Item>
             </Col>
-            <Col span={6}>
-              <Form.Item
-                label="Adult Ticket Price"
-                name="aticketPrice"
-                rules={[
-                  { required: true, message: "Please input ticket price!" },
-                ]}
-              >
-                <input type="number" />
-              </Form.Item>
-            </Col>
-            <Col span={6}>
-              <Form.Item
-                label="Child Ticket Price"
-                name="cticketPrice"
-                rules={[
-                  { required: true, message: "Please input ticket price!" },
-                ]}
-              >
-                <input type="number" />
-              </Form.Item>
-            </Col>
-
             <Col span={12}>
               <Form.Item
                 label="Total Seats"
