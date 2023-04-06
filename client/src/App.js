@@ -44,7 +44,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Home isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>}/>
               <Route path="/movie/:movieId" element={<DBMovieDetail/>}/>
-              <Route path="/movies/:id" element={<MoviePage/>}/>
+              <Route path="/movies/:id" element={<MoviePage isLoggedIn={isLoggedIn}/>}/>
               <Route path="/login" element={<Login isLoggedIn={isLoggedIn} handleLogin={handleLogin}/>}/>
               <Route path="/forgotPassword" element={<ForgotPassword/>}/>
               <Route path="/resetPassword" element={<ResetPassword/>}/>
