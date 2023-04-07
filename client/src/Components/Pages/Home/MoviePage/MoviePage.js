@@ -110,7 +110,7 @@ function MoviePage({isLoggedIn}) {
           <Descriptions.Item label="TRAILER" span={2}>
             <iframe width="300" height="250" src={`https://www.youtube.com/embed/${movie.trailer}`} frameborder="0" />
           </Descriptions.Item>
-          <Descriptions.Item label="MPAA-US film rating code"> {movie.director}</Descriptions.Item>
+          <Descriptions.Item label="MPAA-US film rating code"> {movie.rating}</Descriptions.Item>
         </Descriptions>
       </div>
 
