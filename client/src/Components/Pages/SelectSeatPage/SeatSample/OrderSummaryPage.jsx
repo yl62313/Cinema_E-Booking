@@ -1,12 +1,78 @@
 import React from 'react';
 
+import { useState } from 'react';
+import {useNavigate} from "react-router-dom";
+import Button from '../../../Button';
+
 import './OrderSummaryPage.css';
 
-const OrderSummaryPage = ({childTickets,adultickets, seniorTickets, childPrice, adultPrice, seniorPrice, totalPrice}) => {
+const OrderSummaryPage = () => {
+ 
+  const navigate = useNavigate()
+
+const [childTickets, setChildTickets] = useState(0);
+var [childPrice, setChildPrice] = useState(0.00);
+const [adultTickets, setAdultTickets] = useState(0);
+var [adultPrice, setAdultPrice] = useState(0.00);
+const [seniorTickets, setSeniorTickets] = useState(0);
+var [seniorPrice, setSeniorPrice] = useState(0.00);
+// var [totalPrice, setTotalPrice] = useState(0.00);
+
+const incrementChildTickets = () => {
+    setChildTickets(childTickets+1);
+    setChildPrice(currencyFormat((childTickets+1)*2));
+    // setTotalPrice();
+    // setTotalPrice(currencyFormat(totalPrice+childPrice));
+}
+
+const decrementChildTickets = () => {
+  setChildTickets(childTickets-1);
+  setChildPrice(currencyFormat((childTickets-1)*2));
+  // setTotalPrice();
+  // setTotalPrice(currencyFormat(totalPrice-childPrice));
+}
+
+const incrementAdultTickets = () => {
+  setAdultTickets(adultTickets+1);
+  setAdultPrice(currencyFormat((adultTickets+1)*6));
+  // setTotalPrice();
+//  setTotalPrice(currencyFormat(totalPrice+adultPrice));
+}
+
+const decrementAdultTickets = () => {
+setAdultTickets(adultTickets-1);
+setAdultPrice(currencyFormat((adultTickets-1)*6));
+// setTotalPrice();
+// setTotalPrice(currencyFormat(totalPrice-adultPrice));
+}
+
+const incrementSeniorTickets = () => {
+  setSeniorTickets(seniorTickets+1);
+  setSeniorPrice(currencyFormat((seniorTickets+1)*4));
+  // setTotalPrice();
+  // setTotalPrice(currencyFormat(totalPrice+seniorPrice));
+}
+
+const decrementSeniorTickets = () => {
+setSeniorTickets(seniorTickets-1);
+setSeniorPrice(currencyFormat((seniorTickets-1)*4));
+// setTotalPrice();
+// setTotalPrice(currencyFormat(totalPrice-seniorPrice));
+}
+
+// function setTotalPrice() {
+//   totalPrice = childPrice + adultPrice + seniorPrice;
+//  return currencyFormat(totalPrice);
+// }
+
+function currencyFormat(num) {
+  return '$' + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+}
+
   return (
     <div>
-      <h1>Ticket Details</h1>
-      
+      <h1>Order Summary</h1>
+      <h2>Ticket Details</h2>
 
       <div className ="summaryContainer">
       <div className="ticket-type-col">
@@ -20,21 +86,21 @@ const OrderSummaryPage = ({childTickets,adultickets, seniorTickets, childPrice, 
           <h3>Quantity:</h3>
 
           <div className="quantity-button">
-          <button>-</button>
+          <button onClick={decrementChildTickets}>-</button>
           <div>{childTickets || '0'}</div>
-          <button>+</button>
+          <button onClick={incrementChildTickets}>+</button>
           </div>
 
         <div className="quantity-button">
-          <button>-</button>
-          <div>{adultickets || '0'}</div>
-          <button>+</button>
+          <button onClick={decrementAdultTickets}>-</button>
+          <div>{adultTickets || '0'}</div>
+          <button onClick={incrementAdultTickets}>+</button>
           </div>
 
            <div className="quantity-button">
-          <button>-</button>
+          <button onClick={decrementSeniorTickets}>-</button>
           <div>{seniorTickets || '0'}</div>
-          <button>+</button>
+          <button onClick={incrementSeniorTickets}>+</button>
           </div>
 
         </div>  
@@ -46,8 +112,11 @@ const OrderSummaryPage = ({childTickets,adultickets, seniorTickets, childPrice, 
           <div>{seniorPrice || '$0.00'}</div>
         </div>
 
-        <h3>order total: {totalPrice || '$0.00'}</h3>
+        {/* <h3>order subtotal: {totalPrice || '$0.00'}</h3> */}
         </div>
+
+      
+
     </div>
   )
 }

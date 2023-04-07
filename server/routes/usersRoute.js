@@ -4,6 +4,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const auth = require("../middleware/auth")
 var nodeoutlook = require('nodejs-nodemailer-outlook')
+const nodemailer = require('nodemailer');
 
 router.post("/register", async (req, res) => {
   try {
@@ -72,8 +73,34 @@ router.post("/register", async (req, res) => {
       text: 'This is text version!',
       onError: (e) => console.log(e),
       onSuccess: (i) => console.log(i)
-    },
-    );
+    });
+
+    // // create reusable transporter object using SMTP transport
+    // const transporter = nodemailer.createTransport({
+    //   service: 'outlook', // replace with your email service provider
+    //   auth: {
+    //     user: 'teamaa1@outlook.com',
+    //     pass: 'teamteama1'
+    //   }
+    // });
+
+    // // setup email data with unicode symbols
+    // let mailOptions = {
+    //   from: 'teamaa1@outlook.com', // sender address
+    //   to: req.body.email, // list of receivers
+    //   subject: 'Verification Email', // Subject line
+    //   html: `<p>Thank you for registering with us. Before you can proceed, please enter the given verification code: </p> ${code} <p><a href=http://localhost:3000/Auth> Click here to verify</a></p>`, // html body
+    //   text: 'This is text version!', // plain text body
+    // };
+
+    // // send mail with defined transport object
+    // transporter.sendMail(mailOptions, (error, info) => {
+    //   if (error) {
+    //     console.log(error);
+    //   } else {
+    //     console.log('Email sent: ' + info.response);
+    //   }
+    // });
 
 
 
@@ -209,7 +236,7 @@ router.get("current-user", auth, async (req, res) => {
 
 router.get('/get-profile-by-email/:email', async (req, res) => {
   try {
-    const user = await User.findOne({email: req.params.email});
+    const user = await User.findOne({ email: req.params.email });
     res.send({
       success: true,
       message: "User fetched",
@@ -341,7 +368,7 @@ router.patch("/resetPassword/:email", async (req, res, next) => {
 
   if (!user) {
     return res.send({
-      success: false, 
+      success: false,
       message: "User not found"
     })
   }
@@ -349,7 +376,8 @@ router.patch("/resetPassword/:email", async (req, res, next) => {
   if (newPassword == null || confirmPassword == null) {
     return res.send({
       success: false,
-      message: "Please enter both fields" });
+      message: "Please enter both fields"
+    });
   }
 
   if (newPassword != confirmPassword) {
@@ -399,7 +427,7 @@ router.post("/adminLogin", async (req, res) => {
   );
 
   if (!validPassword) {
-     return res.send({
+    return res.send({
       success: false,
       message: "Invalid password",
     });

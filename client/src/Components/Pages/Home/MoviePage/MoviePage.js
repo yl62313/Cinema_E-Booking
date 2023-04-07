@@ -105,7 +105,7 @@ function MoviePage({isLoggedIn}) {
           <Descriptions.Item label="DIRECTOR"> {movie.director}</Descriptions.Item>
           <Descriptions.Item label="PRODUCER" span={2}> {movie.producer}</Descriptions.Item>
           <Descriptions.Item label="SYNOPSIS"> {movie.synopsis}</Descriptions.Item>
-          <Descriptions.Item label="REVIEWS" span={2}>{movie.review} </Descriptions.Item>
+          <Descriptions.Item label="REVIEWS" span={2}>{movie.reviews} </Descriptions.Item>
           <Descriptions.Item label="POSTER" span={2}><img src={movie.poster} alt="" width={200} height={250} /> </Descriptions.Item>
           <Descriptions.Item label="TRAILER" span={2}>
             <iframe width="300" height="250" src={`https://www.youtube.com/embed/${movie.trailer}`} frameborder="0" />

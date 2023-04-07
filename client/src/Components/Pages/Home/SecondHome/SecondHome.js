@@ -42,6 +42,17 @@ function SecondHome() {
     event.preventDefault();
     try {
       dispatch(ShowLoading());
+  
+      // Check if the selected filter is "rating" and if the user input matches the allowed values
+      if (selectedFilter.toLowerCase() === "rating") {
+        const validRatings = ["pg", "pg-13", "r", "g"];
+        if (!validRatings.includes(searchMovie.toLowerCase())) {
+          setErrorMsg("Invalid rating. Please enter a valid rating (PG, PG-13, R, or G).");
+          setMovies([]);
+          return;
+        }
+      }
+  
       const searchParams = {
         filter: selectedFilter.toLowerCase(),
         [selectedFilter.toLowerCase()]: searchMovie,
@@ -53,12 +64,32 @@ function SecondHome() {
         setErrorMsg(response.data.message);
         setMovies([]);
       } else {
-        if (response.data.movies.length === 0) {
+        const filteredMovies = response.data.movies.filter((movie) => {
+          // Check if the movie rating matches the user input
+          if (selectedFilter.toLowerCase() === "rating") {
+            const movieRating = movie.rating.toLowerCase();
+            const searchRating = searchMovie.toLowerCase();
+            if (searchRating === "pg" && movieRating === "pg") {
+              return true;
+            } else if (searchRating === "pg-13" && movieRating === "pg-13") {
+              return true;
+            } else if (searchRating === "r" && movieRating === "r") {
+              return true;
+            } else if (searchRating === "g" && movieRating === "g") {
+              return true;
+            } else {
+              return false;
+            }
+          }
+          return true;
+        });
+  
+        if (filteredMovies.length === 0) {
           setErrorMsg("No Search Results Found");
           setMovies([]);
         } else {
           setErrorMsg("");
-          setMovies(response.data.movies);
+          setMovies(filteredMovies);
         }
       }
       dispatch(HideLoading());
@@ -67,6 +98,8 @@ function SecondHome() {
       message.error(error.message);
     }
   };
+  
+  
   
   useEffect(() => {
     getMovieList();
@@ -118,7 +151,7 @@ function SecondHome() {
             >
               <img src={movie.poster} alt="" height={200} />
               <div className="flex justify-center gap-1 p-2">
-              <h1 className="text-sm uppercase">{movie.title}</h1>
+                <h1 className="text-sm uppercase">{movie.title}</h1>
               </div>
             </div>
           </Col>

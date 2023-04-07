@@ -4,14 +4,15 @@ import Button from "../../Button";
 import { Link, useNavigate } from "react-router-dom";
 import { AdminLoginUser } from "../../../action/users"
 
-function AdminLogin() {
+function AdminLogin({ isLoggedIn, handleLogin, handleIdentify }) {
     const navigate = useNavigate();
     const onFinish = async (values) => {
         try {
             const response = await AdminLoginUser(values);
             if (response.success) {
                 message.success(response.message);
-                navigate("/Admin");
+                handleLogin();
+                handleIdentify(values.email);
             } else {
                 message.error(response.message)
             }
@@ -19,6 +20,10 @@ function AdminLogin() {
             message.error(error.message);
         }
     };
+
+    if (isLoggedIn) {
+        navigate("/Admin");
+    }
 
     return (
         <div className="flex justify-center h-screen items-center bg-primary">

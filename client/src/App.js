@@ -56,8 +56,8 @@ function App() {
               <Route path="/register" element={<Register/>}/>
               <Route path="/register/thankyou" element={<RegisterConfirm/>}/>
               <Route path="/Auth" element={<Auth/>}/>
-              <Route path="/Admin" element={<Admin/>}/>
-              <Route path="adminlogin" element={<AdminLogin/>}/>
+              <Route path="/Admin" element={<Admin isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>}/>
+              <Route path="adminlogin" element={<AdminLogin isLoggedIn={isLoggedIn} handleLogin={handleLogin} handleIdentify={handleIdentify}/>}/>
               <Route path="/Profile" element={<Profile userEmail={userEmail} />}/>
               <Route path="/movies/selectTime/:id" element={<SelectTime/>}/>
               <Route path="/movies/seat/:id" element={<SelectSeatPage/>}/>
