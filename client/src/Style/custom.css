@@ -1,54 +1,87 @@
 .card {
-    background-color: white;
-    border: 1px solid #878181;
-  }
-  .icon {
-      width:80px;
-      margin-top: -50px;
-      border-radius: 50%;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-  }
+  background-color: white;
+  border: 1px solid #878181;
+}
+.cardc {
+  background-color: white;
+  border: 2px solid rgba(119, 140, 196, 0.373);
+}
+.icon {
+    width:80px;
+    margin-top: -50px;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+.screenIcon{
+  display: flex;
+  justify-content: center;
+  padding-top: 70px;
+}
 
-  .movieLetter{
-    font-family: Verdana;
-    font-size: xx-large;
-  }
+.movieLetter{
+  font-family: Verdana;
+  font-size: xx-large;
+}
+.movieTime{
+  font-family: Verdana;
+  font-size: xx-large;
+  color:rgb(213, 203, 109);
+}
 
-  .registerLetter{
-    font-family: sans-serif;
-    font-size: small;
-    color: cornflowerblue;
-  }
-  .loginLetter{
-    font-family: sans-serif;
-    font-size: small;
-  }
-  .searchIcon{
-    height: 35px;
-    border-radius: 7px;
-    width: 35px;
-    background-color:rgb(166, 198, 240);
-  }
+.registerLetter{
+  font-family: sans-serif;
+  font-size: small;
+  color: cornflowerblue;
+}
+.loginLetter{
+  font-family: sans-serif;
+  font-size: small;
+  color: #8b8a8a;
+  text-decoration: none;
+  font-weight: bold;
+}
 
-  .letterLetter{
-    font-family: sans-serif;
-    color:dimgray;
-  }
+.logoutLetter{
+  font-family: sans-serif;
+  font-size: small;
+  color: rgb(199, 45, 45);
+}
 
-  .aletterLetter{
-    font-family: sans-serif;
-  }
+.searchIcon{
+  height: 35px;
+  border-radius: 7px;
+  width: 35px;
+  background-color:rgb(166, 198, 240);
+}
+.letterLetter{
+  display: flex;
+  justify-content: center;
+  font-family: sans-serif;
+  color:dimgray;
+}
+.aletterLetter{
+  display: flex;
+  justify-content: center;
+  font-family: sans-serif;
+}
+.cletterLetter{
+  display: flex;
+  align-items: center;
+  font-family: sans-serif;
+  color:#67696b;
+  padding-bottom: 7px;
+  font-weight: bold;
+}
 
+.w-400 {
+  width: 400px;
+}
 
-  .w-400 {
-    width: 400px;
-  }
-  
-  .content {
+.content {
     min-height: 85vh;
     border: 1px solid #8b8a8a;
   }
-  
+
   .underline {
     text-decoration: underline;
     cursor: pointer;
@@ -91,32 +124,58 @@
     border-bottom: 1px solid #e1e1e1;
     margin: 10px 0;
   }
-  
-  /* seats */
-  
-  .seat {
+
+
+  .columnSeat{
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 60px;
+    gap: 10px;
+  }
+  .totalSeats {
+    font-family: sans-serif;
     height: 30px;
-    width: 50px;
+    width: 35px;
     display: flex;
     justify-content: center;
     align-items: center;
-    border : 1px solid #b1b1b1;
+    border : 1px solid #cfcfcf;
+    cursor: pointer;
+  }
+  .seatBackground{
+    display: flex;
+    justify-content: center;
+  }
+  
+  
+  .selectedSeats {
+    background-color: khaki;
+    font-family: sans-serif;
+    height: 30px;
+    width: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border : 1px solid #cfcfcf;
     cursor: pointer;
   }
   
-  
-  .selected-seat {
-    background-color: #416db5;
+  .selectedSeats h1 {
+    color: rgb(255, 255, 255) !important;
   }
   
-  .selected-seat h1 {
-    color: white !important;
-  }
-  
-  .booked-seat {
-    background-color: #8a8989ea;
+  .bookedSeats {
+    background-color: #585757ea;
     cursor: not-allowed;
     pointer-events: none;
+    font-family: sans-serif;
+    height: 30px;
+    width: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border : 1px solid #cfcfcf;
+    cursor: pointer;
   }
   
   /* loader  */
@@ -141,10 +200,6 @@
     animation: loader-anim 1s linear infinite;
   }
  
-
-
-  /* loader animation */
-  
   @keyframes loader-anim {
     0% {
       transform: rotate(0deg);
@@ -153,4 +208,52 @@
       transform: rotate(360deg);
     }
   }
-  
+
+  .admIn{
+    display: flex;
+    justify-content: end;
+    padding: 10px;
+  }
+  .addCart{
+    background-color:rgb(255, 255, 255);
+    border: 1px solid #c5c5c5;
+    padding: 15px;
+    border-radius: 5px;
+  }
+  .cancelCart{
+    background-color:rgb(224, 121, 121);
+    border: 1px solid #c5c5c5;
+    padding: 15px;
+    border-radius: 5px;
+  }
+  .cancelCart h1 {
+    color: rgb(255, 255, 255) !important;
+  }
+  .summaryContainer {
+    display: grid;
+    grid-template-columns: repeat(3, 150px) ;
+    column-gap: 20px;
+    grid-auto-flow: row;
+    border: 3px;
+    border-color: rgb(202, 202, 202);
+    border-radius: 8px;
+    padding: 10px 10px;
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: rgb(216, 216, 216);
+}
+
+.summaryH3{
+    font-family: sans-serif;
+    text-align: center;
+    
+}
+
+  .buttonPadding{
+    padding-left: 50px;
+}
+.quantity-button {
+    display: flex;
+    flex-direction: row;
+}

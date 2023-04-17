@@ -54,4 +54,20 @@ router.post("/add-show",async (req, res) => {
     }
   });
 
+  router.post("/get-show-by-id", async (req, res) => {
+    try {
+      const show = await Show.findById(req.body.showId).populate("movie")
+      res.send({
+        success: true,
+        message: "Show fetched successfully",
+        data: show,
+      });
+    } catch (error) {
+      res.send({
+        success: false,
+        message: error.message,
+      });
+    }
+  });
+
 module.exports = router;

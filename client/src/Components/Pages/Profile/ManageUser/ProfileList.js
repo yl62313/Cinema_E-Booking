@@ -55,13 +55,7 @@ function ProfileList(props) {
     {
       title: "Address",
       dataIndex: "address",
-      render: (text, record) => {
-        if (record.address) {
-          return record.address;
-        } else {
-          return "";
-        }
-      },
+
     },
     {
       title: "Action",

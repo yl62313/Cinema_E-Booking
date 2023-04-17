@@ -41,12 +41,12 @@ function Home({isLoggedIn, handleLogout}) {
           <div className='header flex justify-between gap-1'>
             {!isLoggedIn ? (
               <>
-                <div className='bg-white br-1 p-1 pr-3 flex'>
+                <div className='bg-white br-1 p-1 pr-1 flex'>
                   <h1 className='registerLetter cursor-pointer' onClick={() => { navigate("/register") }}>
                     {"Register"}
                   </h1>
                 </div>
-                <div className='bg-white br-1 p-1 pr-3 flex'>
+                <div className='bg-white br-1 p-1 pr-2 pl-2 flex'>
                   <h1 className=' loginLetter cursor-pointer' onClick={() => { navigate("/login") }}>
                     {"Login"}
                   </h1>
@@ -54,13 +54,13 @@ function Home({isLoggedIn, handleLogout}) {
               </>
             ) : (
               <>
-                <div className='bg-white br-1 p-1 pr-3 flex'>
+                <div className='bg-white br-1 p-1 pr-2 pl-2 flex'>
                   <h1 className='loginLetter cursor-pointer' onClick={() => { navigate("/Profile") }}>
                     {"Profile"}
                   </h1>
                 </div>
-                <div className='bg-white br-1 p-1 pr-3 flex'>
-                  <h1 className='loginLetter cursor-pointer' onClick={logout}>
+                <div className='bg-white br-1 p-1 pr-2 pl-2 flex'>
+                  <h1 className='logoutLetter cursor-pointer' onClick={logout}>
                     {"Logout"}
                   </h1>
                 </div>

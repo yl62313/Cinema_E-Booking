@@ -84,3 +84,32 @@ export const AdminLoginUser = async (payload) => {
         return error.response;
     }
 }
+
+export const BringUserList = async() => {
+    try {
+        const response = await axiosInstance.get("/api/users/bring-user");
+        return response.data;
+    } catch (error){
+        return error.response;
+    }
+}
+
+export const DeleteUser = async(payload)=> {
+    try {
+        const response = await axiosInstance.post("/api/users/delete-user", payload);
+        return response.data;
+    } catch (error) {
+        return error.response;
+    }
+  }
+  export const UpdateUser = async (payload) => {
+    try {
+      const response = await axiosInstance.post(
+        "/api/users/update-user",
+        payload
+      );
+      return response.data;
+    } catch (error) {
+      return error.response;
+    }
+  };

@@ -15,11 +15,10 @@ function Admin({ isLoggedIn, handleLogout }) {
     
     return (
         <div>
-            <div className='header flex justify-between gap-1'>
+            <div className='admIn'>
             {!isLoggedIn ? (
               <>
-                
-                <div className='bg-white br-1 p-1 pr-3 flex'>
+                <div className='bg-white br-1 p-1 pl-2 pr-2 flex'>
                   <h1 className=' loginLetter cursor-pointer' onClick={() => { navigate("/adminlogin") }}>
                     {"Login"}
                   </h1>
@@ -28,15 +27,16 @@ function Admin({ isLoggedIn, handleLogout }) {
             ) : (
               <>
                 
-                <div className='bg-white br-1 p-1 pr-3 flex'>
-                  <h1 className='loginLetter cursor-pointer' onClick={logout}>
+                <div className='bg-white br-1 p-1 pl-2 pr-2 flex'>
+                  <h1 className='logoutLetter cursor-pointer' onClick={logout}>
                     {"Logout"}
                   </h1>
                 </div>
               </>
             )}
           </div>
-            <h1 className='text-2xl'> Admin </h1>
+
+            <h1 className='text-2x flex justify-center'> Admin </h1>
             <br />
             {isLoggedIn && (
             <Tabs defaultActiveKey='1'>
