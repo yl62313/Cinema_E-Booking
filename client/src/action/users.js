@@ -48,9 +48,9 @@ export const BringProfileList = async(email) => {
 }
 
 
-export const EditProfile = async (payload) => {
+export const EditProfile = async (email, payload) => {
     try {
-        const response = await axiosInstance.patch("/api/users/");
+        const response = await axiosInstance.patch(`/api/users/${email}`, payload);
         return response.data;
     } catch (error) {
         return error.response;

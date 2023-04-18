@@ -96,7 +96,7 @@ function ProfileList(props) {
         setSelectedProfile={setSelectedProfile}
         formType={formType}
         setFormType={setFormType}
-
+        userEmail = {props.userEmail}
       />}
     </div>
   )
