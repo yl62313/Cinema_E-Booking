@@ -12,8 +12,6 @@ import { BringProfileList } from '../../../../action/users';
 
 
 function ProfileList(props) {
-  console.log("userrEmail:", props.userEmail);
-
   const [showProfileFormModel = false, setShowProfileFormModel] = useState(false);
   const [selectedProfile = null, setSelectedProfile] = useState(null);
   const [formType = "add", setFormType] = useState([]);
@@ -26,10 +24,17 @@ function ProfileList(props) {
       const response = await BringProfileList(props.userEmail);
       if (response.success) {
         const profileData = {
-          key: response.data._id,
-          fullName: `${response.data.firstName} ${response.data.lastName}`,
-          phoneNumber: response.data.phoneNumber,
-          address: `${response.data.street} ${response.data.city}, ${response.data.state} ${response.data.zipCode}`,
+          key: `${response.data._id}`,
+          firstName: `${response.data.firstName}`,
+          lastName: `${response.data.lastName}`,
+          phoneNumber: `${response.data.phoneNumber}`,
+          password: `${response.data.password}`,
+          street: `${response.data.address}`, 
+          city: `${response.data.city}`,
+          state: `${response.data.state}`,
+          zipCode: `${response.data.zipCode}`,
+          cardNumber: `${response.data.cardNumber}`,
+          EXP: `${response.data.EXP}`,
           action: "",
         };
         setProfile([profileData]);
@@ -46,7 +51,9 @@ function ProfileList(props) {
   const columns = [
     {
       title: "Name",
-      dataIndex: "fullName",
+      render: (text, record) => {
+        return `${record.firstName} ${record.lastName}`;
+      },
     },
     {
       title: "Phone Number",
@@ -55,7 +62,9 @@ function ProfileList(props) {
     {
       title: "Address",
       dataIndex: "address",
-
+      render: (text, record) => {
+        return `${record.street} ${record.city}, ${record.state} ${record.zipCode}`;
+      },
     },
     {
       title: "Action",
@@ -97,6 +106,7 @@ function ProfileList(props) {
         formType={formType}
         setFormType={setFormType}
         userEmail = {props.userEmail}
+        profile={profile}
       />}
     </div>
   )

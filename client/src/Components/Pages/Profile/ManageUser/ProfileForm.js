@@ -9,24 +9,23 @@ function ProfileForm({
   setShowProfileFormModel,
   setSelectedProfile,
   formType,
-  userEmail
+  userEmail,
+  profile
 }) {
 
-const onFinish = async (values) => {
-  try {
-    const response = await EditProfile(userEmail, values);
-    if (response.success) {
-      message.success(response.message);
-      
-    } else {
-      message.error(response.message);
+  const onFinish = async (values) => {
+    try {
+      const response = await EditProfile(userEmail, values);
+      if (response.success) {
+        message.success(response.message);
+
+      } else {
+        message.error(response.message);
+      }
+    } catch (error) {
+      message.error(error.message);
     }
-  } catch (error) {
-    message.error(error.message);
   }
-}
-
-
 
   return (
     <Modal
@@ -40,30 +39,43 @@ const onFinish = async (values) => {
     >
       <Form layout='vertical' onFinish={onFinish}>
         <Form.Item
-          label="Name"
-          name="name"
-          rules={[{ required: true, message: "Input your name" }]}
+          label="First Name"
+          name="firstName"
+          initialValue={profile[0].firstName}
+        >
+          <input type="text"></input>
+        </Form.Item>
+        <Form.Item
+          label="Last Name"
+          name="lastName"
+          initialValue={profile[0].lastName}
         >
           <input type="text"></input>
         </Form.Item>
         <Form.Item
           label="Phone Number"
-          name="Phone Number"
-          rules={[{ required: true, message: "Input your Phone Number" }]}
+          name="phoneNumber"
+          initialValue={profile[0].phoneNumber}
         >
-          <input type="text"></input>
+          <input type="text" defaultValue={profile.phoneNumber}></input>
         </Form.Item>
         <Form.Item
-          label="Password"
-          name="password"
-          rules={[{ required: true, message: "Enter your Password" }]}
+          label="Current Password"
+          name="oldPassword"
+          initialValue={profile[0].password}
+        >
+          <input type="password" />
+        </Form.Item>
+        <Form.Item
+          label="New Password"
+          name="newPassword"
         >
           <input type="password" />
         </Form.Item>
         <Form.Item
           label="Address"
           name="address"
-          rules={[{ required: false, message: "Enter your Address" }]}
+          initialValue={profile[0].street}
         >
           <input type="address" />
         </Form.Item>
@@ -72,7 +84,7 @@ const onFinish = async (values) => {
             <Form.Item
               label="City"
               name="city"
-              rules={[{ required: false, message: "Enter your City" }]}
+              initialValue={profile[0].city}
             >
               <input type="city" />
             </Form.Item>
@@ -81,7 +93,7 @@ const onFinish = async (values) => {
             <Form.Item
               label="State"
               name="state"
-              rules={[{ required: false, message: "Enter your State" }]}
+              initialValue={profile[0].state}
             >
               <input type="state" />
             </Form.Item>
@@ -90,7 +102,7 @@ const onFinish = async (values) => {
             <Form.Item
               label="Zip Code"
               name="zipCode"
-              rules={[{ required: false, message: "Enter your Zip Code" }]}
+              initialValue={profile[0].zipCode}
             >
               <input type="zip" />
             </Form.Item>
@@ -101,7 +113,7 @@ const onFinish = async (values) => {
             <Form.Item
               label="Card Number"
               name="cardNumber"
-              rules={[{ required: false, message: "Enter your Card Number" }]}
+              initialValue={profile[0].cardNumber}
             >
               <input type="text" />
             </Form.Item>
@@ -110,7 +122,6 @@ const onFinish = async (values) => {
             <Form.Item
               label="Name on Card"
               name="nameOnCard"
-              rules={[{ required: false, message: "Enter your Name on Card" }]}
             >
               <input type="text" />
             </Form.Item>
@@ -121,7 +132,7 @@ const onFinish = async (values) => {
             <Form.Item
               label="EXP"
               name="exp"
-              rules={[{ required: false, message: "Enter your EXP" }]}
+              initialValue={profile[0].EXP}
             >
               <input type="text" />
             </Form.Item>

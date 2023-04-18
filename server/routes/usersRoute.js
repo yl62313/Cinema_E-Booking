@@ -226,7 +226,7 @@ router.get("current-user", auth, async (req, res) => {
 
 router.get('/get-profile-by-email/:email', async (req, res) => {
   try {
-    const user = await User.findOne({ email: req.params.email });
+    const user = await User.findOne({email: req.params.email});
     res.send({
       success: true,
       message: "User fetched",
@@ -246,24 +246,14 @@ router.patch("/editProfile/:email", async (req, res) => {
   const userEmail = req.params.email;
 
   try {
-    user = await User.findById(userEmail);
+    user = await User.findOne({email: userEmail});
   } catch (error) {
     console.log(error.message);
     return res.status(500).json({ message: "Something went wrong." });
   }
 
   if (!user) {
-    return res.send({
-      success: false,
-      message: "User not found"
-    })
-  }
-
-  if (newPassword == null || confirmPassword == null) {
-    return res.send({
-      success: false,
-      message: "Please enter both fields"
-    });
+    return res.status(404).json({ message: "User not found" })
   }
 
   user.firstName = req.body.firstName;
@@ -271,7 +261,10 @@ router.patch("/editProfile/:email", async (req, res) => {
 
   if (req.body.newPassword != null) {
     if (req.body.currentPassword == null) {
-      return res.status(400).json({ message: "Current password must be provided." });
+      res.send({
+        success: false,
+        message: "Current password must be provided" 
+      });
     } else {
       if (req.body.newPassword == req.body.currentPassword) {
         return res.status(400).json({ message: "Passwords must not be the same." });
@@ -299,7 +292,10 @@ router.patch("/editProfile/:email", async (req, res) => {
 
   try {
     await user.save();
-    return res.status(200).json({ message: "User updated successfully" });
+    res.send({
+      success: true,
+      message: "Profile successfully updated"
+    });
   } catch (error) {
     console.log(error.message);
     return res.status(500).json({ message: "Something went wrong." });

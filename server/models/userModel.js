@@ -24,30 +24,36 @@ const userSchema = new mongoose.Schema({
         type: String
     },
 
-    address: {
+    street: {
         type: String,
-        default:"none",
+        default:"",
     },
 
     city: {
         type: String,
+        default: ""
      },
 
     state: {
         type: String,
+        default: ""
      },
 
     zipCode: {
         type: String,
+        default: ""
      },
     cardNumber: {
         type: String,
+        default: ""
     },
     nameOnCard: {
         type: String,
+        default: ""
     },
     EXP: {
         type: String,
+        default: ""
     },
 
     confirmationCode: {
