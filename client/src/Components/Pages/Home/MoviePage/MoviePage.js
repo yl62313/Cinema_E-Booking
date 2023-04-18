@@ -8,6 +8,7 @@ import moment from "moment";
 import MovieIcon from '../../../../samplePicture/pngegg.png'
 import { GetAllShows } from '../../../../action/movies';
 import Button from '../../../Button';
+import Proxy from '../../../../action/proxy';
 
 function MoviePage({isLoggedIn}) {
   const tempDate = new URLSearchParams(window.location.search).get("date");
@@ -114,8 +115,8 @@ function MoviePage({isLoggedIn}) {
         </Descriptions>
       </div>
 
-      {isLoggedIn && view === "table" && <Table columns={columns} dataSource={shows} />}
-
+      <Proxy isLoggedIn={isLoggedIn} component={<Table columns={columns} dataSource={shows} />} message="Please log in to view the movie schedule" />
+      
       {/* <div className="flex justify-center">
         <div>
       <Button fullWidth title="BOOK MOVIE" type="submit" onClick={()=> navigate(`/movies/selectTime/${movie._id}`)} />

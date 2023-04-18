@@ -2,7 +2,12 @@ const express = require("express")
 const Promotion = require("../models/Promotion");
 const User = require("../models/userModel");
 const router = express.Router()
-const nodeoutlook = require('nodejs-nodemailer-outlook');
+const EmailAdapter = require("../adapter/adapter");
+
+const emailAdapter = new EmailAdapter({
+  user: 'csci4050@outlook.com',
+  pass: 'teamteama1'
+});
 
 router.post("/addPromotion", async (req, res) => {
   const { name, code, discount, startDate, endDate } = req.body;
@@ -29,12 +34,8 @@ router.post("/addPromotion", async (req, res) => {
 
     const savedPromotion = await createdPromotion.save();
 
-    nodeoutlook.sendEmail({
-      auth: {
-        user: "aobooking@outlook.com",
-        pass: "teamteama1"
-      },
-      from: 'aobooking@outlook.com',
+    const emailOptions = {
+      from: 'csci4050@outlook.com',
       to: recipients,
       subject: 'We Have Promotion For You',
       html: '<p>Promotion name: ' + name
@@ -43,9 +44,29 @@ router.post("/addPromotion", async (req, res) => {
         + '<p>Until: ' + endDate
         + '<p>Use the code when booking to get a ' + discount + '% discount off your order</p>',
       text: 'This is text version!',
-      onError: (e) => console.log(e),
-      onSuccess: (i) => console.log(i)
-    });
+    };
+
+    await emailAdapter.sendMail(emailOptions);
+
+    
+
+    // nodeoutlook.sendEmail({
+    //   auth: {
+    //     user: "aobooking@outlook.com",
+    //     pass: "teamteama1"
+    //   },
+    //   from: 'aobooking@outlook.com',
+    //   to: recipients,
+    //   subject: 'We Have Promotion For You',
+    //   html: '<p>Promotion name: ' + name
+    //     + '<p>Promotion code: ' + code
+    //     + '<p>Beginning on: ' + startDate
+    //     + '<p>Until: ' + endDate
+    //     + '<p>Use the code when booking to get a ' + discount + '% discount off your order</p>',
+    //   text: 'This is text version!',
+    //   onError: (e) => console.log(e),
+    //   onSuccess: (i) => console.log(i)
+    // });
 
 
     return res.send({

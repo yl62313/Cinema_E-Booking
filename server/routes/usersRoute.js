@@ -3,8 +3,12 @@ const User = require("../models/userModel");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const auth = require("../middleware/auth")
-var nodeoutlook = require('nodejs-nodemailer-outlook')
-const nodemailer = require('nodemailer');
+const EmailAdapter = require('../adapter/adapter');
+
+const emailAdapter = new EmailAdapter({
+  user: 'csci4050@outlook.com',
+  pass: 'teamteama1'
+});
 
 router.post("/register", async (req, res) => {
   try {
@@ -59,49 +63,34 @@ router.post("/register", async (req, res) => {
       });
     }
 
-
-    nodeoutlook.sendEmail({
-      auth: {
-        user: "aobooking@outlook.com",
-        pass: "teamteama1"
-      },
-      from: 'aobooking@outlook.com',
+    const emailOptions = {
+      from: 'csci4050@outlook.com',
       to: req.body.email,
       subject: 'Verification Email',
-      html: '<p>Thank you for registering with us. Before you can proceed, please enter the given verification code: </p>' + code
+      html: '<p>Thank you for registering with us. Before you can proceed,' + 
+      'please enter the given verification code: </p>' + code
         + '<p><a href=http://localhost:3000/Auth> Click here to verify</a></p>',
-      text: 'This is text version!',
-      onError: (e) => console.log(e),
-      onSuccess: (i) => console.log(i)
-    });
+      text: 'This is text version!'
+    };
 
-    // // create reusable transporter object using SMTP transport
-    // const transporter = nodemailer.createTransport({
-    //   service: 'outlook', // replace with your email service provider
+    await emailAdapter.sendMail(emailOptions);
+
+
+
+    // nodeoutlook.sendEmail({
     //   auth: {
-    //     user: 'teamaa1@outlook.com',
-    //     pass: 'teamteama1'
-    //   }
+    //     user: "csci4050@outlook.com",
+    //     pass: "teamteama1"
+    //   },
+    //   from: 'csci4050@outlook.com',
+    //   to: req.body.email,
+    //   subject: 'Verification Email',
+    //   html: '<p>Thank you for registering with us. Before you can proceed, please enter the given verification code: </p>' + code
+    //     + '<p><a href=http://localhost:3000/Auth> Click here to verify</a></p>',
+    //   text: 'This is text version!',
+    //   onError: (e) => console.log(e),
+    //   onSuccess: (i) => console.log(i)
     // });
-
-    // // setup email data with unicode symbols
-    // let mailOptions = {
-    //   from: 'teamaa1@outlook.com', // sender address
-    //   to: req.body.email, // list of receivers
-    //   subject: 'Verification Email', // Subject line
-    //   html: `<p>Thank you for registering with us. Before you can proceed, please enter the given verification code: </p> ${code} <p><a href=http://localhost:3000/Auth> Click here to verify</a></p>`, // html body
-    //   text: 'This is text version!', // plain text body
-    // };
-
-    // // send mail with defined transport object
-    // transporter.sendMail(mailOptions, (error, info) => {
-    //   if (error) {
-    //     console.log(error);
-    //   } else {
-    //     console.log('Email sent: ' + info.response);
-    //   }
-    // });
-
 
 
   } catch (error) {
@@ -322,20 +311,32 @@ router.get("/userEmail", async (req, res) => {
   let user;
   try {
     user = await User.findById(req.body.email);
-    nodeoutlook.sendEmail({
-      auth: {
-        user: "aobooking@outlook.com",
-        pass: "teamteama1"
-      },
-      from: 'aobooking@outlook.com',
+
+    const emailOptions = {
+      from: 'csci4050@outlook.com',
       to: req.body.email,
       subject: 'Reset Password',
       html: "<p>If you've lost your password or wish to reset it, click the link below</p>"
         + '<p><a href=http://localhost:3000/Auth>Reset password here!</a></p>',
       text: 'This is text version!',
-      onError: (e) => console.log(e),
-      onSuccess: (i) => console.log(i)
-    })
+    };
+
+    await EmailAdapter.sendMail(emailOptions);
+
+    // nodeoutlook.sendEmail({
+    //   auth: {
+    //     user: "aobooking@outlook.com",
+    //     pass: "teamteama1"
+    //   },
+    //   from: 'aobooking@outlook.com',
+    //   to: req.body.email,
+    //   subject: 'Reset Password',
+    //   html: "<p>If you've lost your password or wish to reset it, click the link below</p>"
+    //     + '<p><a href=http://localhost:3000/Auth>Reset password here!</a></p>',
+    //   text: 'This is text version!',
+    //   onError: (e) => console.log(e),
+    //   onSuccess: (i) => console.log(i)
+    // })
 
     res.send({
       success: true,
