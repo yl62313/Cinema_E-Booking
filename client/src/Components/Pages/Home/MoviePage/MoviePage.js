@@ -48,9 +48,6 @@ function MoviePage({isLoggedIn}) {
   }
   
 
-
-
-
   useEffect(() => {
     getMovieList()
   }, []);
@@ -75,12 +72,12 @@ function MoviePage({isLoggedIn}) {
       title: "Action",
       dataIndex: "",
       key: "x",
-      render: (record) => (
+      render: (data) => (
         <Button
           fullWidth
           title="BOOK MOVIE"
           type="submit"
-          onClick={() => navigate(`/movies/seat/${movie._id}`)}
+          onClick={() => navigate(`/seat/${data._id}`)}
         />
       ),
     },
@@ -115,7 +112,8 @@ function MoviePage({isLoggedIn}) {
         </Descriptions>
       </div>
 
-      <Proxy isLoggedIn={isLoggedIn} component={<Table columns={columns} dataSource={shows} />} message="Please log in to view the movie schedule" />
+      <Proxy isLoggedIn={isLoggedIn} component={<Table columns={columns} 
+      dataSource={shows} />} message="Please log in to view the movie schedule" />
       
       {/* <div className="flex justify-center">
         <div>

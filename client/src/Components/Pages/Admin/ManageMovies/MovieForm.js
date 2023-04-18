@@ -81,8 +81,7 @@ function MovieForm ({
 
                         <Form.Item label="Movie Producer" name="producer">
                             <input type="text"/>
-                        </Form.Item>
-                        
+                        </Form.Item>       
                     </Col>
                     <Col span={8}>
                         <Form.Item label="Genre" name="genre">
@@ -106,6 +105,21 @@ function MovieForm ({
                             <input type="text"/>
                         </Form.Item>
                             <Form.Item label="Movie Cast" name="cast">
+                            <input type="text"/>
+                        </Form.Item>
+                    </Col>
+                    <Col span={8}>
+                        <Form.Item label="Child Price" name="childPrice">
+                            <input type="text"/>
+                        </Form.Item>
+                    </Col>
+                    <Col span={8}>
+                        <Form.Item label="Adult Price" name="adultPrice">
+                            <input type="text"/>
+                        </Form.Item>
+                    </Col>
+                    <Col span={8}>
+                        <Form.Item label="Senior Price" name="seniorPrice">
                             <input type="text"/>
                         </Form.Item>
                     </Col>

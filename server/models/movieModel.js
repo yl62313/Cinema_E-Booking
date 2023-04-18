@@ -26,12 +26,10 @@ const movieSchema = new mongoose.Schema(
       type: [String],
       required: true,
   },
-
   reviews: {
     type: [String],
     required: true,
 },
-
 director: {
   type: String, 
   required: true,
@@ -39,6 +37,18 @@ director: {
 producer: {
   type: String,
   required: true,
+},
+childPrice: {
+  type: Number,
+  default: 5,
+},
+adultPrice: {
+  type: Number,
+  default: 10,
+},
+seniorPrice: {
+  type: Number,
+  default: 5,
 },
 rating: {
     type: String,

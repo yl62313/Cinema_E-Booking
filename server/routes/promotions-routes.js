@@ -95,7 +95,7 @@ router.get('/bring-promotion', async (req, res) => {
     const promotions = await Promotion.find();
     res.send({
       success: true,
-      message: "Movies fetched successful",
+      message: "Promotion fetched successful",
       data: promotions,
     });
   } catch (error) {
@@ -136,13 +136,13 @@ router.post('/delete-promotion', async (req, res) => {
   }
 })
 
-router.get("/get-promotion-by-id/:id", async (req, res) => {
+router.get("/bring-promotion", async (req, res) => {
   try {
-    const promotion = await Promotion.findById(req.params.id);
+    const promotions = await Promotion.find();
     res.send({
       success: true,
       message: "Promotion fetched successfully",
-      data: movie,
+      data: promotions,
     });
   } catch (error) {
     res.send({

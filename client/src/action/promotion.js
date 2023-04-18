@@ -40,9 +40,9 @@ export const DeletePromotion = async(payload)=> {
     }
 }
 
-export const BringPromotionById = async(id)=>{
+export const BringPromotion = async()=>{
     try {
-        const response = await axiosInstance.get(`api/promotions/bring-promotion-byid/${id}`);
+        const response = await axiosInstance.get("/api/promotions/bring-promotion");
         return response.data;
     } catch (error) {
         return error.response;

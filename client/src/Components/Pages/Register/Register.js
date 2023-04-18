@@ -22,7 +22,7 @@ function Register() {
   };
 
     return (
-        <div className="flex justify-center h-screen items-center bg-primary">
+        <div className="flex justify-center hr-screen items-center bg-primary">
           <div className="card p-3 w-800">
             <h1 className="text-xl mb-1">REGISTER</h1>
             <hr />

@@ -107,12 +107,11 @@ function Shows({ openShowsModal, setOpenShowsModal, movie }) {
       render: (text, record) => {
         return (
           <div className="flex gap-1 items-center">
-            <i>
-              <DeleteOutlined
+              <i><DeleteOutlined
                 onClick={() => {
                   getDelete(record._id);
                 }} />
-            </i>
+              </i>
           </div>
         );
       },

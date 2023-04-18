@@ -10,6 +10,7 @@ const emailAdapter = new EmailAdapter({
   pass: 'teamteama1'
 });
 
+
 router.post("/register", async (req, res) => {
   try {
 
@@ -101,6 +102,7 @@ router.post("/register", async (req, res) => {
   }
 });
 
+
 router.post("/Auth", async (req, res) => {
   const user = await User.findOne({ email: req.body.email, confirmationCode: req.body.code });
   if (user) {
@@ -121,7 +123,6 @@ router.post("/Auth", async (req, res) => {
   }
 
 });
-
 
 
 router.post("/login", async (req, res) => {
@@ -238,8 +239,6 @@ router.get('/get-profile-by-email/:email', async (req, res) => {
     });
   }
 });
-
-
 
 
 router.patch("/editProfile/:email", async (req, res) => {
@@ -458,6 +457,54 @@ router.post("/adminLogin", async (req, res) => {
     });
   }
 })
+
+
+router.get('/bring-user',async(req,res)=> {
+  try{
+      const users = await User.find();
+      res.send({
+          success: true,
+          message: "Users fetched successful",
+          data: users,
+      });
+  } catch (error){
+      res.send({
+          success: false,
+          message: error.message,
+      });
+  }
+});
+
+router.post('/delete-user', async (req, res) => {
+  try {
+    await User.findByIdAndDelete(req.body.userId)
+    res.send({
+      success: true,
+      message: "User deleted"
+    });
+  } catch (error) {
+    res.send({
+      success: false,
+      message: error.message,
+    })
+  }
+})
+
+router.post("/update-user", async (req, res) => {
+  try {
+    await User.findByIdAndUpdate(req.body.userId, req.body);
+    res.send({
+      success: true,
+      message: "User updated successfully",
+    });
+  } catch (error) {
+    res.send({
+      success: false,
+      message: error.message,
+    });
+  }
+});
+
 
 router.post("")
 

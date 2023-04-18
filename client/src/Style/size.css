@@ -1,6 +1,12 @@
 .h-screen{
     height: 100vh;
 }
+.hr-screen{
+    height: 110vh;
+}
+.hc-screen{
+    height: 150vh;
+}
 
 .w-screen{
     width: 100vw;
@@ -11,8 +17,12 @@
 .w-50{
     width: 80%;
 }
-
-
+.w-1{
+    width: 270px;
+}
+.w-2{
+    width: 500px;
+}
 .text-sm {
     font-size: 14px;
 }
