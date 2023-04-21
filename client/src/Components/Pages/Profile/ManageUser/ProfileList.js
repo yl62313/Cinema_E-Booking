@@ -29,7 +29,7 @@ function ProfileList(props) {
           lastName: `${response.data.lastName}`,
           phoneNumber: `${response.data.phoneNumber}`,
           password: `${response.data.password}`,
-          street: `${response.data.address}`, 
+          street: `${response.data.street}`, 
           city: `${response.data.city}`,
           state: `${response.data.state}`,
           zipCode: `${response.data.zipCode}`,

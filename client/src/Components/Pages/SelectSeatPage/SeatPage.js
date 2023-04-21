@@ -54,18 +54,20 @@ function SeatPage() {
                   seatClass = "bookedSeats";
                 }
                 return (
-                  seat*columns+column+1 <= seats &&(
-                  <div className={seatClass}
-                  onClick={()=> {
-                    const seatNumber = seat*columns+column+1;
-                    if(selectedSeat.includes(seatNumber)){
-                      setSelectedSeat(selectedSeat.filter((item)=> item !== seatNumber));
-                    }else{
-                      setSelectedSeat([...selectedSeat, seatNumber])
-                    }
-                  }}>
-                    <h1 className="text-sm"> {seat*columns+column+1}</h1>
-                 </div>
+                  seat * columns + column + 1 <= seats && (
+                    <div
+                      className={seatClass}
+                      onClick={() => {
+                        const seatNumber = seat * columns + column + 1;
+                        if (selectedSeat.includes(seatNumber)) {
+                          setSelectedSeat(selectedSeat.filter((item) => item !== seatNumber));
+                        } else {
+                          setSelectedSeat([...selectedSeat, seatNumber]);
+                        }
+                      }}
+                    >
+                      <h1 className="text-sm"> {seat * columns + column + 1}</h1>
+                    </div>
 
                 )
                 )

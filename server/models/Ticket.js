@@ -2,10 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const TicketSchema = Schema({
-    ticketID: {
-        type: Number,
-        unique: true
-    },
+    
 
     ticketType: {
         type: String,
@@ -13,11 +10,11 @@ const TicketSchema = Schema({
     },
 
     seat: {
-        type: Schema.Types.ObjectId, ref: "Seat"
+        type: String,
     },
 
     showID: {
-        type: Number
+        type: String,
     }
 })
 

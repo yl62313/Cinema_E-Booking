@@ -4,7 +4,6 @@ const Ticket = require("../models/Ticket");
 const addTicket = async (req, res, next) => {
     const {ticketID, ticketType, seat, showID} = req.body;
     const createdTicket = new Ticket({
-        ticketID,
         ticketType,
         seat,
         showID

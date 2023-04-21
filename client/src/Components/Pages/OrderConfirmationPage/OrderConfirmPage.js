@@ -8,6 +8,8 @@ function OrderConfirmPage() {
     const [tickets=[],setTickets] = useState([]);
     const dispatch = useDispatch();
 
+    
+
 
 
     const getTicket = async () =>{

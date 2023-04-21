@@ -3,6 +3,7 @@ import { axiosInstance } from ".";
 
 export const CheckOutTickets = async (payload) => {
     try {
+      
       const response = await axiosInstance.post(
         "/api/checkout/checkout-show",
         payload

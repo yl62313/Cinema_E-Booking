@@ -1,7 +1,27 @@
-const express = require("express")
-const seatController = require("../controllers/seats-controller")
-const router = express.Router()
 
-router.post("/seat", seatController.addSeat);
+const router = require("express").Router();
+const Seat = require("../models/Seat");
 
-module.exports = router;
+router.post("/seats", async (req, res) => {
+    try {
+      
+      const newSeat = new Seat(req.body);
+  
+    
+      const savedSeat = await newSeat.save();
+  
+
+      res.status(201).json(savedSeat);
+    } catch (error) {
+   
+        res.send({
+            success: false,
+            message: error.message,
+          });
+    }
+  });
+  
+
+  module.exports = router;
+
+
