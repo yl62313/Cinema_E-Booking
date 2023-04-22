@@ -143,7 +143,7 @@ function CheckOut(props) {
 
   return (
     show &&
-      <div className="flex justify-center hc-screen items-center bg-primary">
+      <div className="flex justify-center hc-screen items-center bg-checkout">
         <div className="card p-3 w-50">
         <h1 className="movieLetter mb-1 flex justify-center">Check Out</h1>
         <br/>
