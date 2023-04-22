@@ -7,7 +7,9 @@
 .hc-screen{
     height: 150vh;
 }
-
+.hd-screen{
+    height: 80vh;
+}
 .w-screen{
     width: 100vw;
 }

@@ -2,6 +2,7 @@ import React from 'react'
 import {Tabs} from 'antd'
 import ProfileList from './ManageUser/ProfileList'
 import { useNavigate } from 'react-router-dom';
+import TicketList from './TicketList/TicketList';
 
 
 function Profile({userEmail}) {
@@ -21,7 +22,7 @@ function Profile({userEmail}) {
         
         <Tabs defaultActiveKey='1'>
             <Tabs.TabPane tab="Booking" key="1">
-                Booking
+                <TicketList userEmail={userEmail}/>
             </Tabs.TabPane>
             <Tabs.TabPane tab="Edit Profile" key="2">
                 <ProfileList userEmail={userEmail}/>

@@ -27,32 +27,13 @@ router.post("/checkout-show", async (req, res) => {
     }
   });
 
-  router.post("/make-payment", async (req, res) => {
-    try {
-      const { amount } = req.body;
-      const charge = await charges.create({
-        amount: amount,
-        currency: "usd",
-        description: "Ticket Booked for Movie",
-      });
-      const transactionId = charge.id;
-      res.send({
-      success: true,
-      message: "Payment successful",
-      data: transactionId,
-    });
- } catch (error) {
-    res.send({
-      success: false,
-      message: error.message,
-    });
-  }
-});
+
+
 
 router.get("/get-tickets", async (req, res) => {
     try {
-      const tickets = await Checkout.find({ user: req.body.userId })
-        .populate("show")
+      const checkouts = await Checkout.find({user: req.body.userId})
+      .populate("show")
         .populate({
           path: "show",
           populate: {
@@ -60,11 +41,15 @@ router.get("/get-tickets", async (req, res) => {
             model: "movies",
           },
         })
-  
+        .populate("user")
+        .populate({
+          path: "show",
+        })
+
       res.send({
         success: true,
         message: "tickets fetched successfully",
-        data: tickets,
+        data: checkouts,
       });
     } catch (error) {
       res.send({
@@ -73,5 +58,6 @@ router.get("/get-tickets", async (req, res) => {
       });
     }
   });
+
 
   module.exports = router;
