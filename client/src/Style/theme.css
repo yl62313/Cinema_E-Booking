@@ -6,7 +6,9 @@
 .bg-primary {
     background-color: var(--colour-primary);
 }
-
+.bg-checkout {
+    background-color:rgb(250, 241, 230);
+}
 .bg-secondary {
     background-color: var(--colour-secondary);
 }

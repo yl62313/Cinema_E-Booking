@@ -1,90 +1,82 @@
 const router = require("express").Router();
 const Show = require("../models/showModel")
 const Checkout = require("../models/checkoutModel")
-const Booking = require('../models/Booking');
+const User = require("../models/userModel");
+const EmailAdapter = require('../adapter/adapter');
 
-
+const emailAdapter = new EmailAdapter({
+  user: 'csci4050@outlook.com',
+  pass: 'teamteama1'
+});
 
 router.post("/checkout-show", async (req, res) => {
-  try {
-    // const newCheckout = new Checkout(req.body);
-    // await newCheckout.save();
+    try {
+      const newCheckout = new Checkout(req.body);
+      await newCheckout.save();
+  
+      const show = await Show.findById(req.body.show);
+      await Show.findByIdAndUpdate(req.body.show, {
+        bookedSeats: [...show.bookedSeats, ...req.body.seats],
+      });
 
-    // const show = await Show.findById(req.body.show);
-    // await Show.findByIdAndUpdate(req.body.show, {
-    //   bookedSeats: [...show.bookedSeats, ...req.body.seats],
-    // });
-
-    const { seats, totalPrice } = req.body;
-
-    
-    const newBooking = new Booking({
-      seats: seats,
-      totalPrice: totalPrice
-    });
-
-    await newBooking.save();
-
-
-    res.send({
-      success: true,
-      message: "Ticket booked successfully",
+      const user = await User.findOne({ _id: req.body.user });
       
-    });
-  } catch (error) {
-    // console.log('checkout error:',error)
-    res.send({
-      success: false,
-      message: error.message,
-    });
-  }
-});
 
-// router.post("/make-payment", async (req, res) => {
-//   try {
-//     const { amount } = req.body;
-//     const charge = await charges.create({
-//       amount: amount,
-//       currency: "usd",
-//       description: "Ticket Booked for Movie",
-//     });
-//     const transactionId = charge.id;
-//     res.send({
-//       success: true,
-//       message: "Payment successful",
-//       data: transactionId,
-//     });
-//   } catch (error) {
-//     res.send({
-//       success: false,
-//       message: error.message,
-//     });
-//   }
-// });
+      const emailOptions = {
+        from: 'csci4050@outlook.com',
+        to: user.email,
+        subject: 'Order Comfirmation Email',
+        html: '<p>Thank you for order!</p>' + 
+        '<p>Comfirmation code: </p>' + newCheckout.transactionId,
+        text: 'This is text version!'
+      };
+  
+      await emailAdapter.sendMail(emailOptions);
+ 
+      res.send({
+        success: true,
+        message: "Ticket booked successfully",
+        data: newCheckout,
+      });
+    } catch (error) {
+      res.send({
+        success: false,
+        message: error.message,
+      });
+    }
+  });
+
+
+
 
 router.get("/get-tickets", async (req, res) => {
-  try {
-    const tickets = await Checkout.find({ user: req.body.userId })
+    try {
+      const checkouts = await Checkout.find({user: req.body.userId})
       .populate("show")
-      .populate({
-        path: "show",
-        populate: {
-          path: "movie",
-          model: "movies",
-        },
-      })
+        .populate({
+          path: "show",
+          populate: {
+            path: "movie",
+            model: "movies",
+          },
+        })
+        .populate("user")
+        .populate({
+          path: "show",
+        })
 
-    res.send({
-      success: true,
-      message: "tickets fetched successfully",
-      data: tickets,
-    });
-  } catch (error) {
-    res.send({
-      success: false,
-      message: error.message,
-    });
-  }
-});
+      res.send({
+        success: true,
+        message: "tickets fetched successfully",
+        data: checkouts,
+      });
+    } catch (error) {
+      res.send({
+        success: false,
+        message: error.message,
+      });
+    }
+  });
 
-module.exports = router;
+
+  module.exports = router;

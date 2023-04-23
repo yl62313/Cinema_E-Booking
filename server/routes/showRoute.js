@@ -19,6 +19,9 @@ router.post("/add-show",async (req, res) => {
     }
   });
 
+
+
+  
   router.post("/get-all-shows", async (req, res) => {
     try {
       const shows = await Show.find({ movie: req.body.movieId })

@@ -207,22 +207,6 @@ router.post("/logout/:id", async (req, res) => {
   }
 })
 
-router.get("current-user", auth, async (req, res) => {
-  try {
-    const user = await User.findById(req.body.userId).select("-password");
-    res.send({
-      success: true,
-      message: "User fetched",
-      data: user,
-    });
-  } catch (error) {
-    res.send({
-      success: false,
-      message: error.message,
-    });
-  }
-})
-
 
 router.get('/get-profile-by-email/:email', async (req, res) => {
   try {
@@ -500,8 +484,42 @@ router.post("/update-user", async (req, res) => {
     });
   }
 });
+router.get('/current-user', async (req, res) => {
+  try {
+    const user = await User.findById(req.body.userId).select("-password");
+    res.send({
+      success: true,
+      message: "User fetched",
+      data: user,
+    });
+  } catch (error) {
+    res.send({
+      success: false,
+      message: error.message,
+    });
+  }
+})
+
+router.post("/get-user-by-id", async (req, res) => {
+  try {
+    const user = await User.findById(req.body.userId)
+    res.send({
+      success: true,
+      message: "User fetched successfully",
+      data: user,
+    });
+  } catch (error) {
+    res.send({
+      success: false,
+      message: error.message,
+    });
+  }
+});
 
 
-router.post("")
+
+
+
+
 
 module.exports = router;

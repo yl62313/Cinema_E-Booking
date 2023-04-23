@@ -7,10 +7,9 @@ import { HideLoading, ShowLoading } from "../../../reducers/loader_reducer"
 import { BringShowById } from "../../../action/movies"
 import { message } from "antd"
 
-function SeatPage() {
+function SeatPage({isLoggedIn}) {
   const [show, setShow] = React.useState(null)
   const [selectedSeat,setSelectedSeat] = React.useState([])
-
 
 
   const params = useParams()
@@ -183,7 +182,7 @@ function SeatPage() {
 
 
   return (
-    show && (
+  show && (
     <div>
       {/* show info */}
       <div className="flex justify-between card p-2">
@@ -217,6 +216,7 @@ function SeatPage() {
           {"CANCEL"}
         </h1>
       </div> 
+      {isLoggedIn && (
       <div className='addCart'>
         <Link   to={{
           pathname: `/checkout/${show._id}`,
@@ -226,9 +226,11 @@ function SeatPage() {
         }} className='loginLetter cursor-pointer'>
           {"CHECK OUT"}
         </Link>
-      </div>  
+      </div>
+      )}
       </div>
     </div>
+      
     ))}
 
 export default SeatPage

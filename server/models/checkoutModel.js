@@ -14,6 +14,13 @@ const checkoutSchema = new mongoose.Schema(
       type: Array,
       required: true,
     },
+    totalPrice: {
+      type: String,
+      required: true,
+    },
+    promotion: {
+      type: String,
+    },
     transactionId: {
       type: String,
       required: true,
@@ -22,4 +29,4 @@ const checkoutSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("checkout", checkoutSchema);
+module.exports = mongoose.model("checkouts", checkoutSchema);

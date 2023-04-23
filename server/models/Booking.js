@@ -2,42 +2,23 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const BookingSchema = Schema({
-    
-
-    movie: {
-        type: String,
-    },
-
-    showID: {
-        type: Schema.Types.ObjectId, ref: "Show"
-    },
-
-    seats: {
-        type: [String], 
-        required: true
-      },
 
     totalPrice: {
         type: String,
     },
-
-    promotion: {
+    nameOnCard:{
         type: String,
     },
 
-    bookingNumber: {
-        type: Number,
-        
+    cardNumber: {
+        type: String, 
     },
-
-    paymentCardNumber: {
-        type: String,
-        
+    exp: {
+        type: String, 
     },
-
-    customerEmail: {
-        type: String
-    }
+    cvv: {
+        type: String, 
+    },
 })
 
 const Booking = mongoose.model('Booking', BookingSchema)

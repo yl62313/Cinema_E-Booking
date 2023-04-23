@@ -28,16 +28,8 @@ export const LoginUser = async (payload) => {
     }
 }
 
-export const CurrentUser = async () => {
-    try {
-        const response = await axiosInstance.get("/api/users/current-user");
-        return response.data;
-    } catch (error) {
-        return error;
-    }
-}
 
-{/* i don't know this endpoint right,,, check pls /api/users/ */}
+
 export const BringProfileList = async(email) => {
     try {
         const response = await axiosInstance.get(`/api/users/get-profile-by-email/${email}`);
@@ -48,9 +40,9 @@ export const BringProfileList = async(email) => {
 }
 
 
-export const EditProfile = async (email, payload) => {
+export const EditProfile = async (payload) => {
     try {
-        const response = await axiosInstance.patch(`/api/users/${email}`, payload);
+        const response = await axiosInstance.patch("/api/users/");
         return response.data;
     } catch (error) {
         return error.response;
@@ -114,3 +106,20 @@ export const DeleteUser = async(payload)=> {
     }
   };
 
+  export const CurrentUser = async () => {
+    try {
+        const response = await axiosInstance.get("/api/users/current-user");
+        return response.data;
+    } catch (error) {
+        return error;
+    }
+}
+
+  export const BringUserById = async (payload) => {
+    try {
+        const response = await axiosInstance.post("/api/users/get-user-by-id",payload);
+        return response.data;
+    } catch (error) {
+        return error.response;
+    }
+  }
