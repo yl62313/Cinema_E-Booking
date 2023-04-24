@@ -117,7 +117,7 @@ function CheckOut(props) {
           localStorage.setItem('selectedSeat', JSON.stringify(selectedSeat));
           localStorage.setItem('totalPrice', totalPrice);
           localStorage.setItem('transactionId', transactionId);
-          navigate('/ordered')
+          navigate(`/ordered/${response.data._id}`)
         }else{
           message.error(response.message);
         }
