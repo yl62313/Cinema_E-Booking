@@ -6,7 +6,6 @@ import { BringProfileList } from '../../../../action/users';
 import { HideLoading, ShowLoading } from '../../../../reducers/loader_reducer';
 
 function TicketList(props) {
-  console.log("userEmail:", props.user.email);
     const [checkouts , setCheckOut] = useState([]);
     const [profile, setProfile] = useState([]);
     const dispatch = useDispatch();
