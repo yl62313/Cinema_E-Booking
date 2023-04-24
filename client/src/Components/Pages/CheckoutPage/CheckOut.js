@@ -13,7 +13,7 @@ import { BringProfileList } from '../../../action/users';
 
 function CheckOut(props) {
 
-  console.log("userEmail:", props.userEmail);
+  console.log("userEmail:", props.user);
 
     const [show, setShow] = React.useState(null)
     const selectedSeat = JSON.parse(localStorage.getItem('selectedSeat'));
@@ -50,7 +50,7 @@ function CheckOut(props) {
     const getProfileList = async () => {
       try {
         dispatch(ShowLoading())
-        const response = await BringProfileList(props.userEmail);
+        const response = await BringProfileList(props.user.email);
         if (response.success) {
           const profileData = {
             key: response.data._id,

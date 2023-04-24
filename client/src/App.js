@@ -58,7 +58,7 @@ function App() {
           <Route path="adminlogin" element={<AdminLogin isLoggedIn={isLoggedIn} handleLogin={handleLogin} handleIdentify={handleIdentify}/>}/>
           <Route path="/Profile" element={<Profile user={user} />}/>
           <Route path="/seat/:id" element={<SeatPage/>}/>
-          <Route path="/checkout/:id" element={<CheckOut/>}/>
+          <Route path="/checkout/:id" element={<CheckOut user={user}/>}/>
           <Route path="/ordered/:id" element={<OrderConfirmPage/>}/>
           <Route path="/promotion" element={<PromotionForm/>}/>
         </Routes>

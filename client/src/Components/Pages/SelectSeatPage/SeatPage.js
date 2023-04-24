@@ -216,7 +216,6 @@ function SeatPage({isLoggedIn}) {
           {"CANCEL"}
         </h1>
       </div> 
-      {isLoggedIn && (
       <div className='addCart'>
         <Link   to={{
           pathname: `/checkout/${show._id}`,
@@ -227,7 +226,6 @@ function SeatPage({isLoggedIn}) {
           {"CHECK OUT"}
         </Link>
       </div>
-      )}
       </div>
     </div>
       

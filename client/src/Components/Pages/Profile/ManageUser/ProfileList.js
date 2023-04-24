@@ -12,7 +12,6 @@ import { BringProfileList } from '../../../../action/users';
 
 
 function ProfileList(props) {
-  console.log("userEmail:", props.userEmail);
 
   const [showProfileFormModel = false, setShowProfileFormModel] = useState(false);
   const [selectedProfile = null, setSelectedProfile] = useState(null);
