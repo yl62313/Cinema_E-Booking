@@ -56,17 +56,10 @@ function App() {
           <Route path="/Auth" element={<Auth/>}/>
           <Route path="/Admin" element={<Admin isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>}/>
           <Route path="adminlogin" element={<AdminLogin isLoggedIn={isLoggedIn} handleLogin={handleLogin} handleIdentify={handleIdentify}/>}/>
-<<<<<<< Updated upstream
-          <Route path="/Profile" element={<Profile userEmail={userEmail} />}/>
-          <Route path="/seat/:id" element={<SeatPage isLoggedIn={isLoggedIn}/>}/>
-          <Route path="/checkout/:id" element={<CheckOut userEmail={userEmail}/>}/>
-          <Route path="/ordered" element={<OrderConfirmPage userEmail={userEmail}/>}/>
-=======
           <Route path="/Profile" element={<Profile user={user} />}/>
           <Route path="/seat/:id" element={<SeatPage/>}/>
           <Route path="/checkout/:id" element={<CheckOut/>}/>
           <Route path="/ordered/:id" element={<OrderConfirmPage/>}/>
->>>>>>> Stashed changes
           <Route path="/promotion" element={<PromotionForm/>}/>
         </Routes>
       </div>

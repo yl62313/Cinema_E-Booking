@@ -86,19 +86,11 @@ function Register() {
           <Row gutter={16}>
             <Col span={8}>
               <Form.Item
-<<<<<<< Updated upstream
-                label="City"
-                name="city"
-                rules={[{ required: false, message: "Enter your City" }]}
-              >
-                <input type="city" />
-=======
                 label="Street"
                 name="street"
                 rules={[{ required: false, message: "Enter your Address" }]}
                 >
                     <input type="address"/>
->>>>>>> Stashed changes
               </Form.Item>
             </Col>
             <Col span={8}>
