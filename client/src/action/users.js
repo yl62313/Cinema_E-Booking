@@ -40,7 +40,7 @@ export const BringProfileList = async(email) => {
 }
 
 
-export const EditProfile = async (payload) => {
+export const EditProfile = async (email, payload) => {
     try {
         const response = await axiosInstance.patch(`/api/users/editProfile/${email}`, payload);
         return response.data;

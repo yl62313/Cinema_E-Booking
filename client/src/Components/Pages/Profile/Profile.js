@@ -22,7 +22,7 @@ function Profile({user}) {
         
         <Tabs defaultActiveKey='1'>
             <Tabs.TabPane tab="Booking" key="1">
-                <TicketList userEmail={userEmail}/>
+                <TicketList user={user}/>
             </Tabs.TabPane>
             <Tabs.TabPane tab="Edit Profile" key="2">
                 <ProfileList user={user}/>
