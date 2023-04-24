@@ -49,14 +49,16 @@ function ProfileList(props) {
   const columns = [
     {
       title: "Name",
-      dataIndex: "fullName",
+      render: (text, record) => {
+        return `${record.firstName} ${record.lastName}`
+      },
     },
     {
       title: "Phone Number",
       dataIndex: "phoneNumber",
     },
     {
-      dataIndex: "street",
+      title: "Address",
       render: (text, record) => {
         return `${record.street} ${record.city}, ${record.state} ${record.zipCode}`;
       },
