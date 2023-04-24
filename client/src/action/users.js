@@ -42,11 +42,7 @@ export const BringProfileList = async(email) => {
 
 export const EditProfile = async (payload) => {
     try {
-<<<<<<< Updated upstream
-        const response = await axiosInstance.patch("/api/users/");
-=======
         const response = await axiosInstance.patch(`/api/users/editProfile/${email}`, payload);
->>>>>>> Stashed changes
         return response.data;
     } catch (error) {
         return error.response;

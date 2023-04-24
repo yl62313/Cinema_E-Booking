@@ -185,27 +185,6 @@ router.post("/login", async (req, res) => {
   }
 });
 
-<<<<<<< Updated upstream
-router.post("/logout/:id", async (req, res) => {
-  let user;
-  try {
-    user = await User.findById(req.params.id);
-  } catch (error) {
-    return res.status(400).json({ message: "Something went wrong." });
-  }
-
-  if (!user) {
-    return res.status(404).json({ message: "User not found" });
-  }
-
-  user.token = "a";
-
-  try {
-    await user.save();
-    return res.status(201).json({ message: "Logged out!" })
-  } catch (error) {
-    return res.status(400).json({ message: "Something went wrong." });
-=======
 router.get("current-user", auth, async (req, res) => {
   try {
     const user = await User.findById(req.body.userId).select("-password");
@@ -219,7 +198,6 @@ router.get("current-user", auth, async (req, res) => {
       success: false,
       message: error.message,
     });
->>>>>>> Stashed changes
   }
 })
 
@@ -533,11 +511,5 @@ router.post("/get-user-by-id", async (req, res) => {
     });
   }
 });
-
-
-
-
-
-
 
 module.exports = router;
