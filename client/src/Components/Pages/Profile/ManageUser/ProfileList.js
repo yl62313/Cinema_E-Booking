@@ -18,21 +18,31 @@ function ProfileList(props) {
   const [selectedProfile = null, setSelectedProfile] = useState(null);
   const [formType = "add", setFormType] = useState([]);
   const [profile, setProfile] = useState([]);
-
+  
   const dispatch = useDispatch();
   const getProfileList = async () => {
     try {
       dispatch(ShowLoading())
-      const response = await BringProfileList(props.userEmail);
+      const response = await BringProfileList(props.user.email);
       if (response.success) {
         const profileData = {
+<<<<<<< Updated upstream
           key: response.data._id,
           fullName: `${response.data.firstName} ${response.data.lastName}`,
           phoneNumber: response.data.phoneNumber,
           address: `${response.data.street} ${response.data.city}, ${response.data.state} ${response.data.zipCode}`,
+=======
+          key: `${response.data._id}`,
+          firstName: `${response.data.firstName}`,
+          lastName: `${response.data.lastName}`,
+          phoneNumber: `${response.data.phoneNumber}`,
+          street: `${response.data.street}`, 
+          city: `${response.data.city}`,
+          state: `${response.data.state}`,
+>>>>>>> Stashed changes
           action: "",
         };
-        setProfile([profileData]);
+        setProfile([response.data]);
       } else {
         message.error(response.message);
       }
@@ -54,8 +64,15 @@ function ProfileList(props) {
     },
     {
       title: "Address",
+<<<<<<< Updated upstream
       dataIndex: "address",
 
+=======
+      dataIndex: "street",
+      render: (text, record) => {
+        return `${record.street} ${record.city}, ${record.state} ${record.zipCode}`;
+      },
+>>>>>>> Stashed changes
     },
     {
       title: "Action",
@@ -78,6 +95,12 @@ function ProfileList(props) {
     getProfileList();
   }, [])
 
+  useEffect(() => {
+    if (!showProfileFormModel) {
+      getProfileList();
+    }
+  }, [showProfileFormModel]);
+
   return (
     <div>
       <div className="flex justify-end mb-2">
@@ -96,7 +119,12 @@ function ProfileList(props) {
         setSelectedProfile={setSelectedProfile}
         formType={formType}
         setFormType={setFormType}
+<<<<<<< Updated upstream
 
+=======
+        user = {props.user}
+        profile={profile}
+>>>>>>> Stashed changes
       />}
     </div>
   )

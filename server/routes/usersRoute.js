@@ -38,7 +38,7 @@ router.post("/register", async (req, res) => {
     await newUser.save();
 
     if (req.body.sub) {
-      newUser.isSubscribed = "true";
+      newUser.isSubscribed = true;
     }
 
 
@@ -68,8 +68,8 @@ router.post("/register", async (req, res) => {
       from: 'csci4050@outlook.com',
       to: req.body.email,
       subject: 'Verification Email',
-      html: '<p>Thank you for registering with us. Before you can proceed,' + 
-      'please enter the given verification code: </p>' + code
+      html: '<p>Thank you for registering with us. Before you can proceed,' +
+        'please enter the given verification code: </p>' + code
         + '<p><a href=http://localhost:3000/Auth> Click here to verify</a></p>',
       text: 'This is text version!'
     };
@@ -185,6 +185,7 @@ router.post("/login", async (req, res) => {
   }
 });
 
+<<<<<<< Updated upstream
 router.post("/logout/:id", async (req, res) => {
   let user;
   try {
@@ -204,13 +205,28 @@ router.post("/logout/:id", async (req, res) => {
     return res.status(201).json({ message: "Logged out!" })
   } catch (error) {
     return res.status(400).json({ message: "Something went wrong." });
+=======
+router.get("current-user", auth, async (req, res) => {
+  try {
+    const user = await User.findById(req.body.userId).select("-password");
+    res.send({
+      success: true,
+      message: "User fetched",
+      data: user,
+    });
+  } catch (error) {
+    res.send({
+      success: false,
+      message: error.message,
+    });
+>>>>>>> Stashed changes
   }
 })
 
 
 router.get('/get-profile-by-email/:email', async (req, res) => {
   try {
-    const user = await User.findOne({email: req.params.email});
+    const user = await User.findOne({ email: req.params.email });
     res.send({
       success: true,
       message: "User fetched",
@@ -230,7 +246,7 @@ router.patch("/editProfile/:email", async (req, res) => {
   const userEmail = req.params.email;
 
   try {
-    user = await User.findOne({email: userEmail});
+    user = await User.findOne({ email: userEmail });
   } catch (error) {
     console.log(error.message);
     return res.status(500).json({ message: "Something went wrong." });
@@ -245,13 +261,24 @@ router.patch("/editProfile/:email", async (req, res) => {
 
   if (req.body.newPassword != null) {
     if (req.body.currentPassword == null) {
-      res.send({
+      return res.send({
         success: false,
-        message: "Current password must be provided" 
+        message: "Current password must be provided"
       });
     } else {
+      const samePassword = await bcrypt.compare(req.body.currentPassword, user.password);
+
+      if (!samePassword) {
+        return res.send({
+          success: false,
+          message: "Current password is not correct"
+        })
+      }
       if (req.body.newPassword == req.body.currentPassword) {
-        return res.status(400).json({ message: "Passwords must not be the same." });
+        return res.send({
+          success: false,
+          message: "Passwords must not be the same"
+        });
       }
 
       const salt = await bcrypt.genSalt(10);
@@ -274,6 +301,9 @@ router.patch("/editProfile/:email", async (req, res) => {
 
   user.EXP = req.body.exp;
 
+  if (req.body.sub) user.isSubscribed = true;
+  else user.isSubscribed = false;
+
   try {
     await user.save();
     res.send({
@@ -286,43 +316,36 @@ router.patch("/editProfile/:email", async (req, res) => {
   }
 });
 
-router.get("/userEmail", async (req, res) => {
+router.post("/sendResetEmail", async (req, res) => {
   let user;
   try {
-    user = await User.findById(req.body.email);
+    user = await User.findOne({ email: req.body.email });
+
+    if (!user) {
+      return res.send({
+        success: false,
+        mesage: "Email is invalid"
+      })
+    }
 
     const emailOptions = {
       from: 'csci4050@outlook.com',
       to: req.body.email,
       subject: 'Reset Password',
       html: "<p>If you've lost your password or wish to reset it, click the link below</p>"
-        + '<p><a href=http://localhost:3000/Auth>Reset password here!</a></p>',
+        + '<p><a href="http://localhost:3000/resetPassword/' + encodeURIComponent(req.body.email) + '">Reset password here!</a></p>',
       text: 'This is text version!',
     };
 
-    await EmailAdapter.sendMail(emailOptions);
+    await emailAdapter.sendMail(emailOptions);
 
-    // nodeoutlook.sendEmail({
-    //   auth: {
-    //     user: "aobooking@outlook.com",
-    //     pass: "teamteama1"
-    //   },
-    //   from: 'aobooking@outlook.com',
-    //   to: req.body.email,
-    //   subject: 'Reset Password',
-    //   html: "<p>If you've lost your password or wish to reset it, click the link below</p>"
-    //     + '<p><a href=http://localhost:3000/Auth>Reset password here!</a></p>',
-    //   text: 'This is text version!',
-    //   onError: (e) => console.log(e),
-    //   onSuccess: (i) => console.log(i)
-    // })
-
-    res.send({
+    return res.send({
       success: true,
-      message: "User fetched",
+      message: "Reset link sent to your email",
       data: user,
     });
   } catch (error) {
+    console.log(error);
     res.send({
       success: false,
       message: error.message,
@@ -330,7 +353,7 @@ router.get("/userEmail", async (req, res) => {
   }
 })
 
-router.patch("/resetPassword/:email", async (req, res, next) => {
+router.patch("/resetPassword/:email", async (req, res) => {
   const { newPassword, confirmPassword } = req.body;
   const userEmail = req.params.email;
 
@@ -338,12 +361,11 @@ router.patch("/resetPassword/:email", async (req, res, next) => {
 
   try {
     user = await User.findOne({ email: userEmail })
-  } catch (err) {
-    const error = new HttpError(
-      'Something went wrong, could not change password.',
-      500
-    );
-    return next(error);
+  } catch (error) {
+    return res.send({
+      success: false,
+      message: error.mesage
+    });
   }
 
   if (!user) {
@@ -351,13 +373,6 @@ router.patch("/resetPassword/:email", async (req, res, next) => {
       success: false,
       message: "User not found"
     })
-  }
-
-  if (newPassword == null || confirmPassword == null) {
-    return res.send({
-      success: false,
-      message: "Please enter both fields"
-    });
   }
 
   if (newPassword != confirmPassword) {
@@ -373,12 +388,15 @@ router.patch("/resetPassword/:email", async (req, res, next) => {
 
   try {
     await user.save();
-    return res.status(200).json({ message: "Password reset successfully!" });
+    res.send({
+      success: true,
+      message: "Password successfully reset"
+    })
   } catch (error) {
-    const err = new HttpError(
-      "Something went wrong, could not change password.", 500
-    );
-    return next(err);
+    return res.send({
+      success: false,
+      message: error.mesage
+    })
   }
 })
 
@@ -439,19 +457,19 @@ router.post("/adminLogin", async (req, res) => {
 })
 
 
-router.get('/bring-user',async(req,res)=> {
-  try{
-      const users = await User.find();
-      res.send({
-          success: true,
-          message: "Users fetched successful",
-          data: users,
-      });
-  } catch (error){
-      res.send({
-          success: false,
-          message: error.message,
-      });
+router.get('/bring-user', async (req, res) => {
+  try {
+    const users = await User.find();
+    res.send({
+      success: true,
+      message: "Users fetched successful",
+      data: users,
+    });
+  } catch (error) {
+    res.send({
+      success: false,
+      message: error.message,
+    });
   }
 });
 

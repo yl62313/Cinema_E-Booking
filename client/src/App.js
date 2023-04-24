@@ -24,7 +24,10 @@ import { useState } from "react"
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userEmail, setUserEmail] = useState("A");
+  const [user, setUser] = useState({
+    email: "",
+    password: ""
+  });
 
   function handleLogin() {
     setIsLoggedIn(true);
@@ -34,8 +37,8 @@ function App() {
     setIsLoggedIn(false);
   }
 
-  function handleIdentify(email) {
-    setUserEmail(email);
+  function handleIdentify(values) {
+    setUser(values);
   }
 
   return (
@@ -47,16 +50,23 @@ function App() {
           <Route path="/movies/:id" element={<MoviePage isLoggedIn={isLoggedIn}/>}/>
           <Route path="/login" element={<Login isLoggedIn={isLoggedIn} handleLogin={handleLogin} handleIdentify={handleIdentify}/>}/>
           <Route path="/forgotPassword" element={<ForgotPassword/>}/>
-          <Route path="/resetPassword" element={<ResetPassword/>}/>
+          <Route path="/resetPassword/:email" element={<ResetPassword/>}/>
           <Route path="/register" element={<Register/>}/>
           <Route path="/register/thankyou" element={<RegisterConfirm/>}/>
           <Route path="/Auth" element={<Auth/>}/>
           <Route path="/Admin" element={<Admin isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>}/>
           <Route path="adminlogin" element={<AdminLogin isLoggedIn={isLoggedIn} handleLogin={handleLogin} handleIdentify={handleIdentify}/>}/>
+<<<<<<< Updated upstream
           <Route path="/Profile" element={<Profile userEmail={userEmail} />}/>
           <Route path="/seat/:id" element={<SeatPage isLoggedIn={isLoggedIn}/>}/>
           <Route path="/checkout/:id" element={<CheckOut userEmail={userEmail}/>}/>
           <Route path="/ordered" element={<OrderConfirmPage userEmail={userEmail}/>}/>
+=======
+          <Route path="/Profile" element={<Profile user={user} />}/>
+          <Route path="/seat/:id" element={<SeatPage/>}/>
+          <Route path="/checkout/:id" element={<CheckOut/>}/>
+          <Route path="/ordered/:id" element={<OrderConfirmPage/>}/>
+>>>>>>> Stashed changes
           <Route path="/promotion" element={<PromotionForm/>}/>
         </Routes>
       </div>

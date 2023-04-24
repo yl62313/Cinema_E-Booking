@@ -61,14 +61,13 @@ const userSchema = new mongoose.Schema({
         unique: true,
     },
     isAdmin:{
-        type:Boolean,
+        type: Boolean,
         required: true,
         default: false,
     },
     isSubscribed:{
-        type:String,
-        
-        default:"false"
+        type: Boolean,    
+        default: false
     },
     userStatus: {
         type:String,

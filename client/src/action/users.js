@@ -42,7 +42,11 @@ export const BringProfileList = async(email) => {
 
 export const EditProfile = async (payload) => {
     try {
+<<<<<<< Updated upstream
         const response = await axiosInstance.patch("/api/users/");
+=======
+        const response = await axiosInstance.patch(`/api/users/editProfile/${email}`, payload);
+>>>>>>> Stashed changes
         return response.data;
     } catch (error) {
         return error.response;
@@ -50,18 +54,19 @@ export const EditProfile = async (payload) => {
     
 }
 
-export const getUser = async () => {
+export const SendEmail = async (payload) => {
     try {
-        const response = await axiosInstance.patch("/api/users/userEmail");
+        const response = await axiosInstance.post("/api/users/sendResetEmail", payload);
         return response.data; 
     } catch (error) {
+        console.log(error.message);
         return error.response;
     }
 }
 
-export const resetPassword = async () => {
+export const SetPassword = async (email, payload) => {
     try {
-        const response = await axiosInstance.post("/api/users/");
+        const response = await axiosInstance.patch(`/api/users/resetPassword/${email}`, payload);
         return response.data;
     } catch (error) {
         return error.response;

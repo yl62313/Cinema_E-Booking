@@ -5,9 +5,9 @@ import { useNavigate } from 'react-router-dom';
 import TicketList from './TicketList/TicketList';
 
 
-function Profile({userEmail}) {
+function Profile({user}) {
   const navigate = useNavigate();
-  console.log(userEmail);
+
   return (
     <div>
       <div className='admIn'>
@@ -25,7 +25,7 @@ function Profile({userEmail}) {
                 <TicketList userEmail={userEmail}/>
             </Tabs.TabPane>
             <Tabs.TabPane tab="Edit Profile" key="2">
-                <ProfileList userEmail={userEmail}/>
+                <ProfileList user={user}/>
             </Tabs.TabPane>
         </Tabs>
 

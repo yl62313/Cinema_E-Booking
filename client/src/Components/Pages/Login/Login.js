@@ -12,7 +12,7 @@ function Login({isLoggedIn, handleLogin, handleIdentify}) {
       if (response.success) {
         message.success(response.message);
         handleLogin();
-        handleIdentify(values.email);
+        handleIdentify(values);
       } else {
         message.error(response.message)
       }

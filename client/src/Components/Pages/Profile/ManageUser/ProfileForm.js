@@ -3,22 +3,23 @@ import { Link, useNavigate } from "react-router-dom";
 import { EditProfile } from "../../../../action/users"
 import { Modal, Form, Row, Col, message } from 'antd'
 import Button from '../../../../Components/Button'
+import { Checkbox } from 'antd';
 
 function ProfileForm({
   showProfileFormModel,
   setShowProfileFormModel,
   setSelectedProfile,
   formType,
-  userEmail,
+  user,
   profile
 }) {
-
   const onFinish = async (values) => {
     try {
-      const response = await EditProfile(userEmail, values);
+      const response = await EditProfile(user.email, values);
       if (response.success) {
         message.success(response.message);
-
+        setShowProfileFormModel(false)
+        setSelectedProfile(response.profile)
       } else {
         message.error(response.message);
       }
@@ -57,14 +58,14 @@ function ProfileForm({
           name="phoneNumber"
           initialValue={profile[0].phoneNumber}
         >
-          <input type="text" defaultValue={profile.phoneNumber}></input>
+          <input type="text"></input>
         </Form.Item>
         <Form.Item
           label="Current Password"
-          name="oldPassword"
-          initialValue={profile[0].password}
+          name="currentPassword"
+          initialValue={user.password}
         >
-          <input type="password" />
+          <input type='password'/>
         </Form.Item>
         <Form.Item
           label="New Password"
@@ -73,8 +74,8 @@ function ProfileForm({
           <input type="password" />
         </Form.Item>
         <Form.Item
-          label="Address"
-          name="address"
+          label="Street"
+          name="street"
           initialValue={profile[0].street}
         >
           <input type="address" />
@@ -139,17 +140,13 @@ function ProfileForm({
           </Col>
           <Col span={12}>
             <Form.Item
-              label="CVV"
-              name="cvv"
-              rules={[{ required: false, message: "Enter your 3 digits CVV" }]}
+              label="Subscribed for Promotions?"
+              name="sub"
+              valuePropName="checked"
+              initialValue={profile[0].isSubscribed}
             >
-              <input type="text" />
+              <Checkbox/>
             </Form.Item>
-            <label>
-              <input type="checkbox" />
-              Subscribe for Promotions
-            </label>
-
           </Col>
         </Row>
 
@@ -168,6 +165,5 @@ function ProfileForm({
     </Modal>
   )
 }
-
 
 export default ProfileForm
