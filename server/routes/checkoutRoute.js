@@ -10,73 +10,73 @@ const emailAdapter = new EmailAdapter({
 });
 
 router.post("/checkout-show", async (req, res) => {
-    try {
-      const newCheckout = new Checkout(req.body);
-      await newCheckout.save();
-  
-      const show = await Show.findById(req.body.show);
-      await Show.findByIdAndUpdate(req.body.show, {
-        bookedSeats: [...show.bookedSeats, ...req.body.seats],
-      });
+  try {
+    const newCheckout = new Checkout(req.body);
+    await newCheckout.save();
 
-      const user = await User.findOne({ _id: req.body.user });
-      
+    const show = await Show.findById(req.body.show);
+    await Show.findByIdAndUpdate(req.body.show, {
+      bookedSeats: [...show.bookedSeats, ...req.body.seats],
+    });
 
-      const emailOptions = {
-        from: 'csci4050@outlook.com',
-        to: user.email,
-        subject: 'Order Comfirmation Email',
-        html: '<p>Thank you for order!</p>' + 
+    const user = await User.findOne({ _id: req.body.user });
+
+
+    const emailOptions = {
+      from: 'csci4050@outlook.com',
+      to: user.email,
+      subject: 'Order Comfirmation Email',
+      html: '<p>Thank you for order!</p>' +
         '<p>Comfirmation code: </p>' + newCheckout.transactionId,
-        text: 'This is text version!'
-      };
-  
-      await emailAdapter.sendMail(emailOptions);
- 
-      res.send({
-        success: true,
-        message: "Ticket booked successfully",
-        data: newCheckout,
-      });
-    } catch (error) {
-      res.send({
-        success: false,
-        message: error.message,
-      });
-    }
-  });
+      text: 'This is text version!'
+    };
+
+    await emailAdapter.sendMail(emailOptions);
+
+    res.send({
+      success: true,
+      message: "Ticket booked successfully",
+      data: newCheckout,
+    });
+  } catch (error) {
+    res.send({
+      success: false,
+      message: error.message,
+    });
+  }
+});
 
 
 
 
 router.get("/get-tickets", async (req, res) => {
-    try {
-      const checkouts = await Checkout.find({user: req.body.userId})
+  try {
+    const checkouts = await Checkout.find({ user: req.body.userId })
       .populate("show")
-        .populate({
-          path: "show",
-          populate: {
-            path: "movie",
-            model: "movies",
-          },
-        })
-        .populate("user")
-        .populate({
-          path: "show",
-        })
+      .populate({
+        path: "show",
+        populate: {
+          path: "movie",
+          model: "movies",
+        },
+      })
+      .populate("user")
+      .populate({
+        path: "show",
+      })
 
-      res.send({
-        success: true,
-        message: "tickets fetched successfully",
-        data: checkouts,
-      });
-    } catch (error) {
-      res.send({
-        success: false,
-        message: error.message,
-      });
-    }
-  });
+    res.send({
+      success: true,
+      message: "tickets fetched successfully",
+      data: checkouts,
+    });
+  } catch (error) {
+    res.send({
+      success: false,
+      message: error.message,
+    });
+  }
+});
 
 
-  module.exports = router;
+module.exports = router;
