@@ -6,7 +6,7 @@ import { BringProfileList } from '../../../../action/users';
 import { HideLoading, ShowLoading } from '../../../../reducers/loader_reducer';
 
 function TicketList(props) {
-  console.log("userEmail:", props.userEmail);
+  console.log("userEmail:", props.user.email);
     const [checkouts , setCheckOut] = useState([]);
     const [profile, setProfile] = useState([]);
     const dispatch = useDispatch();
@@ -31,7 +31,7 @@ function TicketList(props) {
     const getProfileList = async () => {
       try {
         dispatch(ShowLoading())
-        const response = await BringProfileList(props.userEmail);
+        const response = await BringProfileList(props.user.email);
         if (response.success) {
           setProfile(response.data._id.toString());
         } else {
