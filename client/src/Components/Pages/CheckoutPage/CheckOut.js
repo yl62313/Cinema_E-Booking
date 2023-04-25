@@ -1,20 +1,20 @@
-import { Col, Form, message, Row, Select } from 'antd';
+import { Col, Form, message, Row, Select, Table } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { CheckOutTickets } from '../../../action/checkout';
 import { BringShowById } from '../../../action/movies';
-import { BringPromotion} from '../../../action/promotion';
+import { BringPromotion, BringPromotionList} from '../../../action/promotion';
 import { HideLoading, ShowLoading } from '../../../reducers/loader_reducer';
 import Button from "../../Button";
 import { v4 as uuidv4 } from 'uuid';
-import { BringProfileList } from '../../../action/users';
+import { BringProfileList, BringUserById } from '../../../action/users';
 
 
 function CheckOut(props) {
 
   console.log("userEmail:", props.user);
-
+  
     const [show, setShow] = React.useState(null)
     const selectedSeat = JSON.parse(localStorage.getItem('selectedSeat'));
     const [totalPrice, setTotalPrice] = React.useState(localStorage.getItem('totalPrice'));
@@ -23,6 +23,7 @@ function CheckOut(props) {
     const [cardType, setCardType] = React.useState('');
     const [transactionId, setTransactionId] = React.useState("");
     const [profile, setProfile] = useState([]);
+    const [cardList, setCardList] = useState([]);
     const {Option} = Select;
     const params = useParams()
     const dispatch = useDispatch()
@@ -46,6 +47,22 @@ function CheckOut(props) {
           dispatch(HideLoading());
         }
     }
+
+    const getCardList = async () => {
+      try {
+        dispatch(ShowLoading())
+        const response = await BringProfileList(props.user.email);
+        if (response.success) {
+          setCardList([response.data]);
+        } else {
+          message.error(response.message);
+        }
+        dispatch(HideLoading());
+      } catch (error) {
+        dispatch(HideLoading());
+        message.error(error.message);
+      }
+    };
 
     const getProfileList = async () => {
       try {
@@ -136,10 +153,26 @@ function CheckOut(props) {
 
 
       useEffect(()=> {
+        getCardList();
         getShowData();
         applyPromoCode();
         getProfileList();
       },[]);
+
+      const columns = [
+        {
+          title: "Cards",
+          render: (text, record) => {
+            return (
+              <Select defaultValue="card1" style={{ width: 250 }}>
+                <Option value="card1">{record.nameOnCard1},{record.exp1}</Option>
+                <Option value="card2">{record.nameOnCard2},{record.exp2}</Option>
+                <Option value="card3">{record.nameOnCard3},{record.exp3}</Option>
+              </Select>
+            );
+          },
+        },
+      ];
 
   return (
     show &&
@@ -179,52 +212,22 @@ function CheckOut(props) {
                 </Col>
             </Row>
             <br/>
-            <h5 className="text-l mb-1">Personal Information</h5>
-            <Row gutter={16}>
-                <Col span={6}>
-                    <Form.Item
-                    label="First Name"
-                    name="firstName"
-                    rules={[{ required: false, message: "Enter your First Name" }]}
-                    >
-                    <input type="text" />
-                    </Form.Item>
-                </Col>
-                <Col span={6}>
-                    <Form.Item
-                    label="Last Name"
-                    name="lastName"
-                    rules={[{ required: false, message: "Enter your Last Name" }]}
-                    >
-                    <input type="text" />
-                    </Form.Item>
-                </Col>
-                <Col span={6}>
-                    <Form.Item
-                    label="Phone Number"
-                    name="phoneNumber"
-                    rules={[{ required: false, message: "Enter your Phone Number" }]}
-                    >
-                    <input type="tel" />
-                    </Form.Item>
-                </Col>
-                <Col span={6}>
-                    <Form.Item
-                    label="Email"
-                    name="email"
-                    rules={[{ required: false, message: "Enter your Email" }]}
-                    >
-                    <input type="email" />
-                    </Form.Item>
-                </Col>
-            </Row>
-            <div className="flex flex-col mt-2 gap-1">
-            <h5 className="text-l mb-1">Card Information</h5>
-            <Select onChange={handleCardTypeChange} className="w-1" defaultValue="Card Type">
-                <Option value="MasterCard">MasterCard</Option>
-                <Option value="Visa">Visa</Option>
-                <Option value="AMEX">AMEX</Option>
+            
+            <Table columns={columns} dataSource={cardList} />
+               
+            
+
+            {/* <div className="flex flex-col mt-2 gap-1">
+            <h5 className="text-l mb-1">Select Card</h5>
+            <Select onChange={handleCardTypeChange} className="w-1" defaultValue="Select Card">
+                <Option value="card1">{profile.nameOnCard1}</Option>
+                <Option value="card2">card2</Option>
+                <Option value="card3">card3</Option>
             </Select>
+            </div> */}
+
+            <div className="flex flex-col mt-2 gap-1">
+            <h5 className="text-l mb-1">Pay with new card</h5>
             <Row gutter={16}>
                 <Col span={6}>  
               <Form.Item
