@@ -108,21 +108,6 @@ function MovieForm ({
                             <input type="text"/>
                         </Form.Item>
                     </Col>
-                    <Col span={8}>
-                        <Form.Item label="Child Price" name="childPrice">
-                            <input type="text"/>
-                        </Form.Item>
-                    </Col>
-                    <Col span={8}>
-                        <Form.Item label="Adult Price" name="adultPrice">
-                            <input type="text"/>
-                        </Form.Item>
-                    </Col>
-                    <Col span={8}>
-                        <Form.Item label="Senior Price" name="seniorPrice">
-                            <input type="text"/>
-                        </Form.Item>
-                    </Col>
                     <Col span={24}>
                     <Form.Item label="Movie Reviews" name="reviews">
                     <textarea type="text"/>
