@@ -42,13 +42,13 @@ function Admin({ isLoggedIn, handleLogout }) {
       <br />
       <Tabs defaultActiveKey='1'>
       <Tabs.TabPane tab='Movies' key='1'>
-        <Proxy isLoggedIn={isLoggedIn} component={MovieList} message="Please log in to view this content." />
+        <Proxy isLoggedIn={isLoggedIn} component={<MovieList/>} message="Please log in to view this content." />
       </Tabs.TabPane>
       <Tabs.TabPane tab='Promotions' key='2'>
-        <Proxy isLoggedIn={isLoggedIn} component={PromotionList} message="Please log in to view this content." />
+        <Proxy isLoggedIn={isLoggedIn} component={<PromotionList/>} message="Please log in to view this content." />
       </Tabs.TabPane>
       <Tabs.TabPane tab='Manage Users' key='3'>
-        <Proxy isLoggedIn={isLoggedIn} component={ManageUsers} message="Please log in to view this content." />
+        <Proxy isLoggedIn={isLoggedIn} component={<ManageUsers/>} message="Please log in to view this content." />
       </Tabs.TabPane>
     </Tabs>
 

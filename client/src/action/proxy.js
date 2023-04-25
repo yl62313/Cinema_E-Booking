@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 function Proxy(props) {
   if (props.isLoggedIn) {
-    return <props.component/>;
+    return props.component;
   } else {
     return <div>{props.message}</div>;
   }
