@@ -220,6 +220,8 @@ router.get('/get-profile-by-email/:email', async (req, res) => {
 
 
 router.patch("/editProfile/:email", async (req, res) => {
+
+
   let user;
   const userEmail = req.params.email;
 
@@ -234,8 +236,12 @@ router.patch("/editProfile/:email", async (req, res) => {
     return res.status(404).json({ message: "User not found" })
   }
 
+
+
   user.firstName = req.body.firstName;
   user.lastName = req.body.lastName;
+
+
 
   if (req.body.newPassword != null) {
     if (req.body.currentPassword == null) {
@@ -277,7 +283,31 @@ router.patch("/editProfile/:email", async (req, res) => {
     user.cardNumber = hashedCardNumber;
   }
 
-  user.EXP = req.body.exp;
+
+  const card1Updates = {
+    nameOnCard1: req.body.nameOnCard1,
+    cardNumber1: req.body.cardNumber1,
+    exp1: req.body.exp1
+  };
+  
+  const card2Updates = {
+    nameOnCard2: req.body.nameOnCard2,
+    cardNumber2: req.body.cardNumber2,
+    exp2: req.body.exp2
+  };
+  
+  const card3Updates = {
+    nameOnCard3: req.body.nameOnCard3,
+    cardNumber3: req.body.cardNumber3,
+    exp3: req.body.exp3
+  };
+  
+  Object.assign(user, card1Updates, card2Updates, card3Updates);
+
+
+
+
+
 
   if (req.body.sub) user.isSubscribed = true;
   else user.isSubscribed = false;

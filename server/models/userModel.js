@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 
+
+
 const userSchema = new mongoose.Schema({
     email: {
         type: String,
@@ -43,18 +45,30 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: ""
      },
-    cardNumber: {
-        type: String,
-        default: ""
-    },
-    nameOnCard: {
-        type: String,
-        default: ""
-    },
-    EXP: {
-        type: String,
-        default: ""
-    },
+    //  cards: [{
+    //     nameOnCard: String,
+    //     cardNumber: String,
+    //     exp: String
+    //   }],
+
+    nameOnCard1: { type: String, default: "" },
+        
+    cardNumber1: { type: String, default: "" },
+        
+    exp1: { type: String, default: "" },
+
+    nameOnCard2: { type: String, default: "" },
+        
+    cardNumber2: { type: String, default: "" },
+        
+    exp2: { type: String, default: "" },
+
+    nameOnCard3: { type: String, default: "" },
+        
+    cardNumber3: { type: String, default: "" },
+        
+    exp3: { type: String, default: "" },
+    
 
     confirmationCode: {
         type: String,

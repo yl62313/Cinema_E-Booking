@@ -1,9 +1,11 @@
-import React from 'react'
-import { Link, useNavigate } from "react-router-dom";
-import { EditProfile } from "../../../../action/users"
-import { Modal, Form, Row, Col, message } from 'antd'
-import Button from '../../../../Components/Button'
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { EditProfile } from '../../../../action/users';
+import { Modal, Form, Row, Col, message, Select } from 'antd';
+import Button from '../../../../Components/Button';
 import { Checkbox } from 'antd';
+
+const { Option } = Select;
 
 function ProfileForm({
   showProfileFormModel,
@@ -13,6 +15,10 @@ function ProfileForm({
   user,
   profile
 }) {
+
+  const [selectedCardType, setSelectedCardType] = useState(null);
+
+
   const onFinish = async (values) => {
     try {
       const response = await EditProfile(user.email, values);
@@ -27,6 +33,11 @@ function ProfileForm({
       message.error(error.message);
     }
   }
+
+  const handleCardTypeChange = (value) => {
+    setSelectedCardType(value);
+
+  };
 
   return (
     <Modal
@@ -65,7 +76,7 @@ function ProfileForm({
           name="currentPassword"
           initialValue={user.password}
         >
-          <input type='password'/>
+          <input type='password' />
         </Form.Item>
         <Form.Item
           label="New Password"
@@ -109,35 +120,106 @@ function ProfileForm({
             </Form.Item>
           </Col>
         </Row>
-        <Row gutter={16}>
-          <Col span={12}>
+        {/* <div className='mb-2'>
+          <h5 className="text-l mb-1">Card Information</h5>
+          <Select onChange={handleCardTypeChange} className="w-1" defaultValue={selectedCardType || "Select Card"}>
+            <Option value="card1">card1</Option>
+            <Option value="card2">card2</Option>
+            <Option value="card3">card3</Option>
+          </Select>
+        </div>
+        {selectedCardType === 'card1' && ( */}
+          <div>
+          <div style={{ marginBottom: '2.5rem' }}></div>
+            <h4>Card 1</h4>
+            <hr />
+            <div style={{ marginBottom: '1rem' }}></div>
+            <div style={{ marginBottom: '2.5rem' }}>
             <Form.Item
-              label="Card Number"
-              name="cardNumber"
-              initialValue={profile[0].cardNumber}
+              label="Card 1 Number"
+              name="cardNumber1"
+              initialValue={profile[0].cardNumber1}
             >
               <input type="text" />
             </Form.Item>
-          </Col>
-          <Col span={12}>
             <Form.Item
-              label="Name on Card"
-              name="nameOnCard"
+              label="Name on Card 1"
+              name="nameOnCard1"
+              initialValue={profile[0].nameOnCard1}
             >
               <input type="text" />
             </Form.Item>
-          </Col>
-        </Row>
-        <Row gutter={16}>
-          <Col span={12}>
             <Form.Item
               label="EXP"
-              name="exp"
-              initialValue={profile[0].EXP}
+              name="exp1"
+              initialValue={profile[0].exp1}
             >
               <input type="text" />
             </Form.Item>
-          </Col>
+            </div>
+          </div>
+        {/* )} */}
+        {/* {selectedCardType === 'card2' && ( */}
+          <div>
+          <h4>Card 2</h4>
+          <hr />
+          <div style={{ marginBottom: '1rem' }}></div>
+          <div style={{ marginBottom: '2.5rem' }}>
+            <Form.Item
+              label="Card 2 Number"
+              name="cardNumber2"
+              initialValue={profile[0].cardNumber2}
+            >
+              <input type="text" />
+            </Form.Item>
+            <Form.Item
+              label="Name on Card 2"
+              name="nameOnCard2"
+              initialValue={profile[0].nameOnCard2}
+            >
+              <input type="text" />
+            </Form.Item>
+            <Form.Item
+              label="EXP"
+              name="exp2"
+              initialValue={profile[0].exp2}
+            >
+              <input type="text" />
+            </Form.Item>
+            </div>
+          </div>
+        {/* )} */}
+        {/* {selectedCardType === 'card3' && ( */}
+          <div>
+          <h4>Card 3</h4>
+          <hr />
+          <div style={{ marginBottom: '1rem' }}></div>
+          <div style={{ marginBottom: '2.5rem' }}>
+            <Form.Item
+              label="Card 3 Number"
+              name="cardNumber3"
+              initialValue={profile[0].cardNumber3}
+            >
+              <input type="text" />
+            </Form.Item>
+            <Form.Item
+              label="Name on Card 3"
+              name="nameOnCard3"
+              initialValue={profile[0].nameOnCard3}
+            >
+              <input type="text" />
+            </Form.Item>
+            <Form.Item
+              label="EXP"
+              name="exp3"
+              initialValue={profile[0].exp3}
+            >
+              <input type="text" />
+            </Form.Item>
+            </div>
+          </div>
+        {/* )} */}
+        <Row gutter={16}>
           <Col span={12}>
             <Form.Item
               label="Subscribed for Promotions?"
@@ -145,7 +227,7 @@ function ProfileForm({
               valuePropName="checked"
               initialValue={profile[0].isSubscribed}
             >
-              <Checkbox/>
+              <Checkbox />
             </Form.Item>
           </Col>
         </Row>

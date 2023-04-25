@@ -2,10 +2,14 @@ import React, { useEffect, useState } from 'react'
 import { EditOutlined } from '@ant-design/icons'
 import Button from '../../../../Components/Button'
 import ProfileForm from './ProfileForm';
-import { message, Table } from 'antd'
+import { message, Table, Dropdown, Menu} from 'antd'
+import { DownOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { HideLoading, ShowLoading } from '../../../../reducers/loader_reducer';
 import { BringProfileList } from '../../../../action/users';
+import { Select } from 'antd';
+
+
 
 
 {/* If u want to listed profile list, pls make BringProfileList api at cilent server (action-> user.js and server route as well) */ }
@@ -17,6 +21,7 @@ function ProfileList(props) {
   const [selectedProfile = null, setSelectedProfile] = useState(null);
   const [formType = "add", setFormType] = useState([]);
   const [profile, setProfile] = useState([]);
+  const { Option } = Select;
   
   const dispatch = useDispatch();
   const getProfileList = async () => {
@@ -63,6 +68,19 @@ function ProfileList(props) {
       },
     },
     {
+      title: "Cards",
+      render: (text, record) => {
+        return (
+          <Select defaultValue="card1" style={{ width: 250 }}>
+            <Option value="card1">{record.nameOnCard1},{record.exp1}</Option>
+            <Option value="card2">{record.nameOnCard2},{record.exp2}</Option>
+            <Option value="card3">{record.nameOnCard3},{record.exp3}</Option>
+          </Select>
+        );
+      },
+    },
+    
+    {
       title: "Action",
       dataIndex: "action",
       render: (text, record) => {
@@ -77,6 +95,8 @@ function ProfileList(props) {
       }
     }
   ];
+
+  
 
 
   useEffect(() => {
