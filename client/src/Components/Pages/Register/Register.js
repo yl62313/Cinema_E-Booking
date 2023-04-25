@@ -143,13 +143,13 @@ function Register() {
               </Form.Item>
             </Col>
             <Col span={12}>
-              <Form.Item
+              {/* <Form.Item
                 label="CVV"
                 name="cvv"
                 rules={[{ required: false, message: "Enter your 3 digits CVV" }]}
               >
                 <input type="text" />
-              </Form.Item>
+              </Form.Item> */}
               <Form.Item
                 label="Subscribe for Promotions"
                 name="sub"

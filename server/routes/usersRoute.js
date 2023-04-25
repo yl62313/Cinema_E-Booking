@@ -33,9 +33,13 @@ router.post("/register", async (req, res) => {
       req.body.cardNumber = hashedCardNumber;
     }
 
+    
+      
+   
+
 
     const newUser = new User(req.body);
-    await newUser.save();
+    
 
     if (req.body.sub) {
       newUser.isSubscribed = true;
@@ -48,7 +52,9 @@ router.post("/register", async (req, res) => {
 
     });
 
-
+    newUser.nameOnCard1 = req.body.nameOnCard,
+    newUser.cardNumber1 = req.body.cardNumber,
+    newUser.exp1 = req.body.exp,
 
     code = Math.floor(Math.random() * (99999 - 10000))
 
