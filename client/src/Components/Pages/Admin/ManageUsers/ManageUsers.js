@@ -31,7 +31,7 @@ function ManageUsers() {
           const response = await UpdateUser({
             userId: user._id,
             ...user,
-            userStatus: user.userStatus === "ACTIVE"?"false":"ACTIVE",
+            userStatus: user.userStatus === "ACTIVE"?"SUSPENDED":"ACTIVE",
           });
           if (response.success) {
             message.success(response.message);
@@ -100,7 +100,7 @@ function ManageUsers() {
                   statusChange(record)
                 }}>Active</span>
                 )}
-                {record.userStatus=="false" && ( 
+                {record.userStatus=="SUSPENDED" && ( 
                 <span 
                 className="underline"
                 onClick={()=>{

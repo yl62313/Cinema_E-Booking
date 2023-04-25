@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 
 function Admin({ isLoggedIn, handleLogout }) {
   const navigate = useNavigate();
+  console.log(isLoggedIn);
 
   function logout() {
     handleLogout();
@@ -39,19 +40,17 @@ function Admin({ isLoggedIn, handleLogout }) {
 
       <h1 className='text-2x flex justify-center'> Admin </h1>
       <br />
-      
-        <Tabs defaultActiveKey='1'>
-          <Tabs.TabPane tab='Movies' key='1'>
-            {isLoggedIn ? <MovieList /> : <div>Please log in to view this content.</div>}
-          </Tabs.TabPane>
-          <Tabs.TabPane tab='Promotions' key='2'>
-            {isLoggedIn ? <PromotionList /> : <div>Please log in to view this content.</div>}
-          </Tabs.TabPane>
-          <Tabs.TabPane tab='Manage Users' key='3'>
-            {isLoggedIn ? <ManageUsers /> : <div>Please log in to view this content.</div>}
-          </Tabs.TabPane>
-        </Tabs>
-      
+      <Tabs defaultActiveKey='1'>
+      <Tabs.TabPane tab='Movies' key='1'>
+        <Proxy isLoggedIn={isLoggedIn} component={MovieList} message="Please log in to view this content." />
+      </Tabs.TabPane>
+      <Tabs.TabPane tab='Promotions' key='2'>
+        <Proxy isLoggedIn={isLoggedIn} component={PromotionList} message="Please log in to view this content." />
+      </Tabs.TabPane>
+      <Tabs.TabPane tab='Manage Users' key='3'>
+        <Proxy isLoggedIn={isLoggedIn} component={ManageUsers} message="Please log in to view this content." />
+      </Tabs.TabPane>
+    </Tabs>
 
     </div>
   )
