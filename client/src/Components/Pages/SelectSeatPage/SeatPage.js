@@ -1,16 +1,22 @@
 import React, { useEffect, useState } from 'react'
 import MovieIcon from '../../../samplePicture/pngegg.png'
 import ScreenIcon from '../../../samplePicture/2169727.png'
-import {Link, useNavigate,useParams} from 'react-router-dom'
-import {useDispatch} from 'react-redux'
+import { Link, useNavigate, useParams } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 import { HideLoading, ShowLoading } from "../../../reducers/loader_reducer"
 import { BringShowById } from "../../../action/movies"
 import { message } from "antd"
 
-function SeatPage({isLoggedIn}) {
+function SeatPage({ isLoggedIn }) {
   const [show, setShow] = React.useState(null)
-  const [selectedSeat,setSelectedSeat] = React.useState([])
-
+  const [selectedSeat, setSelectedSeat] = React.useState([])
+  const [childTickets, setChildTickets] = useState(0);
+  const [childPrice, setChildPrice] = useState(0);
+  const [adultTickets, setAdultTickets] = useState(0);
+  const [adultPrice, setAdultPrice] = useState(0);
+  const [seniorTickets, setSeniorTickets] = useState(0);
+  const [seniorPrice, setSeniorPrice] = useState(0);
+  const [totalPrice, setTotalPrice] = useState(0);
 
   const params = useParams()
   const navigate = useNavigate()
@@ -33,23 +39,23 @@ function SeatPage({isLoggedIn}) {
       dispatch(HideLoading());
     }
   }
-  
+
   const getSeatsData = () => {
     const columns = 15
     const seats = show.totalSeats
-    const rows = Math.ceil(seats/columns);
+    const rows = Math.ceil(seats / columns);
     return (
-    <div className="columnSeat">
-        {Array.from(Array(rows).keys()).map((seat,index)=>{
+      <div className="columnSeat">
+        {Array.from(Array(rows).keys()).map((seat, index) => {
           return (
             <div className="flex justify-center gap-2">
-              {Array.from(Array(columns).keys()).map((column,index)=>{
+              {Array.from(Array(columns).keys()).map((column, index) => {
                 let seatClass = "totalSeats";
-                if (selectedSeat.includes(seat*columns+column+1)){
+                if (selectedSeat.includes(seat * columns + column + 1)) {
                   seatClass = "selectedSeats";
                   localStorage.setItem('selectedSeat', JSON.stringify(selectedSeat));
                 }
-                if (show.bookedSeats.includes(seat*columns+column+1)){
+                if (show.bookedSeats.includes(seat * columns + column + 1)) {
                   seatClass = "bookedSeats";
                 }
                 return (
@@ -68,9 +74,9 @@ function SeatPage({isLoggedIn}) {
                       <h1 className="text-sm"> {seat * columns + column + 1}</h1>
                     </div>
 
+                  )
                 )
-                )
-             })}
+              })}
             </div>
           )
         })}
@@ -78,15 +84,7 @@ function SeatPage({isLoggedIn}) {
     )
   }
 
-  const OrderSummaryPage = ({}) => {
-    const [childTickets, setChildTickets] = useState(0);
-    const [childPrice, setChildPrice] = useState(show.childPrice * childTickets);
-    const [adultTickets, setAdultTickets] = useState(0);
-    const [adultPrice, setAdultPrice] = useState(show.adultPrice * adultTickets);
-    const [seniorTickets, setSeniorTickets] = useState(0);
-    const [seniorPrice, setSeniorPrice] = useState(show.seniorPrice * seniorTickets);
-    const [totalPrice, setTotalPrice] = useState(0);
-
+  const OrderSummaryPage = ({ }) => {
     const totalTickets = childTickets + adultTickets + seniorTickets;
     const orderedTickets = selectedSeat.length;
 
@@ -97,7 +95,7 @@ function SeatPage({isLoggedIn}) {
       setTotalPrice(totalPrice);
       localStorage.setItem('totalPrice', totalPrice);
     }, [childPrice, adultPrice, seniorPrice]);
-  
+
     const incrementChildTickets = () => {
       setChildTickets(childTickets + 1);
       setChildPrice((childTickets + 1) * show.childPrice);
@@ -125,112 +123,114 @@ function SeatPage({isLoggedIn}) {
     function currencyFormat(num) {
       return '$' + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
     }
-    if(totalTickets > 0 && orderedTickets < totalTickets){
+    if (totalTickets > 0 && orderedTickets < totalTickets) {
       message.error("Please select seats to match the number of tickets ordered.")
       return null;
     }
 
     return (
       <div>
-        <div className ="summaryContainer">
-        <div className="ticket-type-col summaryH3">
-        <h4>TICKET TYPE:</h4>
+        <div className="summaryContainer">
+          <div className="ticket-type-col summaryH3">
+            <h4>TICKET TYPE:</h4>
             <div>Child:</div>
             <div>Adult:</div>
             <div>Senior:</div>
-        </div>
-  
-        <div className="quantity-col summaryH3">
+          </div>
+
+          <div className="quantity-col summaryH3">
             <h4>QUANTITY:</h4>
-  
+
             <div className="quantity-button buttonPadding">
-            <button onClick={decrementChildTickets}>-</button>
-            <div>{childTickets || '0'}</div>
-            <button onClick={incrementChildTickets}>+</button>
+              <button onClick={decrementChildTickets}>-</button>
+              <div>{childTickets || '0'}</div>
+              <button onClick={incrementChildTickets}>+</button>
             </div>
-  
-          <div className="quantity-button buttonPadding">
-            <button onClick={decrementAdultTickets}>-</button>
-            <div>{adultTickets || '0'}</div>
-            <button onClick={incrementAdultTickets}>+</button>
+
+            <div className="quantity-button buttonPadding">
+              <button onClick={decrementAdultTickets}>-</button>
+              <div>{adultTickets || '0'}</div>
+              <button onClick={incrementAdultTickets}>+</button>
             </div>
-  
-             <div className="quantity-button buttonPadding">
-            <button onClick={decrementSeniorTickets}>-</button>
-            <div>{seniorTickets || '0'}</div>
-            <button onClick={incrementSeniorTickets}>+</button>
+
+            <div className="quantity-button buttonPadding">
+              <button onClick={decrementSeniorTickets}>-</button>
+              <div>{seniorTickets || '0'}</div>
+              <button onClick={incrementSeniorTickets}>+</button>
             </div>
-  
-          </div>  
-  
+
+          </div>
+
           <div className="price-col summaryH3">
             <h4>PRICE:</h4>
-            <div>{currencyFormat(childPrice)|| '$0.00'}</div>
+            <div>{currencyFormat(childPrice) || '$0.00'}</div>
             <div>{currencyFormat(adultPrice) || '$0.00'}</div>
             <div>{currencyFormat(seniorPrice) || '$0.00'}</div>
             <h4>Total: {currencyFormat(totalPrice) || '$0.00'}</h4>
           </div>
-          </div>
+        </div>
       </div>
-    ) 
+    )
   }
 
 
-  useEffect(()=> {
+  useEffect(() => {
     getShowData();
-  },[]);
+  }, []);
 
 
   return (
-  show && (
-    <div>
-      {/* show info */}
-      <div className="flex justify-between card p-2">
-        <div>
-        <h1 className='movieLetter uppercase cursor-pointer' onClick={()=>{navigate("/")}}>
-          <img src={MovieIcon} alt="" height={30}/>{show.movie.title}
-          </h1>
+    show && (
+      <div>
+        {/* show info */}
+        <div className="flex justify-between card p-2">
+          <div>
+            <h1 className='movieLetter uppercase cursor-pointer' onClick={() => { navigate("/") }}>
+              <img src={MovieIcon} alt="" height={30} />{show.movie.title}
+            </h1>
+          </div>
+          <div>
+            <h1 className='movieTime uppercase'>{show.time}
+            </h1>
+          </div>
         </div>
-        <div>
-        <h1 className='movieTime uppercase'>{show.time}
-          </h1>
-        </div>
-      </div>
-      <div className="screenIcon"><img src={ScreenIcon} alt="" width={120}/></div>
-      
-      <div className="seatBackground">{getSeatsData()}</div>
+        <div className="screenIcon"><img src={ScreenIcon} alt="" width={120} /></div>
+
+        <div className="seatBackground">{getSeatsData()}</div>
 
         <div className='pb-3'>
-          <OrderSummaryPage/>
+          <OrderSummaryPage />
         </div>
 
-      {selectedSeat.length > 0 &&(
-        <div>
-          <h1 className='letterLetter pb-2 text-md'><b>Selected Seats</b> : {selectedSeat.join(" , ")}</h1>
+        {selectedSeat.length > 0 && (
+          <div>
+            <h1 className='letterLetter pb-2 text-md'><b>Selected Seats</b> : {selectedSeat.join(" , ")}</h1>
+          </div>
+        )}
+
+        <div className='flex justify-center gap-1'>
+          <div className='cancelCart'>
+            <h1 className=' loginLetter cursor-pointer' onClick={() => { navigate("/") }}>
+              {"CANCEL"}
+            </h1>
+          </div>
+          {selectedSeat.length > 0 && (
+            <div className='addCart'>
+              <Link to={{
+                pathname: `/checkout/${show._id}`,
+                state: {
+                  selectedSeat: localStorage.getItem('selectedSeat', JSON.stringify(selectedSeat)),
+                  totalPrice: localStorage.getItem('totalPrice')
+                }
+              }} className='loginLetter cursor-pointer'>
+                {"CHECK OUT"}
+              </Link>
+            </div>
+          )}
         </div>
-      )}
-      
-      <div className='flex justify-center gap-1'>
-      <div className='cancelCart'>
-        <h1 className=' loginLetter cursor-pointer' onClick={() => { navigate("/") }}>
-          {"CANCEL"}
-        </h1>
-      </div> 
-      {selectedSeat.length > 0 && (
-      <div className='addCart'>
-        <Link   to={{
-          pathname: `/checkout/${show._id}`,
-          state: {
-            selectedSeat: localStorage.getItem('selectedSeat', JSON.stringify(selectedSeat)),
-            totalPrice: localStorage.getItem('totalPrice')}
-        }} className='loginLetter cursor-pointer'>
-          {"CHECK OUT"}
-        </Link>
       </div>
-      )}
-      </div>
-    </div>
-      
-    ))}
+
+    ))
+}
 
 export default SeatPage
