@@ -33,13 +33,8 @@ router.post("/register", async (req, res) => {
       req.body.cardNumber = hashedCardNumber;
     }
 
-    
-      
-   
-
-
     const newUser = new User(req.body);
-    
+
 
     if (req.body.sub) {
       newUser.isSubscribed = true;
@@ -53,10 +48,10 @@ router.post("/register", async (req, res) => {
     });
 
     newUser.nameOnCard1 = req.body.nameOnCard,
-    newUser.cardNumber1 = req.body.cardNumber,
-    newUser.exp1 = req.body.exp,
+      newUser.cardNumber1 = req.body.cardNumber,
+      newUser.exp1 = req.body.exp,
 
-    code = Math.floor(Math.random() * (99999 - 10000))
+      code = Math.floor(Math.random() * (99999 - 10000))
 
     newUser.confirmationCode = code;
 
@@ -82,22 +77,6 @@ router.post("/register", async (req, res) => {
 
     await emailAdapter.sendMail(emailOptions);
 
-
-
-    // nodeoutlook.sendEmail({
-    //   auth: {
-    //     user: "csci4050@outlook.com",
-    //     pass: "teamteama1"
-    //   },
-    //   from: 'csci4050@outlook.com',
-    //   to: req.body.email,
-    //   subject: 'Verification Email',
-    //   html: '<p>Thank you for registering with us. Before you can proceed, please enter the given verification code: </p>' + code
-    //     + '<p><a href=http://localhost:3000/Auth> Click here to verify</a></p>',
-    //   text: 'This is text version!',
-    //   onError: (e) => console.log(e),
-    //   onSuccess: (i) => console.log(i)
-    // });
 
 
   } catch (error) {
@@ -283,32 +262,44 @@ router.patch("/editProfile/:email", async (req, res) => {
   user.state = req.body.state;
   user.zipCode = req.body.zipCode;
 
-  if (req.body.cardNumber != null) {
-    const salt = await bcrypt.genSalt(10);
-    const hashedCardNumber = await bcrypt.hash(req.body.cardNumber, salt);
-    user.cardNumber = hashedCardNumber;
-  }
-
 
   const card1Updates = {
     nameOnCard1: req.body.nameOnCard1,
     cardNumber1: req.body.cardNumber1,
     exp1: req.body.exp1
   };
-  
+
   const card2Updates = {
     nameOnCard2: req.body.nameOnCard2,
     cardNumber2: req.body.cardNumber2,
     exp2: req.body.exp2
   };
-  
+
   const card3Updates = {
     nameOnCard3: req.body.nameOnCard3,
     cardNumber3: req.body.cardNumber3,
     exp3: req.body.exp3
   };
-  
+
   Object.assign(user, card1Updates, card2Updates, card3Updates);
+
+  if (req.body.cardNumber1 != "") {
+    const salt = await bcrypt.genSalt(10);
+    const hashedCardNumber = await bcrypt.hash(req.body.cardNumber1, salt);
+    user.cardNumber1 = hashedCardNumber;
+  }
+
+  if (req.body.cardNumber2 != "") {
+    const salt = await bcrypt.genSalt(10);
+    const hashedCardNumber = await bcrypt.hash(req.body.cardNumber2, salt);
+    user.cardNumber2 = hashedCardNumber;
+  }
+
+  if (req.body.cardNumber3 != "") {
+    const salt = await bcrypt.genSalt(10);
+    const hashedCardNumber = await bcrypt.hash(req.body.cardNumber3, salt);
+    user.cardNumber3 = hashedCardNumber;
+  }
 
 
 

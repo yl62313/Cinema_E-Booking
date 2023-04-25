@@ -77,8 +77,8 @@ function Register() {
             </Col>
           </Row>
           <Form.Item
-            label="Address"
-            name="address"
+            label="Street"
+            name="street"
             rules={[{ required: false, message: "Enter your Address" }]}
           >
             <input type="address" />
@@ -86,8 +86,8 @@ function Register() {
           <Row gutter={16}>
             <Col span={8}>
               <Form.Item
-                label="Street"
-                name="street"
+                label="City"
+                name="city"
                 rules={[{ required: false, message: "Enter your Address" }]}
                 >
                     <input type="address"/>
