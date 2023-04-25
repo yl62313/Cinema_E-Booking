@@ -14,9 +14,9 @@ export const CheckOutTickets = async (payload) => {
     }
   };
 
-  export const GetTickets = async () => {
+  export const GetTickets = async (userId) => {
     try {
-      const response = await axiosInstance.get("/api/checkout/get-tickets");
+      const response = await axiosInstance.get(`/api/checkout/get-tickets/${userId}`);
       return response.data;
     } catch (error) {
       return error.response.data;

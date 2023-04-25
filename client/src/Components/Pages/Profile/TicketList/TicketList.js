@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { GetTickets } from '../../../../action/checkout';
 import { BringProfileList } from '../../../../action/users';
 import { HideLoading, ShowLoading } from '../../../../reducers/loader_reducer';
+import moment from 'moment';
 
 function TicketList(props) {
     const [checkouts , setCheckOut] = useState([]);
@@ -12,9 +13,10 @@ function TicketList(props) {
 
 
     const getTicketData = async () => {
+      console.log(profile[0]);
       try {
         dispatch(ShowLoading())
-        const response = await GetTickets();
+        const response = await GetTickets(profile[0]._id);
         if(response.success){
           setCheckOut(response.data);
         }else{
@@ -30,9 +32,9 @@ function TicketList(props) {
     const getProfileList = async () => {
       try {
         dispatch(ShowLoading())
-        const response = await BringProfileList(props.user.email);
+        const response = await BringProfileList(props.user.email)
         if (response.success) {
-          setProfile(response.data._id.toString());
+          setProfile([response.data]);
         } else {
           message.error(response.message);
         }
@@ -45,10 +47,30 @@ function TicketList(props) {
 
 
     useEffect(() => {
-      getTicketData();
-      getProfileList();
+      const fetchData = async () => {
+        try {
+          dispatch(ShowLoading())
+          const profileResponse = await BringProfileList(props.user.email)
+          if (profileResponse.success) {
+            setProfile([profileResponse.data]);
+            const ticketsResponse = await GetTickets(profileResponse.data._id);
+            if (ticketsResponse.success) {
+              setCheckOut(ticketsResponse.data);
+            } else {
+              message.error(ticketsResponse.message)
+            }
+          } else {
+            message.error(profileResponse.message);
+          }
+          dispatch(HideLoading());
+        } catch (error) {
+          dispatch(HideLoading());
+          message.error(error.message);
+        }
+      }
+      fetchData();
     }, []);
-
+    
 
     const columns = [
         {
@@ -57,12 +79,18 @@ function TicketList(props) {
             render: show => show.movie.title
         },
         {
+          title: "Poster",
+          dataIndex: "show",
+          render: (text, record) => (
+            <img src={record.show.movie.poster} alt="poster" width="100" height="100" />
+        )},
+        {
             title: "Date",
             dataIndex: 'show',
-            render: show => show.date
+            render: show => moment(show.date).format("MM/DD/YYYY")
         },
         {
-            title: "time",
+            title: "Time",
             dataIndex: 'show',
             render: show => show.time
         },
@@ -70,6 +98,11 @@ function TicketList(props) {
             title: "Seats",
             dataIndex: 'seats',
             render: seats => seats.join(", ")
+        },
+        {
+          title: "Price",
+          dataIndex: 'totalPrice',
+          render: price => `$${price}`
         },
         {
             title: "confirmation code",

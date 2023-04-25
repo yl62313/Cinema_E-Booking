@@ -49,9 +49,10 @@ router.post("/checkout-show", async (req, res) => {
 
 
 
-router.get("/get-tickets", async (req, res) => {
+
+router.get("/get-tickets/:userId", async (req, res) => {
   try {
-    const checkouts = await Checkout.find({ user: req.body.userId })
+    const checkouts = await Checkout.find({ user: req.params.userId })
       .populate("show")
       .populate({
         path: "show",
@@ -60,10 +61,7 @@ router.get("/get-tickets", async (req, res) => {
           model: "movies",
         },
       })
-      .populate("user")
-      .populate({
-        path: "show",
-      })
+      .populate("user");
 
     res.send({
       success: true,
