@@ -27,6 +27,7 @@ router.post("/checkout-show", async (req, res) => {
       to: user.email,
       subject: 'Order Comfirmation Email',
       html: '<p>Thank you for order!</p>' +
+        // '<p>Name on card: ' + req.body. +
         '<p>Comfirmation code: </p>' + newCheckout.transactionId,
       text: 'This is text version!'
     };

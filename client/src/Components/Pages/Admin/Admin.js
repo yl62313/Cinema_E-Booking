@@ -39,7 +39,7 @@ function Admin({ isLoggedIn, handleLogout }) {
 
       <h1 className='text-2x flex justify-center'> Admin </h1>
       <br />
-      {isLoggedIn && (
+      
         <Tabs defaultActiveKey='1'>
           <Tabs.TabPane tab='Movies' key='1'>
             {isLoggedIn ? <MovieList /> : <div>Please log in to view this content.</div>}
@@ -51,12 +51,11 @@ function Admin({ isLoggedIn, handleLogout }) {
             {isLoggedIn ? <ManageUsers /> : <div>Please log in to view this content.</div>}
           </Tabs.TabPane>
         </Tabs>
-      )}
+      
 
     </div>
   )
 }
 
 export default Admin
-
 
