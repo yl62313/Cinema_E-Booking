@@ -175,6 +175,7 @@ function Shows({ openShowsModal, setOpenShowsModal, movie }) {
                 <input type="time" />
               </Form.Item>
             </Col>
+
             <Col span={12}>
               <Form.Item
                 label="Total Seats"
@@ -184,6 +185,25 @@ function Shows({ openShowsModal, setOpenShowsModal, movie }) {
                 ]}
               >
                 <input type="number" />
+              </Form.Item>
+            </Col>
+
+
+          </Row>
+          <Row gutter={[16, 16]}>
+          <Col span={8}>
+              <Form.Item label="Child Price" name="childPrice">
+                <input type="text"/>
+              </Form.Item>
+            </Col>
+            <Col span={8}>
+              <Form.Item label="Adult Price" name="adultPrice">
+                <input type="text"/>
+              </Form.Item>
+            </Col>
+            <Col span={8}>
+              <Form.Item label="Senior Price" name="seniorPrice">
+                <input type="text"/>
               </Form.Item>
             </Col>
           </Row>
