@@ -84,9 +84,11 @@ function SeatPage({ isLoggedIn }) {
     )
   }
 
+  let totalTickets;
+  let orderedTickets;
   const OrderSummaryPage = ({ }) => {
-    const totalTickets = childTickets + adultTickets + seniorTickets;
-    const orderedTickets = selectedSeat.length;
+    totalTickets = childTickets + adultTickets + seniorTickets;
+    orderedTickets = selectedSeat.length;
 
 
 
@@ -122,10 +124,6 @@ function SeatPage({ isLoggedIn }) {
     };
     function currencyFormat(num) {
       return '$' + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
-    }
-    if (totalTickets > 0 && orderedTickets < totalTickets) {
-      message.error("Please select seats to match the number of tickets ordered.")
-      return null;
     }
 
     return (
@@ -216,6 +214,7 @@ function SeatPage({ isLoggedIn }) {
           </div>
           {selectedSeat.length > 0 && (
             <div className='addCart'>
+              {selectedSeat.length === childTickets + adultTickets + seniorTickets ? (
               <Link to={{
                 pathname: `/checkout/${show._id}`,
                 state: {
@@ -225,6 +224,7 @@ function SeatPage({ isLoggedIn }) {
               }} className='loginLetter cursor-pointer'>
                 {"CHECK OUT"}
               </Link>
+              ): null}
             </div>
           )}
         </div>
