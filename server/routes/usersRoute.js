@@ -47,9 +47,12 @@ router.post("/register", async (req, res) => {
 
     });
 
+
+
     newUser.nameOnCard1 = req.body.nameOnCard,
       newUser.cardNumber1 = req.body.cardNumber,
       newUser.exp1 = req.body.exp,
+      newUser.cardType1 = req.body.cardType
 
       code = Math.floor(Math.random() * (99999 - 10000))
 
