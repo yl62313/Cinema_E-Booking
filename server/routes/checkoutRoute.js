@@ -11,6 +11,7 @@ const emailAdapter = new EmailAdapter({
 
 router.post("/checkout-show", async (req, res) => {
   try {
+
     const newCheckout = new Checkout(req.body);
     await newCheckout.save();
 
@@ -21,13 +22,11 @@ router.post("/checkout-show", async (req, res) => {
 
     const user = await User.findOne({ _id: req.body.user });
 
-
     const emailOptions = {
       from: 'csci4050@outlook.com',
       to: user.email,
       subject: 'Order Comfirmation Email',
       html: '<p>Thank you for order!</p>' +
-        // '<p>Name on card: ' + req.body. +
         '<p>Comfirmation code: </p>' + newCheckout.transactionId,
       text: 'This is text version!'
     };

@@ -45,11 +45,6 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: ""
      },
-    //  cards: [{
-    //     nameOnCard: String,
-    //     cardNumber: String,
-    //     exp: String
-    //   }],
 
     nameOnCard1: { type: String, default: "" },
         
@@ -57,11 +52,15 @@ const userSchema = new mongoose.Schema({
         
     exp1: { type: String, default: "" },
 
+    cardType1: { type: String, default: "" },
+
     nameOnCard2: { type: String, default: "" },
         
     cardNumber2: { type: String, default: "" },
         
     exp2: { type: String, default: "" },
+
+    cardType2: { type: String, default: "" },
 
     nameOnCard3: { type: String, default: "" },
         
@@ -69,6 +68,7 @@ const userSchema = new mongoose.Schema({
         
     exp3: { type: String, default: "" },
     
+    cardType3: { type: String, default: "" },
 
     confirmationCode: {
         type: String,
