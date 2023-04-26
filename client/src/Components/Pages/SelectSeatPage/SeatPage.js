@@ -93,7 +93,8 @@ function SeatPage({ isLoggedIn }) {
 
 
     useEffect(() => {
-      const totalPrice = childPrice + adultPrice + seniorPrice;
+      const ticketPrice = childPrice + adultPrice + seniorPrice;
+      const totalPrice = ticketPrice + (ticketPrice * 0.05) + (ticketPrice * 0.02);
       setTotalPrice(totalPrice);
       localStorage.setItem('totalPrice', totalPrice);
     }, [childPrice, adultPrice, seniorPrice]);
@@ -103,24 +104,30 @@ function SeatPage({ isLoggedIn }) {
       setChildPrice((childTickets + 1) * show.childPrice);
     };
     const decrementChildTickets = () => {
-      setChildTickets(childTickets - 1);
-      setChildPrice((childTickets - 1) * show.childPrice);
+      if (childTickets > 0) {
+        setChildTickets(childTickets - 1);
+        setChildPrice((childTickets - 1) * show.childPrice);
+      }
     };
     const incrementAdultTickets = () => {
       setAdultTickets(adultTickets + 1);
       setAdultPrice((adultTickets + 1) * show.adultPrice);
     };
     const decrementAdultTickets = () => {
-      setAdultTickets(adultTickets - 1);
-      setAdultPrice((adultTickets - 1) * show.adultPrice);
+      if (adultTickets > 0) {
+        setAdultTickets(adultTickets - 1);
+        setAdultPrice((adultTickets - 1) * show.adultPrice);
+      }
     };
     const incrementSeniorTickets = () => {
       setSeniorTickets(seniorTickets + 1);
       setSeniorPrice((seniorTickets + 1) * show.seniorPrice);
     };
     const decrementSeniorTickets = () => {
-      setSeniorTickets(seniorTickets - 1);
-      setSeniorPrice((seniorTickets - 1) * show.seniorPrice);
+      if (seniorTickets > 0) {
+        setSeniorTickets(seniorTickets - 1);
+        setSeniorPrice((seniorTickets - 1) * show.seniorPrice);
+      }
     };
     function currencyFormat(num) {
       return '$' + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
@@ -215,16 +222,16 @@ function SeatPage({ isLoggedIn }) {
           {selectedSeat.length > 0 && (
             <div className='addCart'>
               {selectedSeat.length === childTickets + adultTickets + seniorTickets ? (
-              <Link to={{
-                pathname: `/checkout/${show._id}`,
-                state: {
-                  selectedSeat: localStorage.getItem('selectedSeat', JSON.stringify(selectedSeat)),
-                  totalPrice: localStorage.getItem('totalPrice')
-                }
-              }} className='loginLetter cursor-pointer'>
-                {"CHECK OUT"}
-              </Link>
-              ): null}
+                <Link to={{
+                  pathname: `/checkout/${show._id}`,
+                  state: {
+                    selectedSeat: localStorage.getItem('selectedSeat', JSON.stringify(selectedSeat)),
+                    totalPrice: localStorage.getItem('totalPrice')
+                  }
+                }} className='loginLetter cursor-pointer'>
+                  {"CHECK OUT"}
+                </Link>
+              ) : null}
             </div>
           )}
         </div>

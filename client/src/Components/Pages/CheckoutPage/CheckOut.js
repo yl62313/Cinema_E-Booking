@@ -24,6 +24,7 @@ function CheckOut(props) {
   const [transactionId, setTransactionId] = React.useState("");
   const [profile, setProfile] = useState([]);
   const [cardList, setCardList] = useState([]);
+  const [cardSelected, setCardSelected] = useState(false);
   const { Option } = Select;
   const params = useParams()
   const dispatch = useDispatch()
@@ -151,9 +152,18 @@ function CheckOut(props) {
 
   const handleCardTypeChange = (value) => {
     setSelectedCardType(value);
+    setCardSelected(true);
 
   };
 
+  const handlePayment = () => {
+    if (!selectedCardType) {
+      message.error("Please select a card before proceeding with the payment.");
+      return;
+    }
+
+    checkout(transactionId);
+  }
 
   useEffect(() => {
     getCardList();
@@ -303,12 +313,6 @@ function CheckOut(props) {
 
           <Table columns={columns} dataSource={cardList} />
 
-
-
-
-
-
-
           <div className="flex flex-col mt-2 gap-1">
 
             <br />
@@ -317,7 +321,7 @@ function CheckOut(props) {
                 <Button fullWidth title="CANCEL" onClick={() => { navigate("/") }} />
               </Col>
               <Col span={5} className="flex flex-col mt-3">
-                <Button fullWidth title="PAY NOW" type="submit" onClick={() => checkout(transactionId)} />
+                <Button fullWidth title="PAY NOW" type="submit" onClick={handlePayment}/>
               </Col>
             </Row>
           </div>
