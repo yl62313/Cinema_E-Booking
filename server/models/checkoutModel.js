@@ -15,7 +15,7 @@ const checkoutSchema = new mongoose.Schema(
       required: true,
     },
     totalPrice: {
-      type: String,
+      type: Number,
       required: true,
     },
     promotion: {

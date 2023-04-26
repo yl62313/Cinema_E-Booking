@@ -17,7 +17,7 @@ function CheckOut(props) {
 
   const [show, setShow] = React.useState(null)
   const selectedSeat = JSON.parse(localStorage.getItem('selectedSeat'));
-  const [totalPrice, setTotalPrice] = React.useState(localStorage.getItem('totalPrice'));
+  const [totalPrice, setTotalPrice] = React.useState(Number(localStorage.getItem('totalPrice')));
   const [promoCode, setPromoCode] = React.useState([]);
   const [promoValue, setPromoValue] = React.useState('');
   const [cardType, setCardType] = React.useState('');
@@ -294,7 +294,7 @@ function CheckOut(props) {
             <p className="cletterLetter uppercase">Movie: {show.movie.title} </p>
             <p className="cletterLetter">TIME: {show.time} </p>
             <p className="cletterLetter">SELECTED SEATS: {selectedSeat.join(" , ")}</p>
-            <p className="cletterLetter">TOTAL PRICE: ${totalPrice}</p>
+            <p className="cletterLetter">TOTAL PRICE: ${totalPrice.toFixed(2)}</p>
             <br />
             <div className="aletterLetter underline">
               <Link to={`/seat/${show._id}`}>Edit Seat</Link>

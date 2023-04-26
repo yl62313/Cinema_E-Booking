@@ -102,7 +102,7 @@ function TicketList(props) {
         {
           title: "Price",
           dataIndex: 'totalPrice',
-          render: price => `$${price}`
+          render: price => `$${Number(price.toFixed(2))}`
         },
         {
             title: "confirmation code",

@@ -8,7 +8,7 @@ function OrderConfirmPage() {
 
   const show = JSON.parse(localStorage.getItem('show'));
   const selectedSeat = JSON.parse(localStorage.getItem('selectedSeat'));
-  const totalPrice = localStorage.getItem('totalPrice')
+  const totalPrice = Number(localStorage.getItem('totalPrice'))
   // const transactionId = localStorage.getItem('transactionId');
 
   const navigate = useNavigate()
@@ -25,7 +25,7 @@ function OrderConfirmPage() {
               <li className='loginLetterd'>Movie: {show.movie.title}</li>
               <li className='loginLetterd'>Time: {show.time}</li>
               <li className='loginLetterd'>Selected seats: {selectedSeat.join(", ")}</li>
-              <li className='loginLetterd'>Total price: ${totalPrice}</li>
+              <li className='loginLetterd'>Total price: ${totalPrice.toFixed(2)}</li>
               <li className='loginLetterd'>Confirmation code sent to email</li>
             </ul>
             <div className="screenIcond cursor-pointer" onClick={() => { navigate("/") }}>
