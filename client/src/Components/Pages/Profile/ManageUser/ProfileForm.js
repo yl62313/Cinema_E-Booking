@@ -129,12 +129,12 @@ function ProfileForm({
           </Select>
         </div>
         {selectedCardType === 'card1' && ( */}
-          <div>
+        <div>
           <div style={{ marginBottom: '2.5rem' }}></div>
-            <h4>Card 1</h4>
-            <hr />
-            <div style={{ marginBottom: '1rem' }}></div>
-            <div style={{ marginBottom: '2.5rem' }}>
+          <h4>Card 1</h4>
+          <hr />
+          <div style={{ marginBottom: '1rem' }}></div>
+          <div style={{ marginBottom: '2.5rem' }}>
             <Form.Item
               label="Card 1 Number"
               name="cardNumber1"
@@ -156,11 +156,23 @@ function ProfileForm({
             >
               <input type="text" />
             </Form.Item>
-            </div>
+            <Form.Item
+              label="Card Type"
+              name="cardType1"
+              initialValue={profile[0].cardType1}
+            >
+              <Select placeholder="Select card type">
+                <Option value="AMEX">AMEX</Option>
+                <Option value="VISA">VISA</Option>
+                <Option value="MASTERCARD">MASTERCARD</Option>
+                <Option value="MASTERCARD">DISCOVER</Option>
+              </Select>
+            </Form.Item>
           </div>
+        </div>
         {/* )} */}
         {/* {selectedCardType === 'card2' && ( */}
-          <div>
+        <div>
           <h4>Card 2</h4>
           <hr />
           <div style={{ marginBottom: '1rem' }}></div>
@@ -186,11 +198,23 @@ function ProfileForm({
             >
               <input type="text" />
             </Form.Item>
-            </div>
+            <Form.Item
+              label="Card Type"
+              name="cardType2"
+              initialValue={profile[0].cardType2}
+            >
+              <Select placeholder="Select card type">
+                <Option value="AMEX">AMEX</Option>
+                <Option value="VISA">VISA</Option>
+                <Option value="MASTERCARD">MASTERCARD</Option>
+                <Option value="MASTERCARD">DISCOVER</Option>
+              </Select>
+            </Form.Item>
           </div>
+        </div>
         {/* )} */}
         {/* {selectedCardType === 'card3' && ( */}
-          <div>
+        <div>
           <h4>Card 3</h4>
           <hr />
           <div style={{ marginBottom: '1rem' }}></div>
@@ -216,8 +240,20 @@ function ProfileForm({
             >
               <input type="text" />
             </Form.Item>
-            </div>
+            <Form.Item
+              label="Card Type"
+              name="cardType3"
+              initialValue={profile[0].cardType3}
+            >
+              <Select placeholder="Select card type">
+                <Option value="AMEX">AMEX</Option>
+                <Option value="VISA">VISA</Option>
+                <Option value="MASTERCARD">MASTERCARD</Option>
+                <Option value="MASTERCARD">DISCOVER</Option>
+              </Select>
+            </Form.Item>
           </div>
+        </div>
         {/* )} */}
         <Row gutter={16}>
           <Col span={12}>

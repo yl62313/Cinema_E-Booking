@@ -181,9 +181,9 @@ function CheckOut(props) {
             <h5 className="text-l mb-1">Select Saved Cards</h5>
             <Select onChange={handleCardTypeChange} className="w-1" defaultValue={selectedCardType || ""} required>
               <Option disabled selected value="">Select Card</Option>
-              {record.nameOnCard1 !== "" && record.exp1 !== "" && <Option value="card1">{record.nameOnCard1}, {record.exp1}</Option>}
-              {record.nameOnCard2 !== "" && record.exp2 !== "" && <Option value="card2">{record.nameOnCard2}, {record.exp2}</Option>}
-              {record.nameOnCard3 !== "" && record.exp3 !== "" && <Option value="card3">{record.nameOnCard3}, {record.exp3}</Option>}
+              {record.nameOnCard1 !== "" && record.exp1 !== "" && <Option value="card1">{record.cardType1}, {record.nameOnCard1}, {record.exp1}</Option>}
+              {record.nameOnCard2 !== "" && record.exp2 !== "" && <Option value="card2">{record.cardType2}, {record.nameOnCard2}, {record.exp2}</Option>}
+              {record.nameOnCard3 !== "" && record.exp3 !== "" && <Option value="card3">{record.cardType3}, {record.nameOnCard3}, {record.exp3}</Option>}
               <Option value="newCard">Pay with new card</Option>
             </Select>
             {selectedCardType === 'card1' && (
