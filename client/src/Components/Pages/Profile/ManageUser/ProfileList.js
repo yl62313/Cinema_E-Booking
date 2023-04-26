@@ -72,9 +72,9 @@ function ProfileList(props) {
       render: (text, record) => {
         return (
           <Select defaultValue="card1" style={{ width: 250 }}>
-            <Option value="card1">{record.nameOnCard1},{record.exp1}</Option>
-            <Option value="card2">{record.nameOnCard2},{record.exp2}</Option>
-            <Option value="card3">{record.nameOnCard3},{record.exp3}</Option>
+            <Option value="card1">{record.cardType1}, {record.nameOnCard1}, {record.exp1}</Option>
+            <Option value="card2">{record.cardType2}, {record.nameOnCard2}, {record.exp2}</Option>
+            <Option value="card3">{record.cardType3}, {record.nameOnCard3}, {record.exp3}</Option>
           </Select>
         );
       },

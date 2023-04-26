@@ -269,19 +269,22 @@ router.patch("/editProfile/:email", async (req, res) => {
   const card1Updates = {
     nameOnCard1: req.body.nameOnCard1,
     cardNumber1: req.body.cardNumber1,
-    exp1: req.body.exp1
+    exp1: req.body.exp1,
+    cardType1: req.body.cardType1
   };
 
   const card2Updates = {
     nameOnCard2: req.body.nameOnCard2,
     cardNumber2: req.body.cardNumber2,
-    exp2: req.body.exp2
+    exp2: req.body.exp2,
+    cardType2: req.body.cardType2
   };
 
   const card3Updates = {
     nameOnCard3: req.body.nameOnCard3,
     cardNumber3: req.body.cardNumber3,
-    exp3: req.body.exp3
+    exp3: req.body.exp3,
+    cardType3: req.body.cardType3
   };
 
   Object.assign(user, card1Updates, card2Updates, card3Updates);
