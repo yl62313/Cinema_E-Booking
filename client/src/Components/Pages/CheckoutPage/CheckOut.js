@@ -239,16 +239,27 @@ function CheckOut(props) {
                 <div style={{ marginBottom: '1rem' }}></div>
                 <div style={{ marginBottom: '2.5rem' }}>
                   <Form.Item
-                    label="Card Number"
-                    name="cardNumber"
+                    label="Card Type"
+                    name="cardType"
                   >
-                    <input type="text" style={{ width: '300px' }} />
+                    <Select placeholder="Select card type" style={{ width: '150px' }}>
+                      <Option value="AMEX">AMEX</Option>
+                      <Option value="VISA">VISA</Option>
+                      <Option value="MASTERCARD">MASTERCARD</Option>
+                      <Option value="MASTERCARD">DISCOVER</Option>
+                    </Select>
                   </Form.Item>
                   <Form.Item
                     label="Name on Card"
                     name="nameOnCard"
                   >
-                    <input type="text" style={{ width: '300   px' }} />
+                    <input type="text" style={{ width: '300px' }} />
+                  </Form.Item>
+                  <Form.Item
+                    label="Card Number"
+                    name="cardNumber"
+                  >
+                    <input type="text" style={{ width: '300px' }} />
                   </Form.Item>
                   <Form.Item
                     label="EXP"
@@ -321,7 +332,7 @@ function CheckOut(props) {
                 <Button fullWidth title="CANCEL" onClick={() => { navigate("/") }} />
               </Col>
               <Col span={5} className="flex flex-col mt-3">
-                <Button fullWidth title="PAY NOW" type="submit" onClick={handlePayment}/>
+                <Button fullWidth title="PAY NOW" type="submit" onClick={handlePayment} />
               </Col>
             </Row>
           </div>
