@@ -3,9 +3,10 @@ import { Form, Row, Col, message } from "antd"
 import Button from '../../Button'
 import { Link, useNavigate } from "react-router-dom";
 import { RegisterUser } from "../../../action/users"
-import { Checkbox } from 'antd';
+import { Checkbox, Select } from 'antd';
 
 function Register() {
+  const { Option } = Select;
   const navigate = useNavigate();
   const onFinish = async (values) => {
     try {
@@ -89,8 +90,8 @@ function Register() {
                 label="City"
                 name="city"
                 rules={[{ required: false, message: "Enter your Address" }]}
-                >
-                    <input type="address"/>
+              >
+                <input type="address" />
               </Form.Item>
             </Col>
             <Col span={8}>
@@ -115,11 +116,15 @@ function Register() {
           <Row gutter={16}>
             <Col span={12}>
               <Form.Item
-                label="Card Number"
-                name="cardNumber"
-                rules={[{ required: false, message: "Enter your Card Number" }]}
+                label="Card Type"
+                name="cardType"
               >
-                <input type="text" />
+                <Select placeholder="Select card type">
+                  <Option value="AMEX">AMEX</Option>
+                  <Option value="VISA">VISA</Option>
+                  <Option value="MASTERCARD">MASTERCARD</Option>
+                  <Option value="MASTERCARD">DISCOVER</Option>
+                </Select>
               </Form.Item>
             </Col>
             <Col span={12}>
@@ -133,6 +138,15 @@ function Register() {
             </Col>
           </Row>
           <Row gutter={16}>
+          <Col span={12}>
+              <Form.Item
+                label="Card Number"
+                name="cardNumber"
+                rules={[{ required: false, message: "Enter your Card Number" }]}
+              >
+                <input type="text" />
+              </Form.Item>
+            </Col>
             <Col span={12}>
               <Form.Item
                 label="EXP"
@@ -143,13 +157,6 @@ function Register() {
               </Form.Item>
             </Col>
             <Col span={12}>
-              {/* <Form.Item
-                label="CVV"
-                name="cvv"
-                rules={[{ required: false, message: "Enter your 3 digits CVV" }]}
-              >
-                <input type="text" />
-              </Form.Item> */}
               <Form.Item
                 label="Subscribe for Promotions"
                 name="sub"
